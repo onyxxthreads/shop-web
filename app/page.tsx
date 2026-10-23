@@ -17,15 +17,26 @@ export default function OnyxxThreadsPage() {
   // Featured Tapestry Masterpieces Catalog
   const tapestryCollection = [
     {
-      id: "koro",
-      title: "Koro",
+      id: "nkrumah",
+      title: "Hi3ny3l) ( Osagyefo Kwame Nkrumah )",
       subtitle: "Kwame Nkrumah Portraiture",
       stitchCount: "15,376 Stitches",
       gridSpecs: "124 x 124 Grid",
-      materials: "4-ply Milk Cotton, Mixed Fibers",
-      status: "Private Collection (Exhibited at 'African Spaces Redefined')",
+      materials: "Milk Cotton Yarn",
+      status: "Sold",
       desc: "High-fidelity gridded portrait celebrating iconic Ghanaian heritage and historical memory.",
-      image: "/tapestry-koro.jpg",
+      image: "/nkrumah.jpg", // Saved in public/nkrumah.jpg
+    },
+    {
+      id: "dromo",
+      title: "Dromo",
+      subtitle: "Fine Art Tapestry",
+      stitchCount: "9,720 Hand-Placed Stitches",
+      gridSpecs: "Custom Precision Grid",
+      materials: "Milk Cotton Yarn & Mixed Media (Cowrie Necklace)",
+      status: "Available",
+      desc: "9,720 hand-placed stitches, but the soul of the piece lies in the cowrie necklace.",
+      image: "/dromo.jpg", // Saved in public/dromo.jpg
     },
     {
       id: "72k-portrait",
@@ -36,18 +47,7 @@ export default function OnyxxThreadsPage() {
       materials: "4.5mm Hook, Milk Cotton & Textured Bouclé Sand Background",
       status: "Archival Masterpiece",
       desc: "Massive scale tapestry crochet study exploring raw tonal contrasts, structural yarn blending, and bouclé tactile background landscapes.",
-      image: "/tapestry-72k.jpg",
-    },
-    {
-      id: "dromo",
-      title: "Dromo",
-      subtitle: "Fine Art Tapestry",
-      stitchCount: "Tapestry Colorwork",
-      gridSpecs: "Custom Precision Grid",
-      materials: "Milk Cotton & Specialty Yarns",
-      status: "Exhibited Work",
-      desc: "Tactile fiber art piece probing spiritual symbolism, monochrome depth, and West African spatial concepts.",
-      image: "/tapestry-dromo.jpg",
+      image: "/monolithic.jpg", // Saved in public/monolithic.jpg
     },
     {
       id: "nostalgia-series",
@@ -58,7 +58,7 @@ export default function OnyxxThreadsPage() {
       materials: "3D Physical Artifacts (Bentua Catapult, Tin-Can Telephone, Cowrie Shells)",
       status: "In Progress / Active Gallery Series",
       desc: "A nostalgic exploration of Ghanaian childhood memories integrating raw physical objects directly onto fine-art tapestry surfaces.",
-      image: "/tapestry-nostalgia.jpg",
+      image: "/nostalgia.jpg", // Saved in public/nostalgia.jpg
     },
   ];
 
@@ -154,14 +154,15 @@ export default function OnyxxThreadsPage() {
                   className="border border-[#222220] bg-[#141412] rounded-3xl p-6 space-y-6 flex flex-col justify-between hover:border-[#d4a373]/50 transition duration-300 group"
                 >
                   <div className="space-y-6">
-                    {/* Artwork Preview Display */}
+                    {/* Artwork Image Display */}
                     <div className="aspect-[4/3] w-full rounded-2xl overflow-hidden bg-[#0a0a0a] border border-[#222220] relative flex items-center justify-center">
                       <img
                         src={artwork.image}
                         alt={artwork.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                         onError={(e) => {
-                          e.currentTarget.style.display = 'none';
+                          // Keeps card clean if image file is still being moved
+                          e.currentTarget.style.opacity = '0.3';
                         }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-80" />
@@ -182,7 +183,7 @@ export default function OnyxxThreadsPage() {
                       <span className="text-xs font-mono text-[#d4a373] uppercase tracking-widest block">
                         {artwork.subtitle}
                       </span>
-                      <h3 className="text-3xl font-black text-white uppercase tracking-tight">
+                      <h3 className="text-2xl font-black text-white uppercase tracking-tight">
                         {artwork.title}
                       </h3>
                       <p className="text-stone-300 text-sm leading-relaxed font-light pt-1">
