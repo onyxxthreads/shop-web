@@ -5,6 +5,7 @@ import React, { useState } from "react";
 export default function OnyxxThreadsPage() {
   const [copied, setCopied] = useState(false);
   const contactEmail = "onyxxthreads@gmail.com";
+  const contactPhone = "+233543312793";
 
   const handleCopyEmail = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -24,7 +25,7 @@ export default function OnyxxThreadsPage() {
       materials: "4-ply Milk Cotton, Mixed Fibers",
       status: "Private Collection (Exhibited at 'African Spaces Redefined')",
       desc: "High-fidelity gridded portrait celebrating iconic Ghanaian heritage and historical memory.",
-      image: "/tapestry-koro.jpg", // Replace with image path
+      image: "/tapestry-koro.jpg",
     },
     {
       id: "72k-portrait",
@@ -35,7 +36,7 @@ export default function OnyxxThreadsPage() {
       materials: "4.5mm Hook, Milk Cotton & Textured Bouclé Sand Background",
       status: "Archival Masterpiece",
       desc: "Massive scale tapestry crochet study exploring raw tonal contrasts, structural yarn blending, and bouclé tactile background landscapes.",
-      image: "/tapestry-72k.jpg", // Replace with image path
+      image: "/tapestry-72k.jpg",
     },
     {
       id: "dromo",
@@ -46,7 +47,7 @@ export default function OnyxxThreadsPage() {
       materials: "Milk Cotton & Specialty Yarns",
       status: "Exhibited Work",
       desc: "Tactile fiber art piece probing spiritual symbolism, monochrome depth, and West African spatial concepts.",
-      image: "/tapestry-dromo.jpg", // Replace with image path
+      image: "/tapestry-dromo.jpg",
     },
     {
       id: "nostalgia-series",
@@ -57,7 +58,7 @@ export default function OnyxxThreadsPage() {
       materials: "3D Physical Artifacts (Bentua Catapult, Tin-Can Telephone, Cowrie Shells)",
       status: "In Progress / Active Gallery Series",
       desc: "A nostalgic exploration of Ghanaian childhood memories integrating raw physical objects directly onto fine-art tapestry surfaces.",
-      image: "/tapestry-nostalgia.jpg", // Replace with image path
+      image: "/tapestry-nostalgia.jpg",
     },
   ];
 
@@ -160,7 +161,6 @@ export default function OnyxxThreadsPage() {
                         alt={artwork.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                         onError={(e) => {
-                          // Fallback display if image file is being uploaded
                           e.currentTarget.style.display = 'none';
                         }}
                       />
@@ -227,10 +227,10 @@ export default function OnyxxThreadsPage() {
           </div>
         </section>
 
-        {/* Contact & Custom Commissions Footer */}
+        {/* Contact, Call & WhatsApp Footer */}
         <footer id="contact" className="border-t border-[#222220] bg-[#070706] py-24 font-mono">
           <div className="max-w-4xl mx-auto px-6 text-center space-y-8">
-            <span className="text-xs text-[#d4a373] uppercase tracking-widest">
+            <span className="text-xs text-[#d4a373] uppercase tracking-widest block">
               /// COMMISSIONS &amp; EXHIBITION INQUIRIES
             </span>
             <h2 className="text-4xl font-black text-white uppercase tracking-tight">
@@ -241,18 +241,46 @@ export default function OnyxxThreadsPage() {
             </p>
 
             <div className="pt-4 max-w-md mx-auto space-y-4">
+              {/* WhatsApp Direct Messaging Button */}
+              <a
+                href="https://wa.me/233543312793?text=Hello%20Onyxx%20Threads,%20I'd%20like%20to%20inquire%20about%20a%20custom%20tapestry%20commission."
+                target="_blank"
+                rel="noreferrer"
+                className="block w-full py-5 bg-[#d4a373] text-[#0a0a0a] font-black text-xs uppercase tracking-widest rounded-2xl shadow-xl hover:opacity-90 transition text-center"
+              >
+                Message on WhatsApp &rarr;
+              </a>
+
+              {/* Call Direct Button */}
+              <a
+                href={`tel:${contactPhone}`}
+                className="block w-full py-4 border border-[#222220] bg-[#141412] text-stone-300 font-bold text-xs uppercase tracking-widest rounded-2xl hover:border-[#d4a373] transition text-center"
+              >
+                Call +233 54 331 2793
+              </a>
+
+              {/* Copy Email Button */}
               <button
                 onClick={handleCopyEmail}
-                className="block w-full py-5 bg-[#d4a373] text-[#0a0a0a] font-black text-xs uppercase tracking-widest rounded-2xl shadow-xl hover:opacity-90 transition cursor-pointer"
+                className="block w-full py-4 border border-[#222220] bg-[#141412] text-stone-300 font-bold text-xs uppercase tracking-widest rounded-2xl hover:border-[#d4a373] transition cursor-pointer"
               >
                 {copied ? "✓ Email Copied to Clipboard!" : "Copy Inquiry Email"}
               </button>
 
-              <div className="border border-[#222220] bg-[#141412] py-3 px-6 rounded-xl inline-block">
-                <span className="text-xs text-stone-400">Direct Email: </span>
-                <span className="text-xs font-bold text-[#d4a373]">
-                  {contactEmail}
-                </span>
+              {/* Contact Information Display Card */}
+              <div className="border border-[#222220] bg-[#141412] p-4 rounded-xl space-y-2 text-xs">
+                <div className="flex justify-between items-center text-stone-400">
+                  <span>Phone &amp; WhatsApp:</span>
+                  <a href={`tel:${contactPhone}`} className="font-bold text-[#d4a373] hover:underline">
+                    +233 54 331 2793
+                  </a>
+                </div>
+                <div className="flex justify-between items-center text-stone-400 pt-1 border-t border-[#222220]">
+                  <span>Direct Email:</span>
+                  <span className="font-bold text-[#d4a373]">
+                    onyxxthreads@gmail.com
+                  </span>
+                </div>
               </div>
             </div>
 
