@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 export default function OnyxxThreadsPage() {
   const [copied, setCopied] = useState(false);
-  const contactEmail = "onyxxthreads@gmail.com";
+  const contactEmail = "bars.barbells@gmail.com";
   const contactPhone = "+233543312793";
 
   const handleCopyEmail = (e: React.MouseEvent) => {
@@ -278,7 +278,7 @@ export default function OnyxxThreadsPage() {
                 <div className="flex justify-between items-center text-stone-400 pt-1 border-t border-[#222220]">
                   <span>Direct Email:</span>
                   <span className="font-bold text-[#d4a373]">
-                    onyxxthreads@gmail.com
+                    {contactEmail}
                   </span>
                 </div>
               </div>
