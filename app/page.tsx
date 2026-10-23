@@ -65,14 +65,15 @@ export default function OnyxxThreadsPage() {
   // Bespoke Wearable Art Collection (Hats, Jerseys, Masks & Garments)
   const wearableCollection = [
     {
-      id: "custom-hat",
-      title: "Custom Tapestry Crochet Beanie / Hat",
-      subtitle: "BESPOKE WEARABLE ART",
+      id: "ewia-kete-hat",
+      title: "Ewia Kete Hat",
+      subtitle: "BESPOKE HEADWEAR",
       category: "HEADWEAR",
       materials: "Milk Cotton & Specialty Yarns",
-      status: "Available via Custom Order",
-      desc: "Handcrafted high-density tapestry crochet hat featuring precision gridded colorwork, custom fit structure, and tactile finish.",
-      image: "/hat.jpg", // Make sure to save your hat photo as public/hat.jpg!
+      price: "GHC 350",
+      status: "Available",
+      desc: "Handcrafted high-density tapestry crochet hat featuring precision gridded colorwork, custom structural fit, and tactile finish.",
+      image: "/ewia-kete-hat.jpg", // References public/ewia-kete-hat.jpg
     },
     {
       id: "custom-garment",
@@ -80,6 +81,7 @@ export default function OnyxxThreadsPage() {
       subtitle: "AVANT-GARDE APPAREL",
       category: "BESPOKE GARMENTS",
       materials: "Mixed Fiber & Bouclé Touches",
+      price: "Inquire for Pricing",
       status: "Limited Edition Run",
       desc: "Sculptural wearable art constructed for high-contrast aesthetic statement and editorial framing.",
       image: "/wearable.jpg",
@@ -284,6 +286,9 @@ export default function OnyxxThreadsPage() {
                         <span className="bg-[#070707]/90 text-[#c5a059] border border-[#2a2720] px-3.5 py-1.5 rounded-lg backdrop-blur-md">
                           {item.category}
                         </span>
+                        <span className="bg-[#c5a059] text-black font-bold px-3.5 py-1.5 rounded-lg">
+                          {item.price}
+                        </span>
                       </div>
                     </div>
 
@@ -355,7 +360,7 @@ export default function OnyxxThreadsPage() {
             <div className="pt-4 max-w-md mx-auto space-y-4">
               {/* WhatsApp Button */}
               <a
-                href="https://wa.me/233543312793?text=Hello%20Onyxx%20Threads,%20I'd%20like%20to%20inquire%20about%20a%20private%20custom%20order."
+                href="https://wa.me/233543312793?text=Hello%20Onyxx%20Threads,%20I'd%20like%20to%20order%20the%20Ewia%20Kete%20Hat."
                 target="_blank"
                 rel="noreferrer"
                 className="block w-full py-5 bg-[#c5a059] text-black font-bold text-xs uppercase tracking-[0.2em] rounded-2xl shadow-2xl hover:bg-white transition-all duration-300 text-center"
