@@ -63,13 +63,13 @@ export default function OnyxxThreadsPage() {
 
   return (
     <main className="min-h-screen bg-[#070707] text-[#e8e6e1] font-sans antialiased selection:bg-[#c5a059] selection:text-black">
-      {/* Subtle Luxury Ambient Light */}
+      {/* Ambient Light */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full bg-[#1c1813] blur-[180px] opacity-40" />
       </div>
 
       <div className="relative z-10">
-        {/* Gallery Navigation */}
+        {/* Navigation Header */}
         <header className="border-b border-[#1f1e1a] bg-[#070707]/90 backdrop-blur-xl sticky top-0 z-50">
           <div className="max-w-7xl mx-auto px-8 py-6 flex justify-between items-center">
             <div className="flex items-center gap-4">
@@ -107,7 +107,7 @@ export default function OnyxxThreadsPage() {
             </h1>
 
             <p className="text-stone-300 text-lg md:text-2xl font-light leading-relaxed max-w-2xl">
-              High-fidelity tapestry portraiture, mixed-media fiber art, and bespoke wearable artifacts engineered with mathematical stitch precision and West African cultural symbolism.
+              High-fidelity tapestry crochet portraiture, mixed-media fiber art, and bespoke wearable artifacts engineered with mathematical stitch precision and West African cultural symbolism.
             </p>
 
             <div className="pt-4 flex flex-wrap gap-5 font-mono text-xs">
@@ -154,7 +154,7 @@ export default function OnyxxThreadsPage() {
                   className="border border-[#1f1e1a] bg-[#10100f] rounded-3xl p-8 space-y-8 flex flex-col justify-between hover:border-[#c5a059]/40 transition duration-500 group shadow-2xl"
                 >
                   <div className="space-y-8">
-                    {/* High-Resolution Artwork Frame */}
+                    {/* Artwork Image Frame */}
                     <div className="aspect-[4/3] w-full rounded-2xl overflow-hidden bg-[#070707] border border-[#1f1e1a] relative flex items-center justify-center">
                       <img
                         src={artwork.image}
@@ -225,10 +225,10 @@ export default function OnyxxThreadsPage() {
           </h2>
           <div className="text-stone-300 text-lg md:text-xl leading-relaxed space-y-8 font-light border-l-2 border-[#c5a059]/40 pl-8">
             <p>
-              Every artwork is calculated stitch-by-stitch on specialized colorwork grids—utilizing 4.5mm hooks paired with 4-ply and 5-ply milk cotton yarns to achieve exceptional portrait resolution, framed by raw bouclé textures for tactile depth.
+              Every artwork is calculated stitch by stitch on specialized color work grids to achieve exceptional portrait resolution , framed by raw textures for textile depth
             </p>
             <p>
-              By mounting authentic 3D heritage artifacts directly onto tapestry surfaces—including cowrie shell relics, carved wooden catapults (*bentua*), and turritella screw shells—Onyxx Threads bridges traditional African iconography with contemporary fine art.
+              Onyxx threads bridges traditional African iconography with contemporary fine art
             </p>
           </div>
         </section>
@@ -247,7 +247,7 @@ export default function OnyxxThreadsPage() {
             </p>
 
             <div className="pt-4 max-w-md mx-auto space-y-4">
-              {/* WhatsApp Direct Messaging Button */}
+              {/* WhatsApp Button */}
               <a
                 href="https://wa.me/233543312793?text=Hello%20Onyxx%20Threads,%20I'd%20like%20to%20inquire%20about%20a%20private%20tapestry%20acquisition."
                 target="_blank"
@@ -257,7 +257,7 @@ export default function OnyxxThreadsPage() {
                 Direct WhatsApp Inquiry &rarr;
               </a>
 
-              {/* Call Direct Button */}
+              {/* Call Button */}
               <a
                 href={`tel:${contactPhone}`}
                 className="block w-full py-4 border border-[#2a2720] bg-[#12110e] text-stone-300 font-bold text-xs uppercase tracking-[0.2em] rounded-2xl hover:border-[#c5a059] transition-all duration-300 text-center"
@@ -273,7 +273,7 @@ export default function OnyxxThreadsPage() {
                 {copied ? "✓ Email Copied to Clipboard!" : "Copy Acquisition Email"}
               </button>
 
-              {/* Contact Information Display Card */}
+              {/* Info Card */}
               <div className="border border-[#1f1e1a] bg-[#10100f] p-5 rounded-2xl space-y-3 text-xs">
                 <div className="flex justify-between items-center text-stone-400">
                   <span>Direct Line / WhatsApp:</span>
