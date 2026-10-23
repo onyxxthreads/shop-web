@@ -1,198 +1,172 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
+import { useState } from "react";
+import Image from "next/image";
 
 export default function Home() {
-  const [selectedProduct, setSelectedProduct] = useState<null | {
-    title: string;
-    price: string;
-    category: string;
-  }>(null);
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
-    contact: '',
-    notes: '',
+    name: "",
+    phone: "",
+    notes: "",
   });
 
-  const products = [
-    {
-      id: 1,
-      title: 'Ewia Kete Hat',
-      category: 'Headwear / Tapestry Crochet',
-      price: 'GHC 350',
-      imageSrc: '/Ewia Kete-Hat.jpg.jpg', // Update filename to match public folder
-      tag: 'Signature Piece',
-    },
-    {
-      id: 2,
-      title: 'Tapestry Crochet Portrait',
-      category: 'Fine Art / Wall Tapestry',
-      price: 'Inquire for Pricing',
-      imageSrc: '/Ewia Kete-Hat.jpg.jpg',
-      tag: 'One of a Kind',
-    },
-    {
-      id: 3,
-      title: 'Bespoke Crochet Apparel',
-      category: 'Signature Menswear',
-      price: 'Inquire for Pricing',
-      imageSrc: '/Ewia Kete-Hat.jpg.jpg',
-      tag: 'Custom Fit',
-    },
-  ];
-
-  const handleInquirySubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedProduct) return;
 
-    const message = `Hello Onyxx Threads, I would like to inquire about the *${selectedProduct.title}* (${selectedProduct.price}).%0A%0AName: ${formData.name}%0AContact: ${formData.contact}%0ANotes: ${formData.notes}`;
-    
-    // Opens WhatsApp with pre-filled order details
-    window.open(`https://wa.me/?text=${message}`, '_blank');
-    setSelectedProduct(null);
-    setFormData({ name: '', contact: '', notes: '' });
+    const phoneNumber = "233543312793";
+
+    const message = `Hello Onyxx Threads! I would like to place an order:
+
+• Item: Ewia Kete Hat (GHC 350)
+• Name: ${formData.name}
+• Phone: ${formData.phone}
+• Customization / Notes: ${formData.notes || "None"}`;
+
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, "_blank");
   };
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans">
-      {/* Navigation Bar */}
-      <header className="sticky top-0 z-50 border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="text-xl font-extrabold tracking-wider uppercase text-amber-400">
-            ONYXX THREADS
-          </div>
-          <nav className="hidden md:flex space-x-8 text-sm font-medium text-zinc-400">
-            <a href="#new" className="hover:text-zinc-100 transition-colors">New Arrivals</a>
-            <a href="#collections" className="hover:text-zinc-100 transition-colors">Collections</a>
-            <a href="#about" className="hover:text-zinc-100 transition-colors">About</a>
-          </nav>
-          <div className="flex items-center space-x-4">
-            <button className="px-4 py-2 text-sm font-medium text-zinc-950 bg-amber-400 hover:bg-amber-300 rounded-full transition-all">
-              Cart (0)
-            </button>
-          </div>
-        </div>
+    <main className="min-h-screen bg-zinc-950 text-zinc-100 font-sans">
+      {/* Header / Brand Nav */}
+      <header className="border-b border-zinc-800 px-6 py-4 flex justify-between items-center max-w-6xl mx-auto">
+        <h1 className="text-xl font-bold tracking-widest text-amber-400">
+          ONYXX THREADS
+        </h1>
+        <nav className="space-x-6 text-sm text-zinc-400">
+          <a href="#featured" className="hover:text-amber-400 transition">
+            New Arrivals
+          </a>
+          <a href="#featured" className="hover:text-amber-400 transition">
+            Collections
+          </a>
+          <a href="#about" className="hover:text-amber-400 transition">
+            About
+          </a>
+        </nav>
       </header>
 
       {/* Hero Section */}
-      <section className="relative px-6 py-24 md:py-32 max-w-7xl mx-auto border-b border-zinc-900">
-        <div className="max-w-3xl space-y-6">
-          <span className="text-xs font-semibold uppercase tracking-widest text-amber-400 bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20">
-            Handcrafted Collection
-          </span>
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
-            Elevated Wearable Art & Bespoke Tapestry
-          </h1>
-          <p className="text-lg text-zinc-400 leading-relaxed">
-            Discover tactile tapestry crochet portraiture, bespoke menswear, and handcrafted artisan pieces crafted with meticulous detail.
-          </p>
-          <div className="pt-4 flex flex-wrap gap-4">
-            <a href="#featured" className="px-6 py-3 font-medium bg-amber-400 text-zinc-950 rounded-lg hover:bg-amber-300 transition-all">
-              Explore Works
-            </a>
-          </div>
-        </div>
+      <section className="max-w-4xl mx-auto text-center py-20 px-4">
+        <span className="text-xs uppercase tracking-widest px-3 py-1 rounded-full bg-amber-400/10 text-amber-400 border border-amber-400/20">
+          Handcrafted Collection
+        </span>
+        <h2 className="text-4xl md:text-6xl font-extrabold mt-6 tracking-tight text-zinc-50">
+          Elevated Wearable Art & Bespoke Tapestry
+        </h2>
+        <p className="mt-4 text-zinc-400 max-w-xl mx-auto text-sm md:text-base">
+          Discover tactile tapestry crochet portraiture, bespoke menswear, and handcrafted artisan pieces crafted with meticulous detail.
+        </p>
       </section>
 
-      {/* Featured Products Grid */}
-      <section id="featured" className="max-w-7xl mx-auto px-6 py-20">
-        <div className="flex justify-between items-end mb-12">
-          <div>
-            <h2 className="text-2xl font-bold tracking-tight">Featured Works</h2>
-            <p className="text-sm text-zinc-400 mt-1">Explore signature releases and custom pieces</p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((product) => (
-            <div key={product.id} className="group relative bg-zinc-900/50 border border-zinc-800/80 rounded-2xl overflow-hidden hover:border-zinc-700 transition-all">
-              {/* Product Image Container */}
-              <div className="aspect-square bg-zinc-900 relative overflow-hidden border-b border-zinc-800/50 flex items-center justify-center p-2">
-                <span className="absolute top-4 left-4 z-10 text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full bg-zinc-950/70 text-amber-400 border border-amber-400/20 backdrop-blur-md">
-                  {product.tag}
-                </span>
-                <img 
-                  src={product.imageSrc} 
-                  alt={product.title} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-
-              {/* Product Info */}
-              <div className="p-6">
-                <p className="text-xs text-amber-400 font-medium">{product.category}</p>
-                <h3 className="text-lg font-semibold mt-1 group-hover:text-amber-300 transition-colors">{product.title}</h3>
-                <div className="mt-4 flex justify-between items-center">
-                  <span className="text-xl font-bold text-amber-400">{product.price}</span>
-                  <button 
-                    onClick={() => setSelectedProduct(product)}
-                    className="px-3 py-1.5 text-xs font-medium border border-zinc-700 hover:border-amber-400 hover:text-amber-400 rounded-lg transition-all"
-                  >
-                    Inquire / Order
-                  </button>
-                </div>
-              </div>
+      {/* Product Showcase */}
+      <section id="featured" className="max-w-5xl mx-auto px-6 py-12">
+        <h3 className="text-xl font-semibold mb-8 text-zinc-200">
+          Featured Works
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden group hover:border-amber-400/50 transition">
+            <div className="relative h-80 w-full bg-zinc-800">
+              <Image
+                src="/Ewia Kete-Hat.jpg"
+                alt="Ewia Kete Hat"
+                fill
+                className="object-cover group-hover:scale-105 transition duration-500"
+              />
             </div>
-          ))}
+            <div className="p-6">
+              <div className="flex justify-between items-start">
+                <div>
+                  <h4 className="text-lg font-bold text-zinc-100">
+                    Ewia Kete Hat
+                  </h4>
+                  <p className="text-xs text-zinc-400 mt-1">
+                    Bespoke Hand-Crocheted Headwear
+                  </p>
+                </div>
+                <span className="text-amber-400 font-semibold">GHC 350</span>
+              </div>
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="mt-6 w-full py-3 bg-amber-400 text-zinc-950 font-semibold rounded-lg hover:bg-amber-300 transition"
+              >
+                Inquire / Order Custom
+              </button>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Inquiry / Order Modal */}
-      {selectedProduct && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/80 backdrop-blur-sm p-4">
-          <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 w-full max-w-md relative space-y-4 shadow-2xl">
-            <button 
-              onClick={() => setSelectedProduct(null)}
-              className="absolute top-4 right-4 text-zinc-400 hover:text-zinc-100 text-lg"
+      {/* Order Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+          <div className="bg-zinc-900 border border-zinc-800 rounded-2xl max-w-md w-full p-6 relative">
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-4 right-4 text-zinc-400 hover:text-zinc-100 text-xl"
             >
               ✕
             </button>
-            <div>
-              <span className="text-xs text-amber-400 uppercase tracking-widest font-semibold">Custom Order / Inquiry</span>
-              <h3 className="text-xl font-bold text-zinc-100 mt-1">{selectedProduct.title}</h3>
-              <p className="text-sm text-amber-400 font-medium">{selectedProduct.price}</p>
-            </div>
+            <span className="text-xs uppercase tracking-widest text-amber-400 font-semibold">
+              Custom Order / Inquiry
+            </span>
+            <h3 className="text-2xl font-bold text-zinc-100 mt-1">
+              Ewia Kete Hat
+            </h3>
+            <p className="text-amber-400 font-semibold text-sm mb-6">GHC 350</p>
 
-            <form onSubmit={handleInquirySubmit} className="space-y-4 pt-2">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-zinc-400 mb-1">Your Name</label>
-                <input 
-                  type="text" 
+                <label className="block text-xs font-medium text-zinc-400 mb-1">
+                  Your Name
+                </label>
+                <input
+                  type="text"
                   required
                   placeholder="e.g. Kwesi Mensah"
                   value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-sm text-zinc-100 focus:outline-none focus:border-amber-400"
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 focus:outline-none focus:border-amber-400 text-sm"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-zinc-400 mb-1">Phone Number / WhatsApp</label>
-                <input 
-                  type="text" 
+                <label className="block text-xs font-medium text-zinc-400 mb-1">
+                  Phone Number / WhatsApp
+                </label>
+                <input
+                  type="tel"
                   required
                   placeholder="+233 XX XXX XXXX"
-                  value={formData.contact}
-                  onChange={(e) => setFormData({...formData, contact: e.target.value})}
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-sm text-zinc-100 focus:outline-none focus:border-amber-400"
+                  value={formData.phone}
+                  onChange={(e) =>
+                    setFormData({ ...formData, phone: e.target.value })
+                  }
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 focus:outline-none focus:border-amber-400 text-sm"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-zinc-400 mb-1">Customization / Sizing Notes</label>
-                <textarea 
+                <label className="block text-xs font-medium text-zinc-400 mb-1">
+                  Customization / Sizing Notes
+                </label>
+                <textarea
                   rows={3}
                   placeholder="Specify size, color preference, or custom order requests..."
                   value={formData.notes}
-                  onChange={(e) => setFormData({...formData, notes: e.target.value})}
-                  className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-sm text-zinc-100 focus:outline-none focus:border-amber-400"
+                  onChange={(e) =>
+                    setFormData({ ...formData, notes: e.target.value })
+                  }
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 focus:outline-none focus:border-amber-400 text-sm"
                 />
               </div>
 
-              <button 
+              <button
                 type="submit"
-                className="w-full py-3 bg-amber-400 text-zinc-950 font-semibold rounded-lg hover:bg-amber-300 transition-all text-sm"
+                className="w-full py-3 bg-amber-400 text-zinc-950 font-bold rounded-lg hover:bg-amber-300 transition"
               >
                 Send Order Request via WhatsApp
               </button>
@@ -200,6 +174,6 @@ export default function Home() {
           </div>
         </div>
       )}
-    </div>
+    </main>
   );
 }
