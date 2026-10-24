@@ -92,8 +92,8 @@ export default function OnyxxThreadsStorefront() {
       status: "Available",
       materials: "Milk Cotton & Specialty Yarns",
       specs: "Custom Fit Headwear",
-      image: "/Ewia kete- Hat.jpg",
-      mediaType: "image",
+      image: "/ewia-kete-hat.mp4", // Pointing to the .mp4 file
+      mediaType: "video",
       desc: "Handcrafted high-density tapestry crochet hat featuring precision gridded colorwork and tactile finish.",
     },
     {
@@ -105,7 +105,7 @@ export default function OnyxxThreadsStorefront() {
       status: "Pre-order",
       materials: "Milk Cotton & Specialty Yarns",
       specs: "360° Textured Motion Finish",
-      image: "/trinity-hat.mp4", // Saved in public/trinity-hat.mp4
+      image: "/trinity-hat.mp4",
       mediaType: "video",
       desc: "Handcrafted high-density tapestry crochet headwear engineered for structural silhouette and tactile colorwork detail.",
     },
@@ -243,7 +243,7 @@ export default function OnyxxThreadsStorefront() {
                     className="border border-[#1f1e1a] bg-[#10100f] rounded-2xl overflow-hidden flex flex-col justify-between hover:border-[#c5a059]/50 transition duration-300 group shadow-xl"
                   >
                     <div>
-                      {/* Media Container with Video & Image Support */}
+                      {/* Media Container */}
                       <div className="aspect-[4/3] w-full bg-[#070707] border-b border-[#1f1e1a] relative flex items-center justify-center overflow-hidden">
                         {product.mediaType === "video" ? (
                           <video
@@ -262,9 +262,6 @@ export default function OnyxxThreadsStorefront() {
                             src={product.image}
                             alt={product.title}
                             className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                            onError={(e) => {
-                              e.currentTarget.style.opacity = "0.3";
-                            }}
                           />
                         )}
 
