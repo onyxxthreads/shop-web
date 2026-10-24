@@ -2,10 +2,22 @@
 
 import React, { useState } from "react";
 
-export default function OnyxxThreadsPage() {
+export default function OnyxxThreadsStorefront() {
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [currency, setCurrency] = useState<"GHC" | "USD">("GHC");
   const [copied, setCopied] = useState(false);
+
   const contactEmail = "bars.barbells@gmail.com";
   const contactPhone = "+233543312793";
+
+  // Rate conversion approx. GHC to USD for international buyers
+  const convertPrice = (ghcAmount: number) => {
+    if (ghcAmount === 0) return "INQUIRE";
+    if (currency === "USD") {
+      return `$${Math.round(ghcAmount / 15)}`;
+    }
+    return `GHC ${ghcAmount}`;
+  };
 
   const handleCopyEmail = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -14,398 +26,317 @@ export default function OnyxxThreadsPage() {
     setTimeout(() => setCopied(false), 3000);
   };
 
-  // Fine-Art Tapestry Collection
-  const tapestryCollection = [
+  // Full Onyxx Threads Storefront Catalog
+  const products = [
+    // Tapestry Masterpieces Category
     {
       id: "nkrumah",
       title: "Hi3ny3l) ( Osagyefo Kwame Nkrumah )",
-      subtitle: "MONUMENTAL PORTRAITURE // EDITION 01",
-      stitchCount: "15,376 Stitches",
-      gridSpecs: "124 x 124 Grid",
-      materials: "Pure Milk Cotton Fiber",
+      category: "tapestry",
+      priceGHC: 0,
+      priceDisplay: "SOLD",
       status: "Sold (Private Collection)",
-      desc: "High-fidelity gridded tapestry portraiture probing historical memory, leadership, and Pan-African identity.",
+      materials: "Pure Milk Cotton Fiber",
+      specs: "15,376 Stitches • 124x124 Grid",
       image: "/nkrumah.jpg",
+      mediaType: "image",
+      desc: "High-fidelity gridded tapestry portraiture probing historical memory, leadership, and Pan-African identity.",
     },
     {
       id: "dromo",
       title: "Dromo",
-      subtitle: "SACRED GEOMETRY & MIXED MEDIA",
-      stitchCount: "9,720 Hand-Placed Stitches",
-      gridSpecs: "Custom Precision Grid",
-      materials: "Milk Cotton & Natural Cowrie Shell Relics",
-      status: "Available for Acquisition",
-      desc: "9,720 hand-placed stitches anchored by an authentic cowrie shell artifact—exploring spiritual grace and West African symbolism.",
+      category: "tapestry",
+      priceGHC: 4500,
+      priceDisplay: convertPrice(4500),
+      status: "Available",
+      materials: "Milk Cotton Yarn & Authentic Cowrie Shell Relics",
+      specs: "9,720 Hand-Placed Stitches",
       image: "/dromo.jpg",
+      mediaType: "image",
+      desc: "9,720 hand-placed stitches anchored by an authentic cowrie shell artifact—exploring spiritual grace.",
     },
     {
       id: "72k-portrait",
       title: "Monolithic Portraiture No. 1",
-      subtitle: "ARCHIVAL TAPESTRY STUDY",
-      stitchCount: "72,600 Stitches",
-      gridSpecs: "242 x 300 Grid",
-      materials: "4.5mm Hook, Milk Cotton & Textured Bouclé Sand",
+      category: "tapestry",
+      priceGHC: 0,
+      priceDisplay: "INQUIRE",
       status: "Archival Masterpiece",
-      desc: "A monumental fiber calculation contrasting raw bouclé background landscapes with high-density portrait colorwork.",
+      materials: "Milk Cotton & Textured Bouclé Sand Background",
+      specs: "72,600 Stitches • 242x300 Grid",
       image: "/monolithic.jpg",
+      mediaType: "image",
+      desc: "Monumental scale tapestry crochet study exploring raw tonal contrasts and structural yarn blending.",
     },
     {
       id: "nostalgia-series",
       title: "Childhood Nostalgia (3-Part Series)",
-      subtitle: "TACTILE MEMORY & RELIC FIBER",
-      stitchCount: "High-Density Gridded Crochet",
-      gridSpecs: "Multi-Panel Series",
-      materials: "3D Physical Artifacts (Bentua Catapult, Tin-Can Telephone, Cowrie Shells)",
-      status: "In Progress / Active Gallery Series",
-      desc: "A nostalgic exploration of Ghanaian childhood memories integrating physical heritage artifacts directly onto woven tapestry surfaces.",
+      category: "tapestry",
+      priceGHC: 0,
+      priceDisplay: "EXHIBITION",
+      status: "In Progress",
+      materials: "3D Physical Artifacts (Bentua Catapult, Tin-Can Telephone)",
+      specs: "Multi-Panel Series",
       image: "/nostalgia.jpg",
+      mediaType: "image",
+      desc: "Nostalgic exploration of Ghanaian childhood memories integrating raw physical objects directly onto fine-art surfaces.",
     },
-  ];
 
-  // Bespoke Wearable Art Collection (Hats, Jerseys, Masks & Garments)
-  const wearableCollection = [
+    // Hats Category
     {
       id: "ewia-kete-hat",
       title: "Ewia Kete Hat",
-      subtitle: "BESPOKE HEADWEAR",
-      category: "HEADWEAR",
-      materials: "Milk Cotton & Specialty Yarns",
-      price: "GHC 350",
+      category: "hats",
+      priceGHC: 350,
+      priceDisplay: convertPrice(350),
       status: "Available",
-      desc: "Handcrafted high-density tapestry crochet hat featuring precision gridded colorwork, custom structural fit, and tactile finish.",
-      image: "/ewia-kete-hat.jpg", // References public/ewia-kete-hat.jpg
+      materials: "Milk Cotton & Specialty Yarns",
+      specs: "Custom Fit Headwear",
+      image: "/Ewia kete- Hat.jpg",
+      mediaType: "image",
+      desc: "Handcrafted high-density tapestry crochet hat featuring precision gridded colorwork and tactile finish.",
     },
     {
-      id: "custom-garment",
-      title: "Tapestry Crochet Mask & Wearable Piece",
-      subtitle: "AVANT-GARDE APPAREL",
-      category: "BESPOKE GARMENTS",
-      materials: "Mixed Fiber & Bouclé Touches",
-      price: "Inquire for Pricing",
-      status: "Limited Edition Run",
-      desc: "Sculptural wearable art constructed for high-contrast aesthetic statement and editorial framing.",
-      image: "/wearable.jpg",
+      id: "trinity-hat",
+      title: "Trinity Hat",
+      category: "hats",
+      priceGHC: 350,
+      priceDisplay: convertPrice(350),
+      status: "Pre-order",
+      materials: "Milk Cotton & Specialty Yarns",
+      specs: "360° Textured Motion Finish",
+      image: "/hat-video.mp4",
+      mediaType: "video",
+      desc: "Handcrafted high-density tapestry crochet headwear engineered for structural silhouette and tactile colorwork detail.",
     },
   ];
 
+  const categories = [
+    { id: "all", label: "All Categories" },
+    { id: "dress", label: "Dress" },
+    { id: "tops", label: "Shirts/Sweaters/Jackets/Cardigans" },
+    { id: "hats", label: "Hats" },
+    { id: "bottoms", label: "Shorts/Skirts/Pants" },
+    { id: "tapestry", label: "Tapestry Masterpieces" },
+  ];
+
+  const filteredProducts = activeCategory === "all"
+    ? products
+    : products.filter((p) => p.category === activeCategory);
+
   return (
-    <main className="min-h-screen bg-[#070707] text-[#e8e6e1] font-sans antialiased selection:bg-[#c5a059] selection:text-black">
-      {/* Ambient Light */}
-      <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full bg-[#1c1813] blur-[180px] opacity-40" />
+    <main className="min-h-screen bg-[#080807] text-[#e8e6e1] font-sans antialiased selection:bg-[#c5a059] selection:text-black">
+      
+      {/* Top Announcement Bar */}
+      <div className="bg-[#c5a059] text-black text-xs font-mono py-2 px-4 text-center font-bold tracking-widest uppercase">
+        ⚡ Worldwide Express Delivery • Custom Commissions &amp; Ready-to-Wear Pieces
       </div>
 
       <div className="relative z-10">
-        {/* Navigation Header */}
-        <header className="border-b border-[#1f1e1a] bg-[#070707]/90 backdrop-blur-xl sticky top-0 z-50">
-          <div className="max-w-7xl mx-auto px-8 py-6 flex justify-between items-center">
-            <div className="flex items-center gap-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#c5a059] shadow-[0_0_10px_#c5a059]" />
+        {/* Sticky Navigation Header */}
+        <header className="border-b border-[#1f1e1a] bg-[#080807]/90 backdrop-blur-xl sticky top-0 z-50">
+          <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            
+            {/* Brand Logo */}
+            <div className="flex items-center gap-3">
+              <span className="w-2 h-2 rounded-full bg-[#c5a059] shadow-[0_0_8px_#c5a059]" />
               <span className="text-xl font-black tracking-[0.2em] text-white uppercase font-mono">
                 ONYXX THREADS
               </span>
             </div>
-            <nav className="hidden md:flex gap-10 text-[11px] font-mono uppercase tracking-[0.2em] text-stone-400">
-              <a href="#tapestry" className="hover:text-[#c5a059] transition-colors duration-200">Tapestries</a>
-              <a href="#wearables" className="hover:text-[#c5a059] transition-colors duration-200">Wearables</a>
-              <a href="#about" className="hover:text-[#c5a059] transition-colors duration-200">Craftsmanship</a>
-              <a href="#contact" className="hover:text-[#c5a059] transition-colors duration-200">Acquisitions</a>
-            </nav>
-            <button
-              onClick={handleCopyEmail}
-              className="px-6 py-2.5 bg-[#c5a059] text-black font-mono font-bold text-[11px] uppercase tracking-[0.15em] rounded-full hover:bg-white transition-all duration-300 shadow-lg shadow-[#c5a059]/10"
-            >
-              {copied ? "Copied Email!" : "Private Inquiry"}
-            </button>
+
+            {/* Currency Switcher & Commission CTA */}
+            <div className="flex items-center gap-4">
+              <div className="flex border border-[#2a2720] bg-[#12110e] rounded-lg p-1 text-xs font-mono">
+                <button
+                  onClick={() => setCurrency("GHC")}
+                  className={`px-3 py-1 rounded-md transition ${
+                    currency === "GHC" ? "bg-[#c5a059] text-black font-bold" : "text-stone-400 hover:text-white"
+                  }`}
+                >
+                  GHC
+                </button>
+                <button
+                  onClick={() => setCurrency("USD")}
+                  className={`px-3 py-1 rounded-md transition ${
+                    currency === "USD" ? "bg-[#c5a059] text-black font-bold" : "text-stone-400 hover:text-white"
+                  }`}
+                >
+                  USD ($)
+                </button>
+              </div>
+
+              <button
+                onClick={handleCopyEmail}
+                className="hidden sm:block px-5 py-2 bg-[#c5a059] text-black font-mono font-bold text-xs uppercase tracking-wider rounded-xl hover:bg-white transition"
+              >
+                {copied ? "Copied Email!" : "Commission"}
+              </button>
+            </div>
           </div>
         </header>
 
-        {/* Hero Section */}
-        <section className="max-w-7xl mx-auto px-8 py-28 md:py-40 grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
-          <div className="md:col-span-9 space-y-10">
-            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-[#2a2720] bg-[#12110e] text-[11px] font-mono tracking-[0.2em] text-[#c5a059]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#c5a059]" /> Bespoke Fiber Artistry &amp; Wearables
-            </div>
-
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-white uppercase tracking-tighter leading-[0.9]">
-              ONYXX <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#c5a059] via-[#e5c382] to-[#c5a059]">
-                THREADS
-              </span>
-            </h1>
-
-            <p className="text-stone-300 text-lg md:text-2xl font-light leading-relaxed max-w-2xl">
-              High-fidelity tapestry crochet portraiture, mixed-media fiber art, and bespoke wearable artifacts engineered with mathematical stitch precision and West African cultural symbolism.
-            </p>
-
-            <div className="pt-4 flex flex-wrap gap-5 font-mono text-xs">
-              <a
-                href="#tapestry"
-                className="px-8 py-4 bg-[#c5a059] text-black font-bold uppercase tracking-[0.15em] rounded-xl hover:bg-white transition-all duration-300 shadow-xl shadow-[#c5a059]/10"
-              >
-                Explore Catalog
-              </a>
-              <a
-                href="#wearables"
-                className="px-8 py-4 border border-[#2a2720] bg-[#12110e] text-stone-300 font-bold uppercase tracking-[0.15em] rounded-xl hover:border-[#c5a059] hover:text-white transition-all duration-300"
-              >
-                Wearable Pieces
-              </a>
-            </div>
-          </div>
-        </section>
-
-        {/* TAPESTRY EXHIBITION GALLERY */}
-        <section id="tapestry" className="border-t border-[#1f1e1a] bg-[#0b0b0a] py-32">
-          <div className="max-w-7xl mx-auto px-8 space-y-20">
-            
-            {/* Gallery Header */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-[#1f1e1a] pb-10">
-              <div>
-                <span className="text-[11px] font-mono text-[#c5a059] uppercase tracking-[0.25em] block mb-3">
-                  /// CURATED ARCHIVE
-                </span>
-                <h2 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tight">
-                  Tapestry Masterpieces
-                </h2>
-              </div>
-              <p className="text-stone-400 text-sm max-w-md font-mono leading-relaxed">
-                Each piece is cataloged with exact stitch density, structural yarn composition, and material provenance.
-              </p>
-            </div>
-
-            {/* Gallery Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              {tapestryCollection.map((artwork) => (
-                <div
-                  key={artwork.id}
-                  className="border border-[#1f1e1a] bg-[#10100f] rounded-3xl p-8 space-y-8 flex flex-col justify-between hover:border-[#c5a059]/40 transition duration-500 group shadow-2xl"
-                >
-                  <div className="space-y-8">
-                    {/* Artwork Image Frame */}
-                    <div className="aspect-[4/3] w-full rounded-2xl overflow-hidden bg-[#070707] border border-[#1f1e1a] relative flex items-center justify-center">
-                      <img
-                        src={artwork.image}
-                        alt={artwork.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out"
-                        onError={(e) => {
-                          e.currentTarget.style.opacity = '0.3';
-                        }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#10100f] via-transparent to-transparent opacity-80" />
-                      
-                      {/* Floating Spec Badges */}
-                      <div className="absolute bottom-5 left-5 right-5 flex justify-between items-center z-10 font-mono text-[11px]">
-                        <span className="bg-[#070707]/90 text-[#c5a059] border border-[#2a2720] px-3.5 py-1.5 rounded-lg backdrop-blur-md">
-                          {artwork.stitchCount}
-                        </span>
-                        <span className="bg-[#070707]/90 text-stone-300 border border-[#2a2720] px-3.5 py-1.5 rounded-lg backdrop-blur-md">
-                          {artwork.gridSpecs}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Metadata & Title */}
-                    <div className="space-y-3">
-                      <span className="text-[11px] font-mono text-[#c5a059] uppercase tracking-[0.2em] block font-semibold">
-                        {artwork.subtitle}
-                      </span>
-                      <h3 className="text-3xl font-black text-white uppercase tracking-tight">
-                        {artwork.title}
-                      </h3>
-                      <p className="text-stone-300 text-sm leading-relaxed font-light pt-1">
-                        {artwork.desc}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Provenance Card Footer */}
-                  <div className="border-t border-[#1f1e1a] pt-5 space-y-3 font-mono text-xs">
-                    <div className="flex justify-between text-stone-400">
-                      <span>Yarn &amp; Materials:</span>
-                      <span className="text-stone-200 text-right">{artwork.materials}</span>
-                    </div>
-                    <div className="flex justify-between items-center pt-2 border-t border-[#1f1e1a]">
-                      <span className="text-stone-400">Availability:</span>
-                      <span className={`font-bold px-3 py-1 rounded-full text-[10px] uppercase tracking-wider ${
-                        artwork.status.includes("Sold") 
-                          ? "bg-stone-900 text-stone-500 border border-stone-800" 
-                          : "bg-[#c5a059]/10 text-[#c5a059] border border-[#c5a059]/30"
-                      }`}>
-                        {artwork.status}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-          </div>
-        </section>
-
-        {/* WEARABLE ART & APPAREL CATALOG */}
-        <section id="wearables" className="border-t border-[#1f1e1a] bg-[#080807] py-32">
-          <div className="max-w-7xl mx-auto px-8 space-y-20">
-            
-            {/* Wearable Header */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-[#1f1e1a] pb-10">
-              <div>
-                <span className="text-[11px] font-mono text-[#c5a059] uppercase tracking-[0.25em] block mb-3">
-                  /// BESPOKE APPAREL
-                </span>
-                <h2 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tight">
-                  Wearable Art &amp; Headwear
-                </h2>
-              </div>
-              <p className="text-stone-400 text-sm max-w-md font-mono leading-relaxed">
-                Handcrafted crochet beanies, masks, and custom apparel engineered for tactile texture and signature silhouette.
-              </p>
-            </div>
-
-            {/* Wearables Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              {wearableCollection.map((item) => (
-                <div
-                  key={item.id}
-                  className="border border-[#1f1e1a] bg-[#10100f] rounded-3xl p-8 space-y-8 flex flex-col justify-between hover:border-[#c5a059]/40 transition duration-500 group shadow-2xl"
-                >
-                  <div className="space-y-8">
-                    {/* Item Image Frame */}
-                    <div className="aspect-[4/3] w-full rounded-2xl overflow-hidden bg-[#070707] border border-[#1f1e1a] relative flex items-center justify-center">
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out"
-                        onError={(e) => {
-                          e.currentTarget.style.opacity = '0.3';
-                        }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#10100f] via-transparent to-transparent opacity-80" />
-                      
-                      <div className="absolute bottom-5 left-5 right-5 flex justify-between items-center z-10 font-mono text-[11px]">
-                        <span className="bg-[#070707]/90 text-[#c5a059] border border-[#2a2720] px-3.5 py-1.5 rounded-lg backdrop-blur-md">
-                          {item.category}
-                        </span>
-                        <span className="bg-[#c5a059] text-black font-bold px-3.5 py-1.5 rounded-lg">
-                          {item.price}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Meta & Title */}
-                    <div className="space-y-3">
-                      <span className="text-[11px] font-mono text-[#c5a059] uppercase tracking-[0.2em] block font-semibold">
-                        {item.subtitle}
-                      </span>
-                      <h3 className="text-3xl font-black text-white uppercase tracking-tight">
-                        {item.title}
-                      </h3>
-                      <p className="text-stone-300 text-sm leading-relaxed font-light pt-1">
-                        {item.desc}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Card Footer */}
-                  <div className="border-t border-[#1f1e1a] pt-5 space-y-3 font-mono text-xs">
-                    <div className="flex justify-between text-stone-400">
-                      <span>Materials:</span>
-                      <span className="text-stone-200 text-right">{item.materials}</span>
-                    </div>
-                    <div className="flex justify-between items-center pt-2 border-t border-[#1f1e1a]">
-                      <span className="text-stone-400">Status:</span>
-                      <span className="bg-[#c5a059]/10 text-[#c5a059] border border-[#c5a059]/30 font-bold px-3 py-1 rounded-full text-[10px] uppercase tracking-wider">
-                        {item.status}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-          </div>
-        </section>
-
-        {/* Philosophy & Craftsmanship Section */}
-        <section id="about" className="max-w-5xl mx-auto px-8 py-36 space-y-10">
-          <span className="text-[11px] font-mono text-[#c5a059] uppercase tracking-[0.25em] block">
-            /// PHILOSOPHY &amp; TECHNIQUE
+        {/* Hero Banner */}
+        <section className="max-w-7xl mx-auto px-6 py-16 md:py-24 text-center space-y-6 border-b border-[#1f1e1a]">
+          <span className="text-xs font-mono text-[#c5a059] uppercase tracking-[0.25em] block">
+            /// OFFICIAL ONLINE STOREFRONT
           </span>
-          <h2 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tight leading-tight">
-            High-Density Fiber Engine &amp; Tactile Relics
-          </h2>
-          <div className="text-stone-300 text-lg md:text-xl leading-relaxed space-y-8 font-light border-l-2 border-[#c5a059]/40 pl-8">
-            <p>
-              Every artwork is calculated stitch by stitch on specialized color work grids to achieve exceptional portrait resolution , framed by raw textures for textile depth
-            </p>
-            <p>
-              Onyxx threads bridges traditional African iconography with contemporary fine art
-            </p>
+          <h1 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tight">
+            Handcrafted Masterpieces &amp; Wearable Art
+          </h1>
+          <p className="text-stone-400 text-base md:text-lg max-w-2xl mx-auto font-light leading-relaxed">
+            High-fidelity tapestry crochet, gridded portraiture, and bespoke garments engineered in Accra, Ghana.
+          </p>
+        </section>
+
+        {/* Category Navigation Filter Tabs */}
+        <section className="max-w-7xl mx-auto px-6 pt-12">
+          <div className="flex flex-wrap items-center justify-center gap-2.5 border-b border-[#1f1e1a] pb-8 font-mono text-xs">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setActiveCategory(cat.id)}
+                className={`px-5 py-3 rounded-full border transition uppercase tracking-wider ${
+                  activeCategory === cat.id
+                    ? "bg-[#c5a059] text-black border-[#c5a059] font-bold shadow-lg shadow-[#c5a059]/10"
+                    : "bg-[#12110e] text-stone-400 border-[#2a2720] hover:border-[#c5a059] hover:text-white"
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
           </div>
         </section>
 
-        {/* Acquisition & Contact Footer */}
-        <footer id="contact" className="border-t border-[#1f1e1a] bg-[#050505] py-28 font-mono">
-          <div className="max-w-4xl mx-auto px-8 text-center space-y-10">
-            <span className="text-[11px] text-[#c5a059] uppercase tracking-[0.25em] block">
-              /// PRIVATE ACQUISITIONS &amp; COMMISSIONS
-            </span>
-            <h2 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tight">
-              Inquire For Acquisition
-            </h2>
-            <p className="text-stone-400 max-w-lg mx-auto text-sm font-sans leading-relaxed">
-              For private collection acquisitions, gallery curations, custom portrait commissions, and bespoke wearable garments:
-            </p>
-
-            <div className="pt-4 max-w-md mx-auto space-y-4">
-              {/* WhatsApp Button */}
+        {/* Product Catalog Grid */}
+        <section className="max-w-7xl mx-auto px-6 py-16">
+          {filteredProducts.length === 0 ? (
+            <div className="text-center py-20 space-y-4 font-mono">
+              <p className="text-stone-500 text-sm uppercase tracking-widest">
+                /// NO PIECES CATALOGED IN THIS CATEGORY YET
+              </p>
+              <p className="text-stone-400 text-xs">
+                Custom orders available upon request. Direct message to commission a custom garment or piece.
+              </p>
               <a
-                href="https://wa.me/233543312793?text=Hello%20Onyxx%20Threads,%20I'd%20like%20to%20order%20the%20Ewia%20Kete%20Hat."
+                href="https://wa.me/233543312793?text=Hello%20Onyxx%20Threads,%20I'd%20like%20to%20commission%20a%20custom%20piece."
                 target="_blank"
                 rel="noreferrer"
-                className="block w-full py-5 bg-[#c5a059] text-black font-bold text-xs uppercase tracking-[0.2em] rounded-2xl shadow-2xl hover:bg-white transition-all duration-300 text-center"
+                className="inline-block mt-4 px-6 py-3 bg-[#c5a059] text-black font-bold text-xs uppercase tracking-wider rounded-xl hover:bg-white transition"
               >
-                Direct WhatsApp Inquiry &rarr;
+                Request Custom Order via WhatsApp
               </a>
-
-              {/* Call Button */}
-              <a
-                href={`tel:${contactPhone}`}
-                className="block w-full py-4 border border-[#2a2720] bg-[#12110e] text-stone-300 font-bold text-xs uppercase tracking-[0.2em] rounded-2xl hover:border-[#c5a059] transition-all duration-300 text-center"
-              >
-                Call +233 54 331 2793
-              </a>
-
-              {/* Copy Email Button */}
-              <button
-                onClick={handleCopyEmail}
-                className="block w-full py-4 border border-[#2a2720] bg-[#12110e] text-stone-300 font-bold text-xs uppercase tracking-[0.2em] rounded-2xl hover:border-[#c5a059] transition-all duration-300 cursor-pointer"
-              >
-                {copied ? "✓ Email Copied to Clipboard!" : "Copy Acquisition Email"}
-              </button>
-
-              {/* Info Card */}
-              <div className="border border-[#1f1e1a] bg-[#10100f] p-5 rounded-2xl space-y-3 text-xs">
-                <div className="flex justify-between items-center text-stone-400">
-                  <span>Direct Line / WhatsApp:</span>
-                  <a href={`tel:${contactPhone}`} className="font-bold text-[#c5a059] hover:underline">
-                    +233 54 331 2793
-                  </a>
-                </div>
-                <div className="flex justify-between items-center text-stone-400 pt-2 border-t border-[#1f1e1a]">
-                  <span>Curatorial Email:</span>
-                  <span className="font-bold text-[#c5a059]">
-                    {contactEmail}
-                  </span>
-                </div>
-              </div>
             </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredProducts.map((product) => {
+                const whatsappMessage = encodeURIComponent(
+                  `Hello Onyxx Threads, I'd like to order/inquire about "${product.title}".`
+                );
 
-            <p className="text-[11px] text-stone-600 pt-16">
-              © 2026 ONYXX THREADS. ALL RIGHTS RESERVED.
-            </p>
-          </div>
+                return (
+                  <div
+                    key={product.id}
+                    className="border border-[#1f1e1a] bg-[#10100f] rounded-2xl overflow-hidden flex flex-col justify-between hover:border-[#c5a059]/50 transition duration-300 group shadow-xl"
+                  >
+                    <div>
+                      {/* Media Container */}
+                      <div className="aspect-[4/3] w-full bg-[#070707] border-b border-[#1f1e1a] relative flex items-center justify-center overflow-hidden">
+                        {product.mediaType === "video" ? (
+                          <video
+                            src={product.image}
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                          />
+                        ) : (
+                          <img
+                            src={product.image}
+                            alt={product.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                            onError={(e) => {
+                              e.currentTarget.style.opacity = "0.3";
+                            }}
+                          />
+                        )}
+
+                        {/* Status Tag */}
+                        <div className="absolute top-4 left-4 z-10">
+                          <span className={`px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider font-bold ${
+                            product.status.includes("Sold")
+                              ? "bg-stone-900 text-stone-500 border border-stone-800"
+                              : "bg-[#c5a059] text-black"
+                          }`}>
+                            {product.status}
+                          </span>
+                        </div>
+
+                        {/* Specs Badge */}
+                        <div className="absolute bottom-4 left-4 right-4 z-10 font-mono text-[10px]">
+                          <span className="bg-[#070707]/90 text-stone-300 border border-[#2a2720] px-3 py-1 rounded-lg block truncate backdrop-blur-md">
+                            {product.specs}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Product Details */}
+                      <div className="p-6 space-y-3">
+                        <div className="flex justify-between items-start gap-2">
+                          <h3 className="text-xl font-bold text-white uppercase tracking-tight">
+                            {product.title}
+                          </h3>
+                          <span className="text-base font-mono font-bold text-[#c5a059] shrink-0">
+                            {product.priceDisplay}
+                          </span>
+                        </div>
+
+                        <p className="text-stone-300 text-xs font-light leading-relaxed">
+                          {product.desc}
+                        </p>
+
+                        <div className="pt-2 text-[11px] font-mono text-stone-400">
+                          <span className="text-stone-500">Materials: </span>{product.materials}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Action Bar */}
+                    <div className="p-6 pt-0 space-y-3">
+                      <a
+                        href={`https://wa.me/233543312793?text=${whatsappMessage}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="block w-full py-3 bg-[#c5a059] text-black font-mono font-bold text-xs uppercase tracking-wider rounded-xl text-center hover:bg-white transition"
+                      >
+                        Order / Inquire via WhatsApp &rarr;
+                      </a>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </section>
+
+        {/* Philosophy Statement */}
+        <section className="max-w-4xl mx-auto px-6 py-24 border-t border-[#1f1e1a] text-center space-y-6">
+          <span className="text-xs font-mono text-[#c5a059] uppercase tracking-[0.25em] block">
+            /// CRAFTSMANSHIP &amp; GUARANTEE
+          </span>
+          <p className="text-stone-300 text-lg md:text-xl leading-relaxed font-light">
+            Every artwork is calculated stitch by stitch on specialized color work grids to achieve exceptional portrait resolution, framed by raw textures for textile depth. Onyxx threads bridges traditional African iconography with contemporary fine art.
+          </p>
+        </section>
+
+        {/* Footer */}
+        <footer id="contact" className="border-t border-[#1f1e1a] bg-[#050505] py-20 font-mono text-center space-y-6 text-xs text-stone-400">
+          <p className="text-white font-bold text-sm">ONYXX THREADS ACCRA</p>
+          <p>WhatsApp / Call: +233 54 331 2793 • Email: {contactEmail}</p>
+          <p className="text-stone-600">© 2026 ONYXX THREADS. ALL RIGHTS RESERVED.</p>
         </footer>
+
       </div>
     </main>
   );
