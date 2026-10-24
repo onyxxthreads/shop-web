@@ -7,9 +7,8 @@ import Image from "next/image";
 import {
   SignInButton,
   SignUpButton,
-  SignedIn,
-  SignedOut,
   UserButton,
+  useAuth,
 } from "@clerk/nextjs";
 
 // Product interface defining categories and media types
@@ -23,6 +22,7 @@ interface Product {
 
 export default function Storefront() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const { isSignedIn, isLoaded } = useAuth();
 
   return (
     <main className="min-h-screen bg-neutral-950 text-neutral-100">
@@ -32,21 +32,23 @@ export default function Storefront() {
         
         {/* Clerk Authentication Header Actions */}
         <div className="flex items-center gap-4">
-          <SignedOut>
-            <SignInButton mode="modal">
-              <button className="px-4 py-2 text-sm font-medium bg-neutral-800 hover:bg-neutral-700 rounded-md transition">
-                Sign In
-              </button>
-            </SignInButton>
-            <SignUpButton mode="modal">
-              <button className="px-4 py-2 text-sm font-medium bg-white text-neutral-950 hover:bg-neutral-200 rounded-md transition">
-                Join
-              </button>
-            </SignUpButton>
-          </SignedOut>
-          <SignedIn>
+          {isLoaded && !isSignedIn && (
+            <>
+              <SignInButton mode="modal">
+                <button className="px-4 py-2 text-sm font-medium bg-neutral-800 hover:bg-neutral-700 rounded-md transition">
+                  Sign In
+                </button>
+              </SignInButton>
+              <SignUpButton mode="modal">
+                <button className="px-4 py-2 text-sm font-medium bg-white text-neutral-950 hover:bg-neutral-200 rounded-md transition">
+                  Join
+                </button>
+              </SignUpButton>
+            </>
+          )}
+          {isLoaded && isSignedIn && (
             <UserButton afterSignOutUrl="/" />
-          </SignedIn>
+          )}
         </div>
       </header>
 
