@@ -92,8 +92,8 @@ export default function OnyxxThreadsStorefront() {
       status: "Available",
       materials: "Milk Cotton & Specialty Yarns",
       specs: "Custom Fit Headwear",
-      image: "/ewia-kete-hat.mp4", // Pointing to the .mp4 file
-      mediaType: "video",
+      image: "/ewia-kete-hat.jpg",
+      mediaType: "image", // Static Photo Asset
       desc: "Handcrafted high-density tapestry crochet hat featuring precision gridded colorwork and tactile finish.",
     },
     {
@@ -106,7 +106,7 @@ export default function OnyxxThreadsStorefront() {
       materials: "Milk Cotton & Specialty Yarns",
       specs: "360° Textured Motion Finish",
       image: "/trinity-hat.mp4",
-      mediaType: "video",
+      mediaType: "video", // MP4 Video Asset
       desc: "Handcrafted high-density tapestry crochet headwear engineered for structural silhouette and tactile colorwork detail.",
     },
   ];
@@ -262,6 +262,9 @@ export default function OnyxxThreadsStorefront() {
                             src={product.image}
                             alt={product.title}
                             className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                            onError={(e) => {
+                              e.currentTarget.style.opacity = "0.3";
+                            }}
                           />
                         )}
 
