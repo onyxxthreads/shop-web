@@ -10,7 +10,7 @@ export default function OnyxxThreadsStorefront() {
   const contactEmail = "bars.barbells@gmail.com";
   const contactPhone = "+233543312793";
 
-  // Rate conversion approx. GHC to USD for international buyers
+  // Currency Conversion Rate (GHC to USD)
   const convertPrice = (ghcAmount: number) => {
     if (ghcAmount === 0) return "INQUIRE";
     if (currency === "USD") {
@@ -26,7 +26,7 @@ export default function OnyxxThreadsStorefront() {
     setTimeout(() => setCopied(false), 3000);
   };
 
-  // Full Onyxx Threads Storefront Catalog
+  // Storefront Product Catalog
   const products = [
     // Tapestry Masterpieces Category
     {
@@ -105,7 +105,7 @@ export default function OnyxxThreadsStorefront() {
       status: "Pre-order",
       materials: "Milk Cotton & Specialty Yarns",
       specs: "360° Textured Motion Finish",
-      image: "/hat-video.mp4",
+      image: "/trinity-hat.mp4", // Saved in public/trinity-hat.mp4
       mediaType: "video",
       desc: "Handcrafted high-density tapestry crochet headwear engineered for structural silhouette and tactile colorwork detail.",
     },
@@ -120,24 +120,23 @@ export default function OnyxxThreadsStorefront() {
     { id: "tapestry", label: "Tapestry Masterpieces" },
   ];
 
-  const filteredProducts = activeCategory === "all"
-    ? products
-    : products.filter((p) => p.category === activeCategory);
+  const filteredProducts =
+    activeCategory === "all"
+      ? products
+      : products.filter((p) => p.category === activeCategory);
 
   return (
     <main className="min-h-screen bg-[#080807] text-[#e8e6e1] font-sans antialiased selection:bg-[#c5a059] selection:text-black">
-      
       {/* Top Announcement Bar */}
       <div className="bg-[#c5a059] text-black text-xs font-mono py-2 px-4 text-center font-bold tracking-widest uppercase">
         ⚡ Worldwide Express Delivery • Custom Commissions &amp; Ready-to-Wear Pieces
       </div>
 
       <div className="relative z-10">
-        {/* Sticky Navigation Header */}
+        {/* Sticky Header */}
         <header className="border-b border-[#1f1e1a] bg-[#080807]/90 backdrop-blur-xl sticky top-0 z-50">
           <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            
-            {/* Brand Logo */}
+            {/* Logo */}
             <div className="flex items-center gap-3">
               <span className="w-2 h-2 rounded-full bg-[#c5a059] shadow-[0_0_8px_#c5a059]" />
               <span className="text-xl font-black tracking-[0.2em] text-white uppercase font-mono">
@@ -145,13 +144,15 @@ export default function OnyxxThreadsStorefront() {
               </span>
             </div>
 
-            {/* Currency Switcher & Commission CTA */}
+            {/* Controls */}
             <div className="flex items-center gap-4">
               <div className="flex border border-[#2a2720] bg-[#12110e] rounded-lg p-1 text-xs font-mono">
                 <button
                   onClick={() => setCurrency("GHC")}
                   className={`px-3 py-1 rounded-md transition ${
-                    currency === "GHC" ? "bg-[#c5a059] text-black font-bold" : "text-stone-400 hover:text-white"
+                    currency === "GHC"
+                      ? "bg-[#c5a059] text-black font-bold"
+                      : "text-stone-400 hover:text-white"
                   }`}
                 >
                   GHC
@@ -159,7 +160,9 @@ export default function OnyxxThreadsStorefront() {
                 <button
                   onClick={() => setCurrency("USD")}
                   className={`px-3 py-1 rounded-md transition ${
-                    currency === "USD" ? "bg-[#c5a059] text-black font-bold" : "text-stone-400 hover:text-white"
+                    currency === "USD"
+                      ? "bg-[#c5a059] text-black font-bold"
+                      : "text-stone-400 hover:text-white"
                   }`}
                 >
                   USD ($)
@@ -208,7 +211,7 @@ export default function OnyxxThreadsStorefront() {
           </div>
         </section>
 
-        {/* Product Catalog Grid */}
+        {/* Catalog Grid */}
         <section className="max-w-7xl mx-auto px-6 py-16">
           {filteredProducts.length === 0 ? (
             <div className="text-center py-20 space-y-4 font-mono">
@@ -240,17 +243,20 @@ export default function OnyxxThreadsStorefront() {
                     className="border border-[#1f1e1a] bg-[#10100f] rounded-2xl overflow-hidden flex flex-col justify-between hover:border-[#c5a059]/50 transition duration-300 group shadow-xl"
                   >
                     <div>
-                      {/* Media Container */}
+                      {/* Media Container with Video & Image Support */}
                       <div className="aspect-[4/3] w-full bg-[#070707] border-b border-[#1f1e1a] relative flex items-center justify-center overflow-hidden">
                         {product.mediaType === "video" ? (
                           <video
-                            src={product.image}
                             autoPlay
                             loop
                             muted
                             playsInline
+                            preload="auto"
                             className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                          />
+                          >
+                            <source src={product.image} type="video/mp4" />
+                            Your browser does not support the video tag.
+                          </video>
                         ) : (
                           <img
                             src={product.image}
@@ -264,11 +270,13 @@ export default function OnyxxThreadsStorefront() {
 
                         {/* Status Tag */}
                         <div className="absolute top-4 left-4 z-10">
-                          <span className={`px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider font-bold ${
-                            product.status.includes("Sold")
-                              ? "bg-stone-900 text-stone-500 border border-stone-800"
-                              : "bg-[#c5a059] text-black"
-                          }`}>
+                          <span
+                            className={`px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider font-bold ${
+                              product.status.includes("Sold")
+                                ? "bg-stone-900 text-stone-500 border border-stone-800"
+                                : "bg-[#c5a059] text-black"
+                            }`}
+                          >
                             {product.status}
                           </span>
                         </div>
@@ -281,7 +289,7 @@ export default function OnyxxThreadsStorefront() {
                         </div>
                       </div>
 
-                      {/* Product Details */}
+                      {/* Details */}
                       <div className="p-6 space-y-3">
                         <div className="flex justify-between items-start gap-2">
                           <h3 className="text-xl font-bold text-white uppercase tracking-tight">
@@ -297,12 +305,13 @@ export default function OnyxxThreadsStorefront() {
                         </p>
 
                         <div className="pt-2 text-[11px] font-mono text-stone-400">
-                          <span className="text-stone-500">Materials: </span>{product.materials}
+                          <span className="text-stone-500">Materials: </span>
+                          {product.materials}
                         </div>
                       </div>
                     </div>
 
-                    {/* Action Bar */}
+                    {/* WhatsApp Action */}
                     <div className="p-6 pt-0 space-y-3">
                       <a
                         href={`https://wa.me/233543312793?text=${whatsappMessage}`}
@@ -331,12 +340,14 @@ export default function OnyxxThreadsStorefront() {
         </section>
 
         {/* Footer */}
-        <footer id="contact" className="border-t border-[#1f1e1a] bg-[#050505] py-20 font-mono text-center space-y-6 text-xs text-stone-400">
+        <footer
+          id="contact"
+          className="border-t border-[#1f1e1a] bg-[#050505] py-20 font-mono text-center space-y-6 text-xs text-stone-400"
+        >
           <p className="text-white font-bold text-sm">ONYXX THREADS ACCRA</p>
           <p>WhatsApp / Call: +233 54 331 2793 • Email: {contactEmail}</p>
           <p className="text-stone-600">© 2026 ONYXX THREADS. ALL RIGHTS RESERVED.</p>
         </footer>
-
       </div>
     </main>
   );
