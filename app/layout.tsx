@@ -1,9 +1,9 @@
-import { ClerkProvider } from "@clerk/nextjs";
-import "./globals.css";
+import { ClerkProvider } from '@clerk/nextjs';
+import './globals.css';
 
 export const metadata = {
-  title: "ONYXX THREADS | Handcrafted Masterpieces & Wearable Art",
-  description: "Bespoke tapestry crochet and luxury wearable art handcrafted in Accra, Ghana.",
+  title: 'Onyxx Threads',
+  description: 'Handcrafted Tapestry & Apparel',
 };
 
 export default function RootLayout({
