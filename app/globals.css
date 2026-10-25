@@ -3,31 +3,18 @@
 @tailwind utilities;
 
 @layer utilities {
-  /* Perspective Grid Background */
   .synthwave-grid {
     background-size: 40px 40px;
     background-image: 
-      linear-gradient(to right, rgba(236, 72, 153, 0.15) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(6, 182, 212, 0.15) 1px, transparent 1px);
+      linear-gradient(to right, rgba(245, 158, 11, 0.15) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(239, 68, 68, 0.15) 1px, transparent 1px);
   }
 
-  /* Neon Glow Text Shadows */
-  .neon-text-pink {
-    text-shadow: 0 0 10px rgba(236, 72, 153, 0.7), 0 0 20px rgba(236, 72, 153, 0.5);
+  .neon-text-orange {
+    text-shadow: 0 0 10px rgba(245, 158, 11, 0.7), 0 0 20px rgba(239, 68, 68, 0.5);
   }
-  .neon-text-cyan {
-    text-shadow: 0 0 10px rgba(6, 182, 212, 0.7), 0 0 20px rgba(6, 182, 212, 0.5);
-  }
-
-  /* Retro CRT Scanline Overlay */
-  .scanlines {
-    background: linear-gradient(
-      to bottom,
-      rgba(255,255,255,0),
-      rgba(255,255,255,0) 50%,
-      rgba(0, 0, 0, 0.3) 50%,
-      rgba(0, 0, 0, 0.3)
-    );
-    background-size: 100% 4px;
+  
+  .neon-text-amber {
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.7), 0 0 20px rgba(245, 158, 11, 0.5);
   }
 }
