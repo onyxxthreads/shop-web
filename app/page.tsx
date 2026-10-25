@@ -69,20 +69,19 @@ export default function Storefront() {
       : PRODUCTS.filter((p) => p.category === selectedCategory);
 
   return (
-    <div
-      style={{ backgroundColor: "#140c06", minHeight: "100vh", color: "#fef3c7", width: "100%" }}
-    >
+    <div className="kinetic-bg" style={{ minHeight: "100vh", color: "#f3f4f6", width: "100%" }}>
       {/* Top Banner */}
       <div
         style={{
-          background: "linear-gradient(to right, #451a03, #78350f, #451a03)",
-          borderBottom: "1px solid #92400e",
-          color: "#fde68a",
+          background: "rgba(255, 255, 255, 0.03)",
+          backdropFilter: "blur(12px)",
+          borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+          color: "#e5e7eb",
           textAlign: "center",
-          padding: "8px 16px",
-          fontSize: "12px",
-          fontWeight: "bold",
-          letterSpacing: "0.1em",
+          padding: "10px 16px",
+          fontSize: "11px",
+          fontWeight: "600",
+          letterSpacing: "0.2em",
           textTransform: "uppercase",
         }}
       >
@@ -92,9 +91,10 @@ export default function Storefront() {
       {/* Navigation Header */}
       <header
         style={{
-          backgroundColor: "#140c06",
-          borderBottom: "1px solid #78350f",
-          padding: "16px 24px",
+          background: "rgba(10, 8, 18, 0.6)",
+          backdropFilter: "blur(20px)",
+          borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+          padding: "18px 28px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -105,10 +105,12 @@ export default function Storefront() {
       >
         <span
           style={{
-            color: "#fbbf24",
-            fontSize: "20px",
+            fontSize: "22px",
             fontWeight: "900",
-            letterSpacing: "0.15em",
+            letterSpacing: "0.2em",
+            background: "linear-gradient(to right, #ffffff, #d1d5db, #9ca3af)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
           }}
         >
           ONYXX THREADS
@@ -118,7 +120,7 @@ export default function Storefront() {
           {!isLoaded ? (
             <div
               style={{
-                backgroundColor: "#451a03",
+                backgroundColor: "rgba(255, 255, 255, 0.1)",
                 height: "32px",
                 width: "80px",
                 borderRadius: "6px",
@@ -129,7 +131,7 @@ export default function Storefront() {
               <SignInButton mode="modal">
                 <button
                   style={{
-                    color: "#fcd34d",
+                    color: "#d1d5db",
                     background: "none",
                     border: "none",
                     padding: "8px 12px",
@@ -137,6 +139,7 @@ export default function Storefront() {
                     fontSize: "12px",
                     fontWeight: "600",
                     textTransform: "uppercase",
+                    letterSpacing: "0.1em",
                   }}
                 >
                   Sign In
@@ -145,15 +148,16 @@ export default function Storefront() {
               <SignUpButton mode="modal">
                 <button
                   style={{
-                    backgroundColor: "#f59e0b",
-                    color: "#0f0804",
+                    background: "rgba(255, 255, 255, 0.9)",
+                    color: "#0a0a0c",
                     border: "none",
-                    padding: "8px 16px",
-                    borderRadius: "6px",
+                    padding: "8px 18px",
+                    borderRadius: "8px",
                     cursor: "pointer",
                     fontSize: "12px",
-                    fontWeight: "bold",
+                    fontWeight: "700",
                     textTransform: "uppercase",
+                    letterSpacing: "0.1em",
                   }}
                 >
                   Join
@@ -167,56 +171,54 @@ export default function Storefront() {
       </header>
 
       {/* Hero Section */}
-      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "48px 24px 24px" }}>
-        <h1 style={{ fontSize: "36px", fontWeight: "300", color: "#ffffff", margin: 0 }}>
-          Wearable Art &{" "}
-          <span style={{ color: "#fbbf24", fontWeight: "400" }}>
-            Fine Tapestry
-          </span>
+      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "56px 24px 28px" }}>
+        <h1 style={{ fontSize: "42px", fontWeight: "300", color: "#ffffff", margin: 0, letterSpacing: "-0.02em" }}>
+          Wearable Art & <span style={{ fontWeight: "600", color: "#f3f4f6" }}>Fine Tapestry</span>
         </h1>
-        <p style={{ color: "#fde68a", opacity: 0.8, marginTop: "12px", fontSize: "14px" }}>
+        <p style={{ color: "#9ca3af", marginTop: "12px", fontSize: "15px", maxWidth: "600px", lineHeight: "1.6" }}>
           Bespoke tapestry crochet portraiture, structural headwear, and custom textile apparel handcrafted with precision.
         </p>
       </section>
 
-      {/* Categories Bar */}
-      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px 32px" }}>
+      {/* Category Pills */}
+      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px 36px" }}>
         <div
           style={{
             display: "flex",
             gap: "12px",
             overflowX: "auto",
             paddingBottom: "12px",
-            borderBottom: "1px solid #78350f",
+            borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
           }}
         >
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
+              className={selectedCategory === cat ? "" : "glass-pill"}
               style={
                 selectedCategory === cat
                   ? {
-                      backgroundColor: "#f59e0b",
-                      color: "#0f0804",
-                      fontWeight: "bold",
+                      backgroundColor: "#ffffff",
+                      color: "#0a0a0c",
+                      fontWeight: "700",
                       border: "none",
-                      padding: "8px 20px",
+                      padding: "8px 22px",
                       borderRadius: "20px",
                       cursor: "pointer",
-                      fontSize: "12px",
+                      fontSize: "11px",
                       textTransform: "uppercase",
+                      letterSpacing: "0.1em",
                       whiteSpace: "nowrap",
                     }
                   : {
-                      backgroundColor: "#26140a",
-                      color: "#fcd34d",
-                      border: "1px solid #78350f",
-                      padding: "8px 20px",
+                      color: "#d1d5db",
+                      padding: "8px 22px",
                       borderRadius: "20px",
                       cursor: "pointer",
-                      fontSize: "12px",
+                      fontSize: "11px",
                       textTransform: "uppercase",
+                      letterSpacing: "0.1em",
                       whiteSpace: "nowrap",
                     }
               }
@@ -232,33 +234,33 @@ export default function Storefront() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
             gap: "32px",
           }}
         >
           {filteredProducts.map((product) => (
             <div
               key={product.id}
+              className="glass-card"
               style={{
-                backgroundColor: "#1c0f07",
-                border: "1px solid #78350f",
-                borderRadius: "12px",
+                borderRadius: "16px",
                 overflow: "hidden",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
+                transition: "all 0.3s ease",
               }}
             >
               {/* Media Card */}
               <div
                 style={{
-                  backgroundColor: "#0b0603",
+                  backgroundColor: "rgba(0, 0, 0, 0.4)",
                   height: "320px",
                   position: "relative",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  borderBottom: "1px solid #451a03",
+                  borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
                 }}
               >
                 {product.mediaType === "video" ? (
@@ -273,10 +275,9 @@ export default function Storefront() {
                 ) : (
                   <div
                     style={{
-                      color: "#fbbf24",
-                      opacity: 0.5,
+                      color: "#9ca3af",
                       fontSize: "12px",
-                      letterSpacing: "0.1em",
+                      letterSpacing: "0.15em",
                       textTransform: "uppercase",
                     }}
                   >
@@ -286,34 +287,36 @@ export default function Storefront() {
                 <span
                   style={{
                     position: "absolute",
-                    top: "12px",
-                    left: "12px",
-                    backgroundColor: "#140c06",
-                    color: "#fcd34d",
-                    border: "1px solid #78350f",
+                    top: "14px",
+                    left: "14px",
+                    background: "rgba(10, 8, 18, 0.7)",
+                    backdropFilter: "blur(12px)",
+                    color: "#e5e7eb",
+                    border: "1px solid rgba(255, 255, 255, 0.15)",
                     fontSize: "10px",
                     fontWeight: "600",
                     padding: "4px 10px",
-                    borderRadius: "4px",
+                    borderRadius: "6px",
                     textTransform: "uppercase",
+                    letterSpacing: "0.1em",
                   }}
                 >
                   {product.category}
                 </span>
               </div>
 
-              {/* Product Info */}
-              <div style={{ padding: "24px", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+              {/* Product Details */}
+              <div style={{ padding: "24px", flex: 1, display: "flex", flexDirection: "column", justifyBetween: "space-between" }}>
                 <div>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "8px" }}>
                     <h3 style={{ fontSize: "18px", fontWeight: "600", color: "#ffffff", margin: 0 }}>
                       {product.name}
                     </h3>
-                    <span style={{ color: "#fbbf24", fontSize: "14px", fontWeight: "bold" }}>
+                    <span style={{ color: "#e5e7eb", fontSize: "14px", fontWeight: "700" }}>
                       {product.price}
                     </span>
                   </div>
-                  <p style={{ color: "#fde68a", opacity: 0.7, fontSize: "12px", lineHeight: "1.5", margin: 0 }}>
+                  <p style={{ color: "#9ca3af", fontSize: "13px", lineHeight: "1.6", margin: 0 }}>
                     {product.description}
                   </p>
                 </div>
@@ -322,15 +325,17 @@ export default function Storefront() {
                   style={{
                     marginTop: "24px",
                     width: "100%",
-                    padding: "10px",
-                    backgroundColor: "#451a03",
-                    color: "#fde68a",
-                    border: "1px solid #78350f",
-                    borderRadius: "8px",
-                    fontSize: "12px",
-                    fontWeight: "bold",
+                    padding: "12px",
+                    background: "rgba(255, 255, 255, 0.08)",
+                    color: "#ffffff",
+                    border: "1px solid rgba(255, 255, 255, 0.15)",
+                    borderRadius: "10px",
+                    fontSize: "11px",
+                    fontWeight: "700",
                     textTransform: "uppercase",
+                    letterSpacing: "0.15em",
                     cursor: "pointer",
+                    transition: "all 0.2s ease",
                   }}
                 >
                   Inquire / Custom Order
