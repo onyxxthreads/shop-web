@@ -13,7 +13,7 @@ interface Product {
   indexCode: string;
   name: string;
   category: string;
-  type: "shop" | "archive"; // "shop" has prices, "archive" is showcase
+  type: "shop" | "archive";
   price?: string;
   description: string;
   details: string[];
@@ -67,20 +67,151 @@ const PRODUCTS: Product[] = [
     mediaType: "image",
     mediaSrc: "/dromo.jpg",
   },
-
-  // --- CLIENT ARCHIVE & PORTFOLIO GALLERY (Unpriced Showcase) ---
   {
     id: "4",
     indexCode: "04 //",
     name: "Nkrumah Portrait Tapestry",
     category: "Tapestry",
-    type: "archive",
-    description: "Historical gridded tapestry portraiture showcasing Kwame Nkrumah created for a private collector.",
-    details: ["CLIENT COMMISSION", "15,376 STITCHES", "PRIVATE COLLECTION"],
+    type: "shop",
+    price: "Sold",
+    description: "Historical gridded tapestry portraiture showcasing Kwame Nkrumah.",
+    details: ["ARCHIVED PIECE", "15,376 STITCHES", "PRIVATE COLLECTION"],
     materials: "Milk Cotton",
     status: "archived",
     mediaType: "image",
     mediaSrc: "/nkrumah.jpg",
+  },
+
+  // --- CLIENT ARCHIVE & GALLERY (Unpriced Showcase) ---
+  {
+    id: "5",
+    indexCode: "05 //",
+    name: "Balaclava Piece 01",
+    category: "Hats",
+    type: "archive",
+    description: "Custom handcrafted balaclava showcase piece.",
+    details: ["CUSTOM COMMISSION", "STRUCTURAL FIT"],
+    materials: "Milk Cotton",
+    status: "archived",
+    mediaType: "image",
+    mediaSrc: "/bala 1.jpg",
+  },
+  {
+    id: "6",
+    indexCode: "06 //",
+    name: "Balaclava Piece 02",
+    category: "Hats",
+    type: "archive",
+    description: "Detailed angle of custom balaclava work.",
+    details: ["ARCHIVAL GALLERY", "HANDCRAFTED"],
+    materials: "Milk Cotton",
+    status: "archived",
+    mediaType: "image",
+    mediaSrc: "/bala 2.jpg",
+  },
+  {
+    id: "7",
+    indexCode: "07 //",
+    name: "Cross Motif Art 01",
+    category: "Tapestry",
+    type: "archive",
+    description: "Tapestry colorwork study featuring intricate cross iconography.",
+    details: ["HIGH-DENSITY COLORWORK", "FINE ART"],
+    materials: "Milk Cotton",
+    status: "archived",
+    mediaType: "image",
+    mediaSrc: "/cross 1.jpg",
+  },
+  {
+    id: "8",
+    indexCode: "08 //",
+    name: "Cross Motif Art 02",
+    category: "Tapestry",
+    type: "archive",
+    description: "Alternate perspective of cross iconography tapestry.",
+    details: ["TEXTURED WEAVE", "GALLERY SHOWCASE"],
+    materials: "Milk Cotton",
+    status: "archived",
+    mediaType: "image",
+    mediaSrc: "/cross 2.jpg",
+  },
+  {
+    id: "9",
+    indexCode: "09 //",
+    name: "Dog Portrait Tapestry 01",
+    category: "Tapestry",
+    type: "archive",
+    description: "Custom gridded animal portraiture commission.",
+    details: ["PORTRAIT CROCHET", "CLIENT COMMISSION"],
+    materials: "Milk Cotton",
+    status: "archived",
+    mediaType: "image",
+    mediaSrc: "/dog 1.jpg",
+  },
+  {
+    id: "10",
+    indexCode: "10 //",
+    name: "Dog Portrait Tapestry 02",
+    category: "Tapestry",
+    type: "archive",
+    description: "Textural detail of custom portraiture.",
+    details: ["HIGH-FIDELITY GRID", "ARCHIVED"],
+    materials: "Milk Cotton",
+    status: "archived",
+    mediaType: "image",
+    mediaSrc: "/dog 2.jpg",
+  },
+  {
+    id: "11",
+    indexCode: "11 //",
+    name: "Flame Motif Piece 01",
+    category: "Tapestry",
+    type: "archive",
+    description: "Dynamic flame colorwork tapestry design.",
+    details: ["BESPOKE PALETTE", "GRAPHIC WEAVE"],
+    materials: "Milk Cotton",
+    status: "archived",
+    mediaType: "image",
+    mediaSrc: "/flame 1.jpg",
+  },
+  {
+    id: "12",
+    indexCode: "12 //",
+    name: "Flame Motif Piece 02",
+    category: "Tapestry",
+    type: "archive",
+    description: "Detailed view of flame colorwork structure.",
+    details: ["CUSTOM ARTWORK", "GALLERY PIECE"],
+    materials: "Milk Cotton",
+    status: "archived",
+    mediaType: "image",
+    mediaSrc: "/flame 2.jpg",
+  },
+  {
+    id: "13",
+    indexCode: "13 //",
+    name: "Arcade Motif 01",
+    category: "Tapestry",
+    type: "archive",
+    description: "Retro pop-culture grid tapestry portraiture.",
+    details: ["PIXEL COLORWORK", "CLIENT WORK"],
+    materials: "Milk Cotton",
+    status: "archived",
+    mediaType: "image",
+    mediaSrc: "/pacman 1.jpg",
+  },
+  {
+    id: "14",
+    indexCode: "14 //",
+    name: "Arcade Motif 02",
+    category: "Tapestry",
+    type: "archive",
+    description: "Alternate framing of arcade pixel tapestry.",
+    details: ["ARCHIVED GALLERY", "CUSTOM WEAVE"],
+    materials: "Milk Cotton",
+    status: "archived",
+    mediaType: "image",
+    mediaSrc: "/pacman 2.jpg",
   },
 ];
 
@@ -103,7 +234,6 @@ export default function Storefront() {
 
   const categories = ["All", "Tapestry", "Hats", "Dress", "Tops", "Bottoms"];
 
-  // Filter products by tab (Shop vs Archive) and by category
   const currentTabProducts = PRODUCTS.filter((p) => p.type === activeTab);
   const filteredProducts =
     selectedCategory === "All"
