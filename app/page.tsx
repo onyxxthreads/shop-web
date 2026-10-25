@@ -306,7 +306,15 @@ export default function Storefront() {
               </div>
 
               {/* Product Details */}
-              <div style={{ padding: "24px", flex: 1, display: "flex", flexDirection: "column", justifyBetween: "space-between" }}>
+              <div
+                style={{
+                  padding: "24px",
+                  flex: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
                 <div>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "8px" }}>
                     <h3 style={{ fontSize: "18px", fontWeight: "600", color: "#ffffff", margin: 0 }}>
