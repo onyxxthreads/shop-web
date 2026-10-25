@@ -16,6 +16,8 @@ interface Product {
   description: string;
   mediaType: "image" | "video";
   mediaSrc: string;
+  neonBorder: string;
+  glowColor: string;
 }
 
 const PRODUCTS: Product[] = [
@@ -27,6 +29,8 @@ const PRODUCTS: Product[] = [
     description: "Custom tapestry crochet bucket hat with structural multi-yarn weave.",
     mediaType: "video",
     mediaSrc: "/trinity-hat.mp4",
+    neonBorder: "hover:border-fuchsia-500",
+    glowColor: "shadow-fuchsia-500/20",
   },
   {
     id: "2",
@@ -36,6 +40,8 @@ const PRODUCTS: Product[] = [
     description: "Handcrafted structured brim with bespoke geometric colorwork.",
     mediaType: "image",
     mediaSrc: "/ewia-kete.jpg",
+    neonBorder: "hover:border-cyan-400",
+    glowColor: "shadow-cyan-400/20",
   },
   {
     id: "3",
@@ -45,6 +51,8 @@ const PRODUCTS: Product[] = [
     description: "15,376-stitch fine art gridded tapestry portraiture featuring Kwame Nkrumah.",
     mediaType: "image",
     mediaSrc: "/koro.jpg",
+    neonBorder: "hover:border-amber-400",
+    glowColor: "shadow-amber-400/20",
   },
   {
     id: "4",
@@ -54,6 +62,8 @@ const PRODUCTS: Product[] = [
     description: "Form-fitting wearable textile art crafted with milk cotton.",
     mediaType: "image",
     mediaSrc: "/aura-dress.jpg",
+    neonBorder: "hover:border-purple-500",
+    glowColor: "shadow-purple-500/20",
   },
 ];
 
@@ -69,34 +79,34 @@ export default function Storefront() {
       : PRODUCTS.filter((p) => p.category === selectedCategory);
 
   return (
-    <main className="min-h-screen bg-neutral-950 text-neutral-100 font-sans">
-      {/* Top Announcement Bar */}
-      <div className="bg-neutral-900 border-b border-neutral-800 text-center py-2 text-xs font-medium tracking-widest text-neutral-400 uppercase">
-        Custom Commissions Open • Worldwide Shipping Available
+    <main className="min-h-screen bg-slate-950 text-slate-100 font-mono synthwave-grid relative selection:bg-fuchsia-500 selection:text-white">
+      {/* Top Synthwave Banner */}
+      <div className="bg-gradient-to-r from-fuchsia-900 via-purple-900 to-cyan-900 border-b border-fuchsia-500/40 text-center py-2 text-xs font-bold tracking-widest text-cyan-300 uppercase neon-text-cyan">
+        ⚡ SYNTHWAVE COLLECTION // COMMISSIONS OPEN // WORLDWIDE SHIPPING ⚡
       </div>
 
-      {/* Main Header / Navigation */}
-      <header className="sticky top-0 z-50 backdrop-blur-md bg-neutral-950/80 border-b border-neutral-800/80 px-6 py-4 flex items-center justify-between">
+      {/* Main Header */}
+      <header className="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/80 border-b border-fuchsia-500/30 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <span className="text-xl font-black tracking-widest text-white">
-            ONYXX THREADS
+          <span className="text-2xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-500 via-pink-400 to-cyan-400 neon-text-pink uppercase">
+            ONYXX_THREADS
           </span>
         </div>
 
-        {/* Authentication Actions */}
+        {/* Clerk Authentication Header */}
         <div className="flex items-center gap-4">
           {!isLoaded ? (
-            <div className="h-8 w-20 bg-neutral-900 animate-pulse rounded-md" />
+            <div className="h-8 w-20 bg-slate-900 animate-pulse rounded border border-fuchsia-500/20" />
           ) : !isSignedIn ? (
             <>
               <SignInButton mode="modal">
-                <button className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-neutral-300 hover:text-white transition">
-                  Sign In
+                <button className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-cyan-400 hover:text-cyan-200 transition">
+                  [Sign In]
                 </button>
               </SignInButton>
               <SignUpButton mode="modal">
-                <button className="px-4 py-2 text-xs font-semibold uppercase tracking-wider bg-white text-neutral-950 hover:bg-neutral-200 rounded-md transition">
-                  Join
+                <button className="px-4 py-2 text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-fuchsia-600 to-pink-500 hover:from-fuchsia-500 hover:to-pink-400 text-white rounded transition shadow-lg shadow-fuchsia-500/30 border border-fuchsia-400">
+                  Join Grid
                 </button>
               </SignUpButton>
             </>
@@ -107,26 +117,26 @@ export default function Storefront() {
       </header>
 
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-6 pt-12 pb-8 text-center sm:text-left">
-        <h1 className="text-4xl sm:text-5xl font-light tracking-tight text-white">
-          Wearable Art & Fine Tapestry
+      <section className="max-w-7xl mx-auto px-6 pt-12 pb-8">
+        <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white uppercase">
+          WEARABLE ART <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-500 neon-text-cyan">// TAPESTRY</span>
         </h1>
-        <p className="mt-3 text-neutral-400 max-w-2xl text-sm sm:text-base leading-relaxed">
-          Bespoke tapestry crochet portraiture, structural headwear, and custom textile apparel handcrafted with precision.
+        <p className="mt-3 text-cyan-200/70 max-w-2xl text-xs sm:text-sm leading-relaxed tracking-wide uppercase">
+          Handcrafted tapestry crochet portraiture, structural headwear, and bespoke textile artifacts engineered in high density.
         </p>
       </section>
 
-      {/* Category Filter Bar */}
+      {/* Category Filter Pills */}
       <section className="max-w-7xl mx-auto px-6 mb-10">
-        <div className="flex gap-2 overflow-x-auto pb-2 border-b border-neutral-800 scrollbar-none">
+        <div className="flex gap-3 overflow-x-auto pb-2 border-b border-fuchsia-500/20 scrollbar-none">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-5 py-2 text-xs font-semibold tracking-wider uppercase rounded-full transition whitespace-nowrap ${
+              className={`px-5 py-2 text-xs font-bold tracking-widest uppercase transition whitespace-nowrap rounded ${
                 selectedCategory === cat
-                  ? "bg-white text-neutral-950"
-                  : "bg-neutral-900 text-neutral-400 hover:bg-neutral-800 hover:text-neutral-200"
+                  ? "bg-fuchsia-600 text-white border border-fuchsia-400 shadow-lg shadow-fuchsia-500/50 neon-text-pink"
+                  : "bg-slate-900/80 text-cyan-400 hover:bg-slate-800 border border-cyan-500/30 hover:border-cyan-400"
               }`}
             >
               {cat}
@@ -135,16 +145,16 @@ export default function Storefront() {
         </div>
       </section>
 
-      {/* Product Catalog Grid */}
+      {/* Synthwave Product Grid */}
       <section className="max-w-7xl mx-auto px-6 pb-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProducts.map((product) => (
             <div
               key={product.id}
-              className="group bg-neutral-900/50 border border-neutral-800 rounded-xl overflow-hidden hover:border-neutral-700 transition duration-300 flex flex-col justify-between"
+              className={`group bg-slate-900/90 border border-slate-800 ${product.neonBorder} transition duration-300 rounded-lg overflow-hidden shadow-2xl ${product.glowColor} hover:shadow-2xl flex flex-col justify-between`}
             >
               {/* Media Container */}
-              <div className="relative w-full h-80 bg-neutral-950 overflow-hidden flex items-center justify-center">
+              <div className="relative w-full h-80 bg-slate-950 overflow-hidden flex items-center justify-center border-b border-slate-800">
                 {product.mediaType === "video" ? (
                   <video
                     src={product.mediaSrc}
@@ -152,36 +162,36 @@ export default function Storefront() {
                     loop
                     muted
                     playsInline
-                    className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                    className="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90 group-hover:opacity-100"
                   />
                 ) : (
-                  <div className="w-full h-full bg-neutral-900 flex items-center justify-center text-neutral-600 text-xs tracking-widest uppercase">
-                    {product.name} Preview
+                  <div className="w-full h-full flex items-center justify-center text-cyan-500/40 text-xs tracking-widest uppercase">
+                    [{product.name} Display]
                   </div>
                 )}
-                <span className="absolute top-3 left-3 bg-neutral-950/80 backdrop-blur-md text-neutral-300 text-[10px] font-semibold tracking-widest uppercase px-2.5 py-1 rounded border border-neutral-800">
+                <span className="absolute top-3 left-3 bg-slate-950/90 text-fuchsia-400 text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 rounded border border-fuchsia-500/40 shadow-sm">
                   {product.category}
                 </span>
               </div>
 
               {/* Info Container */}
-              <div className="p-6 flex-1 flex flex-col justify-between">
+              <div className="p-6 flex-1 flex flex-col justify-between bg-slate-900/60">
                 <div>
                   <div className="flex justify-between items-baseline mb-2">
-                    <h3 className="text-lg font-medium text-white group-hover:text-neutral-200 transition">
+                    <h3 className="text-lg font-bold text-white group-hover:text-cyan-300 transition tracking-wide uppercase">
                       {product.name}
                     </h3>
-                    <span className="text-sm font-semibold text-neutral-300">
+                    <span className="text-sm font-bold text-fuchsia-400 neon-text-pink">
                       {product.price}
                     </span>
                   </div>
-                  <p className="text-xs text-neutral-400 leading-relaxed">
+                  <p className="text-xs text-slate-400 leading-relaxed font-sans">
                     {product.description}
                   </p>
                 </div>
 
-                <button className="mt-6 w-full py-2.5 bg-neutral-800 hover:bg-neutral-700 text-white text-xs font-semibold tracking-wider uppercase rounded-lg transition">
-                  Inquire / Custom Order
+                <button className="mt-6 w-full py-2.5 bg-gradient-to-r from-cyan-500/20 via-fuchsia-500/20 to-cyan-500/20 hover:from-cyan-500 hover:to-fuchsia-500 text-cyan-300 hover:text-white text-xs font-bold tracking-widest uppercase border border-cyan-500/50 hover:border-fuchsia-400 rounded transition duration-200 shadow-md">
+                  Acquire Piece
                 </button>
               </div>
             </div>
