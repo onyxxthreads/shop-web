@@ -10,6 +10,7 @@ import {
 
 interface Product {
   id: string;
+  indexCode: string;
   name: string;
   category: string;
   price: string;
@@ -24,11 +25,12 @@ interface Product {
 const PRODUCTS: Product[] = [
   {
     id: "1",
+    indexCode: "01 //",
     name: "Trinity Hat",
     category: "Hats",
     price: "GHC 400",
-    description: "Custom tapestry crochet bucket hat with structural multi-yarn weave. Can be made in any color of choice.",
-    details: ["CUSTOM PALETTE", "STRUCTURAL WEAVE", "HANDCRAFTED FIT"],
+    description: "Custom tapestry crochet bucket hat with structural multi-yarn weave.",
+    details: ["BESPOKE PALETTE", "STRUCTURAL WEAVE", "HANDCRAFTED FIT"],
     materials: "Milk Cotton & Specialty Yarns",
     status: "available",
     mediaType: "video",
@@ -36,11 +38,12 @@ const PRODUCTS: Product[] = [
   },
   {
     id: "2",
+    indexCode: "02 //",
     name: "Ewia Kete Hat",
     category: "Hats",
     price: "GHC 350",
     description: "Handcrafted structured brim with bespoke geometric colorwork.",
-    details: ["BESPOKE GEOMETRIC", "REINFORCED BRIM", "COMFORT FIT"],
+    details: ["GEOMETRIC PATTERN", "REINFORCED BRIM", "COMFORT FIT"],
     materials: "4-ply Milk Cotton",
     status: "available",
     mediaType: "image",
@@ -48,11 +51,12 @@ const PRODUCTS: Product[] = [
   },
   {
     id: "3",
+    indexCode: "03 //",
     name: "Dromo Tapestry Piece",
     category: "Tapestry",
     price: "Inquire for Pricing",
-    description: "Fine art tapestry Jesus piece featuring high-density textural colorwork.",
-    details: ["FINE ART TAPESTRY", "HIGH-DENSITY COLORWORK", "WALL-MOUNT CANVAS"],
+    description: "Fine art tapestry portrait featuring high-density textural colorwork.",
+    details: ["FINE ART TAPESTRY", "HIGH-DENSITY COLORWORK", "CANVAS FINISH"],
     materials: "Milk Cotton & Bouclé",
     status: "available",
     mediaType: "image",
@@ -60,6 +64,7 @@ const PRODUCTS: Product[] = [
   },
   {
     id: "4",
+    indexCode: "04 //",
     name: "Nkrumah Portrait Tapestry",
     category: "Tapestry",
     price: "Sold",
@@ -132,33 +137,32 @@ export default function Storefront() {
   };
 
   return (
-    <div className="kinetic-bg cyber-matrix" style={{ minHeight: "100vh", color: "#f3f4f6", width: "100%", position: "relative" }}>
-      {/* Top Banner */}
+    <div style={{ minHeight: "100vh", backgroundColor: "#050507", color: "#f3f4f6", width: "100%", position: "relative" }}>
+      {/* Editorial Announcement Banner */}
       <div
         style={{
-          background: "rgba(0, 240, 255, 0.05)",
-          borderBottom: "1px solid rgba(0, 240, 255, 0.2)",
-          color: "#00f0ff",
+          background: "rgba(255, 255, 255, 0.03)",
+          borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+          color: "#e5e7eb",
           textAlign: "center",
           padding: "10px 16px",
           fontSize: "11px",
           fontWeight: "600",
-          letterSpacing: "0.2em",
+          letterSpacing: "0.25em",
           textTransform: "uppercase",
           fontFamily: "monospace",
-          textShadow: "0 0 8px rgba(0, 240, 255, 0.5)",
         }}
       >
-        ⚡ SYSTEM // CUSTOM COMMISSIONS OPEN • WORLDWIDE SHIPPING AVAILABLE ⚡
+        COMMISSIONS OPEN • WORLDWIDE SHIPPING AVAILABLE
       </div>
 
       {/* Navigation Header */}
       <header
         style={{
-          background: "rgba(10, 8, 20, 0.85)",
+          background: "rgba(5, 5, 7, 0.85)",
           backdropFilter: "blur(20px)",
-          borderBottom: "1px solid rgba(0, 240, 255, 0.2)",
-          padding: "18px 28px",
+          borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+          padding: "20px 32px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -169,25 +173,23 @@ export default function Storefront() {
       >
         <span
           style={{
-            fontSize: "22px",
+            fontSize: "20px",
             fontWeight: "900",
-            letterSpacing: "0.25em",
+            letterSpacing: "0.3em",
             color: "#ffffff",
-            textShadow: "0 0 10px rgba(0, 240, 255, 0.6)",
             fontFamily: "monospace",
           }}
         >
-          ONYXX_THREADS//
+          ONYXX THREADS
         </span>
 
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           {!isLoaded ? (
             <div
               style={{
-                backgroundColor: "rgba(0, 240, 255, 0.1)",
+                backgroundColor: "rgba(255, 255, 255, 0.1)",
                 height: "32px",
                 width: "80px",
-                borderRadius: "6px",
               }}
             />
           ) : !isSignedIn ? (
@@ -195,7 +197,7 @@ export default function Storefront() {
               <SignInButton mode="modal">
                 <button
                   style={{
-                    color: "#00f0ff",
+                    color: "#9ca3af",
                     background: "none",
                     border: "none",
                     padding: "8px 12px",
@@ -203,7 +205,7 @@ export default function Storefront() {
                     fontSize: "11px",
                     fontWeight: "600",
                     textTransform: "uppercase",
-                    letterSpacing: "0.1em",
+                    letterSpacing: "0.15em",
                     fontFamily: "monospace",
                   }}
                 >
@@ -212,13 +214,9 @@ export default function Storefront() {
               </SignInButton>
               <SignUpButton mode="modal">
                 <button
-                  className="cyber-hud-btn"
+                  className="noir-btn"
                   style={{
                     padding: "8px 18px",
-                    cursor: "pointer",
-                    fontSize: "11px",
-                    fontWeight: "700",
-                    textTransform: "uppercase",
                   }}
                 >
                   Join
@@ -232,51 +230,34 @@ export default function Storefront() {
       </header>
 
       {/* Hero Section */}
-      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "56px 24px 28px" }}>
-        <h1 style={{ fontSize: "42px", fontWeight: "300", color: "#ffffff", margin: 0, letterSpacing: "-0.02em" }}>
-          Wearable Art & <span style={{ fontWeight: "700", color: "#00f0ff", textShadow: "0 0 12px rgba(0, 240, 255, 0.5)" }}>Fine Tapestry</span>
+      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "64px 24px 32px" }}>
+        <span style={{ fontSize: "11px", fontFamily: "monospace", letterSpacing: "0.25em", color: "#6b7280", textTransform: "uppercase" }}>
+          BESPOKE FIBER ART & WEARABLE COUTURE
+        </span>
+        <h1 style={{ fontSize: "44px", fontWeight: "300", color: "#ffffff", margin: "12px 0 0 0", letterSpacing: "-0.03em", lineHeight: "1.15" }}>
+          Tactile Tapestry Portraiture & <span style={{ fontWeight: "600", color: "#ffffff" }}>Structural Garments</span>
         </h1>
-        <p style={{ color: "#9ca3af", marginTop: "12px", fontSize: "15px", maxWidth: "600px", lineHeight: "1.6" }}>
-          Bespoke tapestry crochet portraiture, structural headwear, and custom textile apparel handcrafted with cyber-level precision.
+        <p style={{ color: "#9ca3af", marginTop: "16px", fontSize: "15px", maxWidth: "600px", lineHeight: "1.7" }}>
+          Handcrafted in Ghana using dense multi-yarn weaves, high-fidelity colorwork grids, and architectural silhouettes.
         </p>
       </section>
 
-      {/* Category Pills */}
-      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px 36px" }}>
+      {/* Category Filter Bar */}
+      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px 40px" }}>
         <div
           style={{
             display: "flex",
             gap: "12px",
             overflowX: "auto",
             paddingBottom: "12px",
-            borderBottom: "1px solid rgba(0, 240, 255, 0.15)",
+            borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
           }}
         >
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={selectedCategory === cat ? "cyber-hud-btn" : "glass-pill"}
-              style={
-                selectedCategory === cat
-                  ? {
-                      padding: "8px 22px",
-                      cursor: "pointer",
-                      fontSize: "11px",
-                      textTransform: "uppercase",
-                      whiteSpace: "nowrap",
-                    }
-                  : {
-                      color: "#9ca3af",
-                      padding: "8px 22px",
-                      borderRadius: "20px",
-                      cursor: "pointer",
-                      fontSize: "11px",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.1em",
-                      whiteSpace: "nowrap",
-                    }
-              }
+              className={selectedCategory === cat ? "noir-pill-active" : "noir-pill"}
             >
               {cat}
             </button>
@@ -285,18 +266,18 @@ export default function Storefront() {
       </section>
 
       {/* Product Catalog Grid */}
-      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px 80px" }}>
+      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px 96px" }}>
         <div
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
-            gap: "32px",
+            gap: "36px",
           }}
         >
           {filteredProducts.map((product) => (
             <div
               key={product.id}
-              className="cyber-hud-card"
+              className="noir-card"
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -304,16 +285,16 @@ export default function Storefront() {
                 opacity: product.status === "sold" ? 0.75 : 1,
               }}
             >
-              {/* Media Card */}
+              {/* Media Container */}
               <div
                 style={{
-                  backgroundColor: "rgba(0, 0, 0, 0.6)",
-                  height: "340px",
+                  backgroundColor: "#000000",
+                  height: "360px",
                   position: "relative",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  borderBottom: "1px solid rgba(0, 240, 255, 0.2)",
+                  borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
                   overflow: "hidden",
                 }}
               >
@@ -334,7 +315,7 @@ export default function Storefront() {
                   />
                 )}
 
-                {/* Badges */}
+                {/* Index & Category Tags */}
                 <div
                   style={{
                     position: "absolute",
@@ -342,36 +323,46 @@ export default function Storefront() {
                     left: "14px",
                     display: "flex",
                     gap: "8px",
+                    alignItems: "center",
                   }}
                 >
                   <span
-                    className="cyber-tag"
                     style={{
+                      fontFamily: "monospace",
+                      fontSize: "11px",
+                      fontWeight: "700",
+                      color: "#ffffff",
+                      background: "rgba(5, 5, 7, 0.8)",
+                      padding: "4px 8px",
+                      border: "1px solid rgba(255, 255, 255, 0.15)",
+                    }}
+                  >
+                    {product.indexCode}
+                  </span>
+                  <span className="noir-tag">
+                    {product.category}
+                  </span>
+                </div>
+
+                {product.status === "sold" && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "14px",
+                      right: "14px",
+                      background: "rgba(185, 28, 28, 0.9)",
+                      color: "#ffffff",
+                      fontFamily: "monospace",
                       fontSize: "10px",
-                      fontWeight: "600",
+                      fontWeight: "700",
                       padding: "4px 10px",
+                      letterSpacing: "0.15em",
                       textTransform: "uppercase",
                     }}
                   >
-                    {product.category}
-                  </span>
-                  {product.status === "sold" && (
-                    <span
-                      style={{
-                        background: "rgba(255, 0, 85, 0.85)",
-                        color: "#ffffff",
-                        fontSize: "10px",
-                        fontWeight: "700",
-                        padding: "4px 10px",
-                        textTransform: "uppercase",
-                        letterSpacing: "0.1em",
-                        fontFamily: "monospace",
-                      }}
-                    >
-                      ARCHIVED // SOLD
-                    </span>
-                  )}
-                </div>
+                    ARCHIVED
+                  </div>
+                )}
               </div>
 
               {/* Product Details */}
@@ -389,7 +380,7 @@ export default function Storefront() {
                     <h3 style={{ fontSize: "18px", fontWeight: "600", color: "#ffffff", margin: 0 }}>
                       {product.name}
                     </h3>
-                    <span style={{ color: product.status === "sold" ? "#9ca3af" : "#00f0ff", fontSize: "14px", fontWeight: "700", fontFamily: "monospace" }}>
+                    <span style={{ color: product.status === "sold" ? "#6b7280" : "#ffffff", fontSize: "14px", fontWeight: "700", fontFamily: "monospace" }}>
                       {product.price}
                     </span>
                   </div>
@@ -397,20 +388,13 @@ export default function Storefront() {
                     {product.description}
                   </p>
 
-                  <div style={{ marginBottom: "16px" }}>
-                    <div style={{ fontSize: "11px", color: "#00f0ff", fontWeight: "600", marginBottom: "6px", fontFamily: "monospace" }}>
-                      🧵 SPEC // {product.materials}
+                  <div style={{ marginBottom: "20px" }}>
+                    <div style={{ fontSize: "11px", color: "#d1d5db", fontWeight: "600", marginBottom: "8px", fontFamily: "monospace", letterSpacing: "0.1em" }}>
+                      SPEC // {product.materials}
                     </div>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
                       {product.details.map((detail, idx) => (
-                        <span
-                          key={idx}
-                          className="cyber-tag"
-                          style={{
-                            fontSize: "10px",
-                            padding: "3px 8px",
-                          }}
-                        >
+                        <span key={idx} className="noir-tag">
                           {detail}
                         </span>
                       ))}
@@ -421,16 +405,13 @@ export default function Storefront() {
                 <button
                   disabled={product.status === "sold"}
                   onClick={() => handleOpenModal(product)}
-                  className={product.status === "sold" ? "" : "cyber-hud-btn"}
+                  className={product.status === "sold" ? "" : "noir-btn"}
                   style={{
                     width: "100%",
-                    padding: "12px",
+                    padding: "14px",
                     background: product.status === "sold" ? "rgba(255, 255, 255, 0.02)" : undefined,
                     color: product.status === "sold" ? "#4b5563" : undefined,
                     border: product.status === "sold" ? "1px solid rgba(255, 255, 255, 0.08)" : undefined,
-                    fontSize: "11px",
-                    fontWeight: "700",
-                    textTransform: "uppercase",
                     cursor: product.status === "sold" ? "not-allowed" : "pointer",
                   }}
                 >
@@ -451,8 +432,8 @@ export default function Storefront() {
             left: 0,
             width: "100vw",
             height: "100vh",
-            backgroundColor: "rgba(0, 0, 0, 0.85)",
-            backdropFilter: "blur(16px)",
+            backgroundColor: "rgba(0, 0, 0, 0.88)",
+            backdropFilter: "blur(20px)",
             zIndex: 100,
             display: "flex",
             alignItems: "center",
@@ -461,13 +442,14 @@ export default function Storefront() {
           }}
         >
           <div
-            className="cyber-hud-card"
+            className="noir-card"
             style={{
               width: "100%",
               maxWidth: "520px",
-              padding: "32px",
+              padding: "36px",
               position: "relative",
-              boxShadow: "0 20px 50px rgba(0,0,0,0.8)",
+              border: "1px solid rgba(255, 255, 255, 0.2)",
+              boxShadow: "0 30px 60px rgba(0,0,0,0.9)",
             }}
           >
             {/* Close Button */}
@@ -479,10 +461,9 @@ export default function Storefront() {
                 right: "20px",
                 background: "none",
                 border: "none",
-                color: "#00f0ff",
+                color: "#9ca3af",
                 fontSize: "20px",
                 cursor: "pointer",
-                fontFamily: "monospace",
               }}
             >
               ✕
@@ -490,53 +471,49 @@ export default function Storefront() {
 
             {submitted ? (
               <div style={{ textAlign: "center", padding: "20px 0" }}>
-                <div style={{ fontSize: "40px", marginBottom: "12px" }}>⚡</div>
-                <h3 style={{ fontSize: "22px", color: "#ffffff", fontWeight: "600", marginBottom: "8px", fontFamily: "monospace" }}>
-                  OPENING WHATSAPP...
+                <div style={{ fontSize: "36px", marginBottom: "12px" }}>💬</div>
+                <h3 style={{ fontSize: "20px", color: "#ffffff", fontWeight: "600", marginBottom: "8px", fontFamily: "monospace", letterSpacing: "0.1em" }}>
+                  OPENING WHATSAPP
                 </h3>
                 <p style={{ color: "#9ca3af", fontSize: "14px", lineHeight: "1.6", marginBottom: "24px" }}>
-                  Your commission details for <strong>{inquiryProduct.name}</strong> have been formatted into a message and redirected to WhatsApp Business.
+                  Your commission details for <strong>{inquiryProduct.name}</strong> have been formatted and directed to WhatsApp Business.
                 </p>
                 <button
                   onClick={handleCloseModal}
-                  className="cyber-hud-btn"
+                  className="noir-btn"
                   style={{
-                    padding: "10px 24px",
-                    fontWeight: "700",
-                    fontSize: "12px",
-                    cursor: "pointer",
-                    textTransform: "uppercase",
+                    padding: "12px 28px",
                   }}
                 >
-                  CLOSE TERMINAL
+                  CLOSE WINDOW
                 </button>
               </div>
             ) : (
               <form onSubmit={handleSubmitInquiry}>
-                <div style={{ marginBottom: "20px" }}>
+                <div style={{ marginBottom: "24px" }}>
                   <span
                     style={{
                       fontSize: "10px",
                       fontWeight: "700",
                       textTransform: "uppercase",
-                      letterSpacing: "0.15em",
-                      color: "#00f0ff",
+                      letterSpacing: "0.2em",
+                      color: "#6b7280",
                       fontFamily: "monospace",
                     }}
                   >
-                    COMMISSION_REQUEST // SYSTEM
+                    COMMISSION INQUIRY // {inquiryProduct.indexCode}
                   </span>
                   <h2 style={{ fontSize: "24px", color: "#ffffff", fontWeight: "600", margin: "4px 0 0 0" }}>
                     {inquiryProduct.name}
                   </h2>
                   <p style={{ color: "#d1d5db", fontSize: "13px", marginTop: "4px", fontFamily: "monospace" }}>
-                    PRICE: <span style={{ fontWeight: "700", color: "#00f0ff" }}>{inquiryProduct.price}</span>
+                    PRICE: <span style={{ fontWeight: "700", color: "#ffffff" }}>{inquiryProduct.price}</span>
                   </p>
                 </div>
 
                 {/* Name */}
-                <div style={{ marginBottom: "16px" }}>
-                  <label style={{ display: "block", fontSize: "11px", color: "#00f0ff", marginBottom: "6px", textTransform: "uppercase", fontFamily: "monospace" }}>
+                <div style={{ marginBottom: "18px" }}>
+                  <label style={{ display: "block", fontSize: "10px", color: "#9ca3af", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.15em", fontFamily: "monospace" }}>
                     YOUR NAME
                   </label>
                   <input
@@ -548,19 +525,18 @@ export default function Storefront() {
                     style={{
                       width: "100%",
                       padding: "12px",
-                      background: "rgba(0, 240, 255, 0.05)",
-                      border: "1px solid rgba(0, 240, 255, 0.2)",
+                      background: "rgba(255, 255, 255, 0.04)",
+                      border: "1px solid rgba(255, 255, 255, 0.15)",
                       color: "#ffffff",
                       fontSize: "13px",
                       outline: "none",
-                      fontFamily: "monospace",
                     }}
                   />
                 </div>
 
                 {/* Contact */}
-                <div style={{ marginBottom: "16px" }}>
-                  <label style={{ display: "block", fontSize: "11px", color: "#00f0ff", marginBottom: "6px", textTransform: "uppercase", fontFamily: "monospace" }}>
+                <div style={{ marginBottom: "18px" }}>
+                  <label style={{ display: "block", fontSize: "10px", color: "#9ca3af", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.15em", fontFamily: "monospace" }}>
                     EMAIL / PHONE CONTACT
                   </label>
                   <input
@@ -572,59 +548,56 @@ export default function Storefront() {
                     style={{
                       width: "100%",
                       padding: "12px",
-                      background: "rgba(0, 240, 255, 0.05)",
-                      border: "1px solid rgba(0, 240, 255, 0.2)",
+                      background: "rgba(255, 255, 255, 0.04)",
+                      border: "1px solid rgba(255, 255, 255, 0.15)",
                       color: "#ffffff",
                       fontSize: "13px",
                       outline: "none",
-                      fontFamily: "monospace",
                     }}
                   />
                 </div>
 
                 {/* Custom Colors */}
-                <div style={{ marginBottom: "16px" }}>
-                  <label style={{ display: "block", fontSize: "11px", color: "#00f0ff", marginBottom: "6px", textTransform: "uppercase", fontFamily: "monospace" }}>
-                    PREFERRED COLORS / SIZING (OPTIONAL)
+                <div style={{ marginBottom: "18px" }}>
+                  <label style={{ display: "block", fontSize: "10px", color: "#9ca3af", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.15em", fontFamily: "monospace" }}>
+                    PREFERRED PALETTE / SIZING (OPTIONAL)
                   </label>
                   <input
                     type="text"
                     value={formData.customColors}
                     onChange={(e) => setFormData({ ...formData, customColors: e.target.value })}
-                    placeholder="e.g. Neon Magenta, High-contrast, Custom dimensions"
+                    placeholder="e.g. Monochromatic, Custom dimensions"
                     style={{
                       width: "100%",
                       padding: "12px",
-                      background: "rgba(0, 240, 255, 0.05)",
-                      border: "1px solid rgba(0, 240, 255, 0.2)",
+                      background: "rgba(255, 255, 255, 0.04)",
+                      border: "1px solid rgba(255, 255, 255, 0.15)",
                       color: "#ffffff",
                       fontSize: "13px",
                       outline: "none",
-                      fontFamily: "monospace",
                     }}
                   />
                 </div>
 
                 {/* Project Details */}
-                <div style={{ marginBottom: "24px" }}>
-                  <label style={{ display: "block", fontSize: "11px", color: "#00f0ff", marginBottom: "6px", textTransform: "uppercase", fontFamily: "monospace" }}>
+                <div style={{ marginBottom: "28px" }}>
+                  <label style={{ display: "block", fontSize: "10px", color: "#9ca3af", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.15em", fontFamily: "monospace" }}>
                     PROJECT NOTES & CONCEPT DETAILS
                   </label>
                   <textarea
                     rows={3}
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                    placeholder="Share any specific requests, timeline, or design ideas..."
+                    placeholder="Share specific requests or design ideas..."
                     style={{
                       width: "100%",
                       padding: "12px",
-                      background: "rgba(0, 240, 255, 0.05)",
-                      border: "1px solid rgba(0, 240, 255, 0.2)",
+                      background: "rgba(255, 255, 255, 0.04)",
+                      border: "1px solid rgba(255, 255, 255, 0.15)",
                       color: "#ffffff",
                       fontSize: "13px",
                       outline: "none",
                       resize: "none",
-                      fontFamily: "monospace",
                     }}
                   />
                 </div>
@@ -632,14 +605,10 @@ export default function Storefront() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="cyber-hud-btn"
+                  className="noir-btn"
                   style={{
                     width: "100%",
-                    padding: "14px",
-                    fontSize: "11px",
-                    fontWeight: "800",
-                    textTransform: "uppercase",
-                    cursor: "pointer",
+                    padding: "16px",
                   }}
                 >
                   {isSubmitting ? "PREPARING WHATSAPP..." : "SEND VIA WHATSAPP BUSINESS"}
