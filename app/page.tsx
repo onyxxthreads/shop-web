@@ -10,15 +10,6 @@ import {
   useAuth,
 } from "@clerk/nextjs";
 
-// Product interface defining categories and media types
-interface Product {
-  id: string;
-  name: string;
-  category: "Dress" | "Tops" | "Hats" | "Bottoms" | "Tapestry";
-  price: string;
-  mediaType: "image" | "video";
-}
-
 export default function Storefront() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const { isSignedIn, isLoaded } = useAuth();
@@ -28,7 +19,7 @@ export default function Storefront() {
       {/* Header / Navigation */}
       <header className="flex items-center justify-between px-6 py-4 border-b border-neutral-800">
         <div className="text-xl font-bold tracking-wider">ONYXX THREADS</div>
-        
+
         {/* Clerk Authentication Header Actions */}
         <div className="flex items-center gap-4">
           {isLoaded && !isSignedIn && (
@@ -46,30 +37,34 @@ export default function Storefront() {
             </>
           )}
           {isLoaded && isSignedIn && (
-            <UserButton fallbackRedirectUrl="/" />
+            <UserButton />
           )}
         </div>
       </header>
 
       {/* Store Content */}
       <div className="max-w-7xl mx-auto px-6 py-8">
-        <h1 className="text-3xl font-light mb-6">Handcrafted Tapestry & Apparel</h1>
-        
+        <h1 className="text-3xl font-light mb-6">
+          Handcrafted Tapestry & Apparel
+        </h1>
+
         {/* Category Filters */}
         <div className="flex gap-3 mb-8 overflow-x-auto pb-2">
-          {["All", "Dress", "Tops", "Hats", "Bottoms", "Tapestry"].map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-2 rounded-full text-sm transition ${
-                selectedCategory === cat
-                  ? "bg-white text-neutral-950 font-medium"
-                  : "bg-neutral-900 text-neutral-400 hover:bg-neutral-800"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+          {["All", "Dress", "Tops", "Hats", "Bottoms", "Tapestry"].map(
+            (cat) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`px-4 py-2 rounded-full text-sm transition ${
+                  selectedCategory === cat
+                    ? "bg-white text-neutral-950 font-medium"
+                    : "bg-neutral-900 text-neutral-400 hover:bg-neutral-800"
+                }`}
+              >
+                {cat}
+              </button>
+            )
+          )}
         </div>
 
         {/* Product Grid Placeholder */}
