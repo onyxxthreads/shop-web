@@ -14,6 +14,9 @@ interface Product {
   category: string;
   price: string;
   description: string;
+  details: string[];
+  materials: string;
+  status: "available" | "sold";
   mediaType: "image" | "video";
   mediaSrc: string;
 }
@@ -21,39 +24,51 @@ interface Product {
 const PRODUCTS: Product[] = [
   {
     id: "1",
-    name: "Trinity Tapestry Hat",
+    name: "Trinity Hat",
     category: "Hats",
-    price: "$85",
-    description: "Custom tapestry crochet bucket hat with structural multi-yarn weave.",
+    price: "GHC 400",
+    description: "Custom tapestry crochet bucket hat with structural multi-yarn weave. Can be made in any color of choice.",
+    details: ["Custom color options available", "Structural multi-yarn weave", "Handcrafted fit"],
+    materials: "Milk Cotton & Specialty Yarns",
+    status: "available",
     mediaType: "video",
-    mediaSrc: "/trinity-hat.mp4",
+    mediaSrc: "/trinity hat.mp4",
   },
   {
     id: "2",
     name: "Ewia Kete Hat",
     category: "Hats",
-    price: "$95",
+    price: "GHC 350",
     description: "Handcrafted structured brim with bespoke geometric colorwork.",
+    details: ["Bespoke geometric pattern", "Reinforced structured brim", "Comfort fit"],
+    materials: "4-ply Milk Cotton",
+    status: "available",
     mediaType: "image",
-    mediaSrc: "/ewia-kete.jpg",
+    mediaSrc: "/ewia-kete-hat.jpg",
   },
   {
     id: "3",
-    name: "Koro Portrait Tapestry",
+    name: "Dromo Tapestry Piece",
     category: "Tapestry",
     price: "Inquire for Pricing",
-    description: "15,376-stitch fine art gridded tapestry portraiture featuring Kwame Nkrumah.",
+    description: "Fine art tapestry Jesus piece featuring high-density textural colorwork.",
+    details: ["Fine art tapestry", "High-density colorwork", "Wall-mount canvas finish"],
+    materials: "Milk Cotton & Bouclé",
+    status: "available",
     mediaType: "image",
-    mediaSrc: "/koro.jpg",
+    mediaSrc: "/dromo.jpg",
   },
   {
     id: "4",
-    name: "Aura Tapestry Dress",
-    category: "Dress",
-    price: "$240",
-    description: "Form-fitting wearable textile art crafted with milk cotton.",
+    name: "Nkrumah Portrait Tapestry",
+    category: "Tapestry",
+    price: "Sold",
+    description: "Historical gridded tapestry portraiture showcasing Kwame Nkrumah.",
+    details: ["Archived piece", "Detailed historical portrait", "Private collection"],
+    materials: "Milk Cotton",
+    status: "sold",
     mediaType: "image",
-    mediaSrc: "/aura-dress.jpg",
+    mediaSrc: "/nkrumah.jpg",
   },
 ];
 
@@ -249,18 +264,20 @@ export default function Storefront() {
                 flexDirection: "column",
                 justifyContent: "space-between",
                 transition: "all 0.3s ease",
+                opacity: product.status === "sold" ? 0.75 : 1,
               }}
             >
               {/* Media Card */}
               <div
                 style={{
-                  backgroundColor: "rgba(0, 0, 0, 0.4)",
-                  height: "320px",
+                  backgroundColor: "rgba(0, 0, 0, 0.5)",
+                  height: "340px",
                   position: "relative",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+                  overflow: "hidden",
                 }}
               >
                 {product.mediaType === "video" ? (
@@ -273,36 +290,56 @@ export default function Storefront() {
                     style={{ width: "100%", height: "100%", objectFit: "cover" }}
                   />
                 ) : (
-                  <div
-                    style={{
-                      color: "#9ca3af",
-                      fontSize: "12px",
-                      letterSpacing: "0.15em",
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    {product.name} Preview
-                  </div>
+                  <img
+                    src={product.mediaSrc}
+                    alt={product.name}
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  />
                 )}
-                <span
+
+                {/* Badges */}
+                <div
                   style={{
                     position: "absolute",
                     top: "14px",
                     left: "14px",
-                    background: "rgba(10, 8, 18, 0.7)",
-                    backdropFilter: "blur(12px)",
-                    color: "#e5e7eb",
-                    border: "1px solid rgba(255, 255, 255, 0.15)",
-                    fontSize: "10px",
-                    fontWeight: "600",
-                    padding: "4px 10px",
-                    borderRadius: "6px",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.1em",
+                    display: "flex",
+                    gap: "8px",
                   }}
                 >
-                  {product.category}
-                </span>
+                  <span
+                    style={{
+                      background: "rgba(10, 8, 18, 0.75)",
+                      backdropFilter: "blur(12px)",
+                      color: "#e5e7eb",
+                      border: "1px solid rgba(255, 255, 255, 0.15)",
+                      fontSize: "10px",
+                      fontWeight: "600",
+                      padding: "4px 10px",
+                      borderRadius: "6px",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.1em",
+                    }}
+                  >
+                    {product.category}
+                  </span>
+                  {product.status === "sold" && (
+                    <span
+                      style={{
+                        background: "rgba(185, 28, 28, 0.85)",
+                        color: "#ffffff",
+                        fontSize: "10px",
+                        fontWeight: "700",
+                        padding: "4px 10px",
+                        borderRadius: "6px",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.1em",
+                      }}
+                    >
+                      Sold
+                    </span>
+                  )}
+                </div>
               </div>
 
               {/* Product Details */}
@@ -320,33 +357,56 @@ export default function Storefront() {
                     <h3 style={{ fontSize: "18px", fontWeight: "600", color: "#ffffff", margin: 0 }}>
                       {product.name}
                     </h3>
-                    <span style={{ color: "#e5e7eb", fontSize: "14px", fontWeight: "700" }}>
+                    <span style={{ color: product.status === "sold" ? "#9ca3af" : "#e5e7eb", fontSize: "14px", fontWeight: "700" }}>
                       {product.price}
                     </span>
                   </div>
-                  <p style={{ color: "#9ca3af", fontSize: "13px", lineHeight: "1.6", margin: 0 }}>
+                  <p style={{ color: "#9ca3af", fontSize: "13px", lineHeight: "1.6", margin: "0 0 16px 0" }}>
                     {product.description}
                   </p>
+
+                  <div style={{ marginBottom: "16px" }}>
+                    <div style={{ fontSize: "11px", color: "#d1d5db", fontWeight: "600", marginBottom: "6px" }}>
+                      🧵 {product.materials}
+                    </div>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                      {product.details.map((detail, idx) => (
+                        <span
+                          key={idx}
+                          style={{
+                            background: "rgba(255, 255, 255, 0.05)",
+                            border: "1px solid rgba(255, 255, 255, 0.08)",
+                            color: "#9ca3af",
+                            fontSize: "10px",
+                            padding: "3px 8px",
+                            borderRadius: "4px",
+                          }}
+                        >
+                          {detail}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
                 <button
+                  disabled={product.status === "sold"}
                   style={{
-                    marginTop: "24px",
                     width: "100%",
                     padding: "12px",
-                    background: "rgba(255, 255, 255, 0.08)",
-                    color: "#ffffff",
+                    background: product.status === "sold" ? "rgba(255, 255, 255, 0.02)" : "rgba(255, 255, 255, 0.08)",
+                    color: product.status === "sold" ? "#4b5563" : "#ffffff",
                     border: "1px solid rgba(255, 255, 255, 0.15)",
                     borderRadius: "10px",
                     fontSize: "11px",
                     fontWeight: "700",
                     textTransform: "uppercase",
                     letterSpacing: "0.15em",
-                    cursor: "pointer",
+                    cursor: product.status === "sold" ? "not-allowed" : "pointer",
                     transition: "all 0.2s ease",
                   }}
                 >
-                  Inquire / Custom Order
+                  {product.status === "sold" ? "Archived / Sold" : "Inquire / Custom Order"}
                 </button>
               </div>
             </div>
