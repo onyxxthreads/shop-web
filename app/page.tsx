@@ -74,6 +74,18 @@ const PRODUCTS: Product[] = [
 
 export default function Storefront() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const [inquiryProduct, setInquiryProduct] = useState<Product | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  // Form State
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    customColors: "",
+    notes: "",
+  });
+
   const { isSignedIn, isLoaded } = useAuth();
 
   const categories = ["All", "Tapestry", "Hats", "Dress", "Tops", "Bottoms"];
@@ -83,8 +95,30 @@ export default function Storefront() {
       ? PRODUCTS
       : PRODUCTS.filter((p) => p.category === selectedCategory);
 
+  const handleOpenModal = (product: Product) => {
+    if (product.status === "sold") return;
+    setInquiryProduct(product);
+    setSubmitted(false);
+    setFormData({ name: "", email: "", customColors: "", notes: "" });
+  };
+
+  const handleCloseModal = () => {
+    setInquiryProduct(null);
+  };
+
+  const handleSubmitInquiry = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // Simulate inquiry submission
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setSubmitted(true);
+    }, 1200);
+  };
+
   return (
-    <div className="kinetic-bg" style={{ minHeight: "100vh", color: "#f3f4f6", width: "100%" }}>
+    <div className="kinetic-bg" style={{ minHeight: "100vh", color: "#f3f4f6", width: "100%", position: "relative" }}>
       {/* Top Banner */}
       <div
         style={{
@@ -115,7 +149,7 @@ export default function Storefront() {
           justifyContent: "space-between",
           position: "sticky",
           top: 0,
-          zIndex: 50,
+          zIndex: 40,
         }}
       >
         <span
@@ -391,6 +425,7 @@ export default function Storefront() {
 
                 <button
                   disabled={product.status === "sold"}
+                  onClick={() => handleOpenModal(product)}
                   style={{
                     width: "100%",
                     padding: "12px",
@@ -413,6 +448,223 @@ export default function Storefront() {
           ))}
         </div>
       </section>
+
+      {/* Interactive Inquiry Modal */}
+      {inquiryProduct && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(0, 0, 0, 0.75)",
+            backdropFilter: "blur(16px)",
+            zIndex: 100,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "20px",
+          }}
+        >
+          <div
+            className="glass-card"
+            style={{
+              width: "100%",
+              maxWidth: "520px",
+              borderRadius: "20px",
+              padding: "32px",
+              position: "relative",
+              border: "1px solid rgba(255, 255, 255, 0.15)",
+              boxShadow: "0 20px 50px rgba(0,0,0,0.6)",
+            }}
+          >
+            {/* Close Button */}
+            <button
+              onClick={handleCloseModal}
+              style={{
+                position: "absolute",
+                top: "20px",
+                right: "20px",
+                background: "none",
+                border: "none",
+                color: "#9ca3af",
+                fontSize: "20px",
+                cursor: "pointer",
+              }}
+            >
+              ✕
+            </button>
+
+            {submitted ? (
+              <div style={{ textAlign: "center", padding: "20px 0" }}>
+                <div style={{ fontSize: "40px", marginBottom: "12px" }}>✨</div>
+                <h3 style={{ fontSize: "22px", color: "#ffffff", fontWeight: "600", marginBottom: "8px" }}>
+                  Inquiry Received
+                </h3>
+                <p style={{ color: "#9ca3af", fontSize: "14px", lineHeight: "1.6", marginBottom: "24px" }}>
+                  Thank you for reaching out regarding the <strong>{inquiryProduct.name}</strong>. We will review your commission request and get back to you shortly.
+                </p>
+                <button
+                  onClick={handleCloseModal}
+                  style={{
+                    padding: "10px 24px",
+                    backgroundColor: "#ffffff",
+                    color: "#0a0a0c",
+                    border: "none",
+                    borderRadius: "8px",
+                    fontWeight: "700",
+                    fontSize: "12px",
+                    cursor: "pointer",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.1em",
+                  }}
+                >
+                  Close Window
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmitInquiry}>
+                <div style={{ marginBottom: "20px" }}>
+                  <span
+                    style={{
+                      fontSize: "10px",
+                      fontWeight: "700",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.15em",
+                      color: "#9ca3af",
+                    }}
+                  >
+                    Commission Request
+                  </span>
+                  <h2 style={{ fontSize: "24px", color: "#ffffff", fontWeight: "600", margin: "4px 0 0 0" }}>
+                    {inquiryProduct.name}
+                  </h2>
+                  <p style={{ color: "#d1d5db", fontSize: "13px", marginTop: "4px" }}>
+                    Estimated Price: <span style={{ fontWeight: "700", color: "#ffffff" }}>{inquiryProduct.price}</span>
+                  </p>
+                </div>
+
+                {/* Name */}
+                <div style={{ marginBottom: "16px" }}>
+                  <label style={{ display: "block", fontSize: "11px", color: "#9ca3af", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                    Your Name
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    placeholder="Enter your full name"
+                    style={{
+                      width: "100%",
+                      padding: "12px",
+                      background: "rgba(255, 255, 255, 0.05)",
+                      border: "1px solid rgba(255, 255, 255, 0.12)",
+                      borderRadius: "8px",
+                      color: "#ffffff",
+                      fontSize: "13px",
+                      outline: "none",
+                    }}
+                  />
+                </div>
+
+                {/* Email / Contact */}
+                <div style={{ marginBottom: "16px" }}>
+                  <label style={{ display: "block", fontSize: "11px", color: "#9ca3af", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                    Email or WhatsApp Contact
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    placeholder="Where can we reply?"
+                    style={{
+                      width: "100%",
+                      padding: "12px",
+                      background: "rgba(255, 255, 255, 0.05)",
+                      border: "1px solid rgba(255, 255, 255, 0.12)",
+                      borderRadius: "8px",
+                      color: "#ffffff",
+                      fontSize: "13px",
+                      outline: "none",
+                    }}
+                  />
+                </div>
+
+                {/* Custom Color Palette */}
+                <div style={{ marginBottom: "16px" }}>
+                  <label style={{ display: "block", fontSize: "11px", color: "#9ca3af", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                    Preferred Colors / Sizing (Optional)
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.customColors}
+                    onChange={(e) => setFormData({ ...formData, customColors: e.target.value })}
+                    placeholder="e.g. Black & Cream, High-contrast, Custom dimensions"
+                    style={{
+                      width: "100%",
+                      padding: "12px",
+                      background: "rgba(255, 255, 255, 0.05)",
+                      border: "1px solid rgba(255, 255, 255, 0.12)",
+                      borderRadius: "8px",
+                      color: "#ffffff",
+                      fontSize: "13px",
+                      outline: "none",
+                    }}
+                  />
+                </div>
+
+                {/* Project Details */}
+                <div style={{ marginBottom: "24px" }}>
+                  <label style={{ display: "block", fontSize: "11px", color: "#9ca3af", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                    Project Notes & Concept Details
+                  </label>
+                  <textarea
+                    rows={3}
+                    value={formData.notes}
+                    onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                    placeholder="Share any specific requests, timeline, or design ideas..."
+                    style={{
+                      width: "100%",
+                      padding: "12px",
+                      background: "rgba(255, 255, 255, 0.05)",
+                      border: "1px solid rgba(255, 255, 255, 0.12)",
+                      borderRadius: "8px",
+                      color: "#ffffff",
+                      fontSize: "13px",
+                      outline: "none",
+                      resize: "none",
+                    }}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  style={{
+                    width: "100%",
+                    padding: "14px",
+                    backgroundColor: "#ffffff",
+                    color: "#0a0a0c",
+                    border: "none",
+                    borderRadius: "10px",
+                    fontSize: "11px",
+                    fontWeight: "800",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.15em",
+                    cursor: "pointer",
+                    transition: "all 0.2s ease",
+                  }}
+                >
+                  {isSubmitting ? "Submitting Inquiry..." : "Submit Commission Request"}
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
