@@ -13,21 +13,24 @@ interface Product {
   indexCode: string;
   name: string;
   category: string;
-  price: string;
+  type: "shop" | "archive"; // "shop" has prices, "archive" is showcase
+  price?: string;
   description: string;
   details: string[];
   materials: string;
-  status: "available" | "sold";
+  status: "available" | "custom_order" | "archived";
   mediaType: "image" | "video";
   mediaSrc: string;
 }
 
 const PRODUCTS: Product[] = [
+  // --- STOREFRONT / SHOP ITEMS (Priced & Available) ---
   {
     id: "1",
     indexCode: "01 //",
     name: "Trinity Hat",
     category: "Hats",
+    type: "shop",
     price: "GHC 400",
     description: "Custom tapestry crochet bucket hat with structural multi-yarn weave.",
     details: ["BESPOKE PALETTE", "STRUCTURAL WEAVE", "HANDCRAFTED FIT"],
@@ -41,6 +44,7 @@ const PRODUCTS: Product[] = [
     indexCode: "02 //",
     name: "Ewia Kete Hat",
     category: "Hats",
+    type: "shop",
     price: "GHC 350",
     description: "Handcrafted structured brim with bespoke geometric colorwork.",
     details: ["GEOMETRIC PATTERN", "REINFORCED BRIM", "COMFORT FIT"],
@@ -54,6 +58,7 @@ const PRODUCTS: Product[] = [
     indexCode: "03 //",
     name: "Dromo Tapestry Piece",
     category: "Tapestry",
+    type: "shop",
     price: "Inquire for Pricing",
     description: "Fine art tapestry portrait featuring high-density textural colorwork.",
     details: ["FINE ART TAPESTRY", "HIGH-DENSITY COLORWORK", "CANVAS FINISH"],
@@ -62,22 +67,25 @@ const PRODUCTS: Product[] = [
     mediaType: "image",
     mediaSrc: "/dromo.jpg",
   },
+
+  // --- CLIENT ARCHIVE & PORTFOLIO GALLERY (Unpriced Showcase) ---
   {
     id: "4",
     indexCode: "04 //",
     name: "Nkrumah Portrait Tapestry",
     category: "Tapestry",
-    price: "Sold",
-    description: "Historical gridded tapestry portraiture showcasing Kwame Nkrumah.",
-    details: ["ARCHIVED PIECE", "15,376 STITCHES", "PRIVATE COLLECTION"],
+    type: "archive",
+    description: "Historical gridded tapestry portraiture showcasing Kwame Nkrumah created for a private collector.",
+    details: ["CLIENT COMMISSION", "15,376 STITCHES", "PRIVATE COLLECTION"],
     materials: "Milk Cotton",
-    status: "sold",
+    status: "archived",
     mediaType: "image",
     mediaSrc: "/nkrumah.jpg",
   },
 ];
 
 export default function Storefront() {
+  const [activeTab, setActiveTab] = useState<"shop" | "archive">("shop");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [inquiryProduct, setInquiryProduct] = useState<Product | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -95,13 +103,14 @@ export default function Storefront() {
 
   const categories = ["All", "Tapestry", "Hats", "Dress", "Tops", "Bottoms"];
 
+  // Filter products by tab (Shop vs Archive) and by category
+  const currentTabProducts = PRODUCTS.filter((p) => p.type === activeTab);
   const filteredProducts =
     selectedCategory === "All"
-      ? PRODUCTS
-      : PRODUCTS.filter((p) => p.category === selectedCategory);
+      ? currentTabProducts
+      : currentTabProducts.filter((p) => p.category === selectedCategory);
 
   const handleOpenModal = (product: Product) => {
-    if (product.status === "sold") return;
     setInquiryProduct(product);
     setSubmitted(false);
     setFormData({ name: "", email: "", customColors: "", notes: "" });
@@ -119,11 +128,12 @@ export default function Storefront() {
 
     const message =
       `*New Custom Commission Inquiry - Onyxx Threads*\n\n` +
-      `*Piece:* ${inquiryProduct?.name}\n` +
-      `*Estimated Price:* ${inquiryProduct?.price}\n` +
+      `*Piece Reference:* ${inquiryProduct?.name} (${inquiryProduct?.indexCode})\n` +
+      `*Section:* ${inquiryProduct?.type === "shop" ? "Shop Catalog" : "Client Archive Showcase"}\n` +
+      `*Price / Status:* ${inquiryProduct?.price || "Custom Showcase Inquire"}\n` +
       `*Client Name:* ${formData.name}\n` +
       `*Contact:* ${formData.email}\n` +
-      `*Preferred Colors/Sizing:* ${formData.customColors || "Standard / Open to advice"}\n` +
+      `*Preferred Palette / Sizing:* ${formData.customColors || "Standard / Open to advice"}\n` +
       `*Project Notes:* ${formData.notes || "None provided"}`;
 
     const encodedMessage = encodeURIComponent(message);
@@ -138,7 +148,7 @@ export default function Storefront() {
 
   return (
     <div style={{ minHeight: "100vh", backgroundColor: "#050507", color: "#f3f4f6", width: "100%", position: "relative" }}>
-      {/* Editorial Announcement Banner */}
+      {/* Editorial Banner */}
       <div
         style={{
           background: "rgba(255, 255, 255, 0.03)",
@@ -213,12 +223,7 @@ export default function Storefront() {
                 </button>
               </SignInButton>
               <SignUpButton mode="modal">
-                <button
-                  className="noir-btn"
-                  style={{
-                    padding: "8px 18px",
-                  }}
-                >
+                <button className="noir-btn" style={{ padding: "8px 18px" }}>
                   Join
                 </button>
               </SignUpButton>
@@ -230,7 +235,7 @@ export default function Storefront() {
       </header>
 
       {/* Hero Section */}
-      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "64px 24px 32px" }}>
+      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "64px 24px 24px" }}>
         <span style={{ fontSize: "11px", fontFamily: "monospace", letterSpacing: "0.25em", color: "#6b7280", textTransform: "uppercase" }}>
           BESPOKE FIBER ART & WEARABLE COUTURE
         </span>
@@ -242,17 +247,64 @@ export default function Storefront() {
         </p>
       </section>
 
-      {/* Category Filter Bar */}
-      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px 40px" }}>
+      {/* Main View Mode Selector: Shop Catalog vs Client Gallery */}
+      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px 24px" }}>
         <div
           style={{
             display: "flex",
-            gap: "12px",
-            overflowX: "auto",
-            paddingBottom: "12px",
-            borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+            gap: "16px",
+            borderBottom: "1px solid rgba(255, 255, 255, 0.15)",
+            paddingBottom: "16px",
           }}
         >
+          <button
+            onClick={() => {
+              setActiveTab("shop");
+              setSelectedCategory("All");
+            }}
+            style={{
+              background: "none",
+              border: "none",
+              fontSize: "13px",
+              fontWeight: "700",
+              fontFamily: "monospace",
+              letterSpacing: "0.15em",
+              color: activeTab === "shop" ? "#ffffff" : "#6b7280",
+              borderBottom: activeTab === "shop" ? "2px solid #ffffff" : "none",
+              paddingBottom: "8px",
+              cursor: "pointer",
+              textTransform: "uppercase",
+            }}
+          >
+            01 // SHOP & ORDERS
+          </button>
+          <button
+            onClick={() => {
+              setActiveTab("archive");
+              setSelectedCategory("All");
+            }}
+            style={{
+              background: "none",
+              border: "none",
+              fontSize: "13px",
+              fontWeight: "700",
+              fontFamily: "monospace",
+              letterSpacing: "0.15em",
+              color: activeTab === "archive" ? "#ffffff" : "#6b7280",
+              borderBottom: activeTab === "archive" ? "2px solid #ffffff" : "none",
+              paddingBottom: "8px",
+              cursor: "pointer",
+              textTransform: "uppercase",
+            }}
+          >
+            02 // CLIENT ARCHIVE & GALLERY
+          </button>
+        </div>
+      </section>
+
+      {/* Category Sub-Filters */}
+      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px 40px" }}>
+        <div style={{ display: "flex", gap: "12px", overflowX: "auto", paddingBottom: "8px" }}>
           {categories.map((cat) => (
             <button
               key={cat}
@@ -265,7 +317,7 @@ export default function Storefront() {
         </div>
       </section>
 
-      {/* Product Catalog Grid */}
+      {/* Grid Display */}
       <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px 96px" }}>
         <div
           style={{
@@ -282,7 +334,6 @@ export default function Storefront() {
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
-                opacity: product.status === "sold" ? 0.75 : 1,
               }}
             >
               {/* Media Container */}
@@ -315,7 +366,7 @@ export default function Storefront() {
                   />
                 )}
 
-                {/* Index & Category Tags */}
+                {/* Index & Category Badges */}
                 <div
                   style={{
                     position: "absolute",
@@ -332,35 +383,35 @@ export default function Storefront() {
                       fontSize: "11px",
                       fontWeight: "700",
                       color: "#ffffff",
-                      background: "rgba(5, 5, 7, 0.8)",
+                      background: "rgba(5, 5, 7, 0.85)",
                       padding: "4px 8px",
                       border: "1px solid rgba(255, 255, 255, 0.15)",
                     }}
                   >
                     {product.indexCode}
                   </span>
-                  <span className="noir-tag">
-                    {product.category}
-                  </span>
+                  <span className="noir-tag">{product.category}</span>
                 </div>
 
-                {product.status === "sold" && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "14px",
-                      right: "14px",
-                      background: "rgba(185, 28, 28, 0.9)",
-                      color: "#ffffff",
-                      fontFamily: "monospace",
-                      fontSize: "10px",
-                      fontWeight: "700",
-                      padding: "4px 10px",
-                      letterSpacing: "0.15em",
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    ARCHIVED
+                {/* Archive Badge */}
+                {product.type === "archive" && (
+                  <div style={{ position: "absolute", top: "14px", right: "14px" }}>
+                    <span
+                      style={{
+                        background: "rgba(255, 255, 255, 0.12)",
+                        backdropFilter: "blur(8px)",
+                        color: "#ffffff",
+                        fontFamily: "monospace",
+                        fontSize: "10px",
+                        fontWeight: "700",
+                        padding: "4px 10px",
+                        letterSpacing: "0.15em",
+                        textTransform: "uppercase",
+                        border: "1px solid rgba(255, 255, 255, 0.2)",
+                      }}
+                    >
+                      CLIENT WORK
+                    </span>
                   </div>
                 )}
               </div>
@@ -380,10 +431,13 @@ export default function Storefront() {
                     <h3 style={{ fontSize: "18px", fontWeight: "600", color: "#ffffff", margin: 0 }}>
                       {product.name}
                     </h3>
-                    <span style={{ color: product.status === "sold" ? "#6b7280" : "#ffffff", fontSize: "14px", fontWeight: "700", fontFamily: "monospace" }}>
-                      {product.price}
-                    </span>
+                    {product.type === "shop" && (
+                      <span style={{ color: "#ffffff", fontSize: "14px", fontWeight: "700", fontFamily: "monospace" }}>
+                        {product.price}
+                      </span>
+                    )}
                   </div>
+
                   <p style={{ color: "#9ca3af", fontSize: "13px", lineHeight: "1.6", margin: "0 0 16px 0" }}>
                     {product.description}
                   </p>
@@ -403,19 +457,14 @@ export default function Storefront() {
                 </div>
 
                 <button
-                  disabled={product.status === "sold"}
                   onClick={() => handleOpenModal(product)}
-                  className={product.status === "sold" ? "" : "noir-btn"}
+                  className="noir-btn"
                   style={{
                     width: "100%",
                     padding: "14px",
-                    background: product.status === "sold" ? "rgba(255, 255, 255, 0.02)" : undefined,
-                    color: product.status === "sold" ? "#4b5563" : undefined,
-                    border: product.status === "sold" ? "1px solid rgba(255, 255, 255, 0.08)" : undefined,
-                    cursor: product.status === "sold" ? "not-allowed" : "pointer",
                   }}
                 >
-                  {product.status === "sold" ? "ARCHIVED / SOLD" : "INQUIRE // CUSTOM ORDER"}
+                  {product.type === "shop" ? "INQUIRE // CUSTOM ORDER" : "INQUIRE // SIMILAR CUSTOM PIECE"}
                 </button>
               </div>
             </div>
@@ -423,7 +472,7 @@ export default function Storefront() {
         </div>
       </section>
 
-      {/* Interactive Inquiry Modal */}
+      {/* Inquiry Modal */}
       {inquiryProduct && (
         <div
           style={{
@@ -476,15 +525,9 @@ export default function Storefront() {
                   OPENING WHATSAPP
                 </h3>
                 <p style={{ color: "#9ca3af", fontSize: "14px", lineHeight: "1.6", marginBottom: "24px" }}>
-                  Your commission details for <strong>{inquiryProduct.name}</strong> have been formatted and directed to WhatsApp Business.
+                  Your inquiry for <strong>{inquiryProduct.name}</strong> has been formatted and directed to WhatsApp Business.
                 </p>
-                <button
-                  onClick={handleCloseModal}
-                  className="noir-btn"
-                  style={{
-                    padding: "12px 28px",
-                  }}
-                >
+                <button onClick={handleCloseModal} className="noir-btn" style={{ padding: "12px 28px" }}>
                   CLOSE WINDOW
                 </button>
               </div>
@@ -506,9 +549,11 @@ export default function Storefront() {
                   <h2 style={{ fontSize: "24px", color: "#ffffff", fontWeight: "600", margin: "4px 0 0 0" }}>
                     {inquiryProduct.name}
                   </h2>
-                  <p style={{ color: "#d1d5db", fontSize: "13px", marginTop: "4px", fontFamily: "monospace" }}>
-                    PRICE: <span style={{ fontWeight: "700", color: "#ffffff" }}>{inquiryProduct.price}</span>
-                  </p>
+                  {inquiryProduct.price && (
+                    <p style={{ color: "#d1d5db", fontSize: "13px", marginTop: "4px", fontFamily: "monospace" }}>
+                      PRICING REFERENCE: <span style={{ fontWeight: "700", color: "#ffffff" }}>{inquiryProduct.price}</span>
+                    </p>
+                  )}
                 </div>
 
                 {/* Name */}
@@ -566,7 +611,7 @@ export default function Storefront() {
                     type="text"
                     value={formData.customColors}
                     onChange={(e) => setFormData({ ...formData, customColors: e.target.value })}
-                    placeholder="e.g. Monochromatic, Custom dimensions"
+                    placeholder="e.g. Earth tones, Specific dimensions"
                     style={{
                       width: "100%",
                       padding: "12px",
@@ -588,7 +633,7 @@ export default function Storefront() {
                     rows={3}
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                    placeholder="Share specific requests or design ideas..."
+                    placeholder="Describe your vision or custom ideas..."
                     style={{
                       width: "100%",
                       padding: "12px",
@@ -611,7 +656,7 @@ export default function Storefront() {
                     padding: "16px",
                   }}
                 >
-                  {isSubmitting ? "PREPARING WHATSAPP..." : "SEND VIA WHATSAPP BUSINESS"}
+                  {isSubmitting ? "PREPARING WHATSAPP..." : "SEND COMMISSION REQUEST VIA WHATSAPP"}
                 </button>
               </form>
             )}
