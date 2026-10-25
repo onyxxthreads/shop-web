@@ -235,7 +235,7 @@ export default function Storefront() {
           BESPOKE FIBER ART & WEARABLE COUTURE
         </span>
         <h1 style={{ fontSize: "44px", fontWeight: "300", color: "#ffffff", margin: "12px 0 0 0", letterSpacing: "-0.03em", lineHeight: "1.15" }}>
-          Tactile Tapestry Portraiture & <span style={{ fontWeight: "600", color: "#ffffff" }}>Structural Garments</span>
+          Handcrafted Tapestries & <span style={{ fontWeight: "600", color: "#ffffff" }}>Custom Crochet Apparel</span>
         </h1>
         <p style={{ color: "#9ca3af", marginTop: "16px", fontSize: "15px", maxWidth: "600px", lineHeight: "1.7" }}>
           Handcrafted in Ghana using dense multi-yarn weaves, high-fidelity colorwork grids, and architectural silhouettes.
