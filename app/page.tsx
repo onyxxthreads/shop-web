@@ -69,60 +69,92 @@ export default function Storefront() {
       : PRODUCTS.filter((p) => p.category === selectedCategory);
 
   return (
-    <main
-      style={{ backgroundColor: "#140c06", minHeight: "100vh", color: "#fef3c7" }}
-      className="font-sans selection:bg-amber-500 selection:text-black"
+    <div
+      style={{ backgroundColor: "#140c06", minHeight: "100vh", color: "#fef3c7", width: "100%" }}
     >
-      {/* Top Announcement Bar */}
+      {/* Top Banner */}
       <div
         style={{
           background: "linear-gradient(to right, #451a03, #78350f, #451a03)",
           borderBottom: "1px solid #92400e",
           color: "#fde68a",
+          textAlign: "center",
+          padding: "8px 16px",
+          fontSize: "12px",
+          fontWeight: "bold",
+          letterSpacing: "0.1em",
+          textTransform: "uppercase",
         }}
-        className="text-center py-2 text-xs font-bold tracking-widest uppercase shadow-lg"
       >
         ✨ CUSTOM COMMISSIONS OPEN • WORLDWIDE SHIPPING AVAILABLE ✨
       </div>
 
-      {/* Main Header / Navigation */}
+      {/* Navigation Header */}
       <header
         style={{
           backgroundColor: "#140c06",
           borderBottom: "1px solid #78350f",
+          padding: "16px 24px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          position: "sticky",
+          top: 0,
+          zIndex: 50,
         }}
-        className="sticky top-0 z-50 px-6 py-4 flex items-center justify-between shadow-md"
       >
-        <div className="flex items-center gap-3">
-          <span
-            style={{ color: "#fbbf24" }}
-            className="text-2xl font-black tracking-widest uppercase"
-          >
-            ONYXX THREADS
-          </span>
-        </div>
+        <span
+          style={{
+            color: "#fbbf24",
+            fontSize: "20px",
+            fontWeight: "900",
+            letterSpacing: "0.15em",
+          }}
+        >
+          ONYXX THREADS
+        </span>
 
-        {/* Authentication Actions */}
-        <div className="flex items-center gap-4">
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           {!isLoaded ? (
             <div
-              style={{ backgroundColor: "#451a03" }}
-              className="h-8 w-20 animate-pulse rounded-md"
+              style={{
+                backgroundColor: "#451a03",
+                height: "32px",
+                width: "80px",
+                borderRadius: "6px",
+              }}
             />
           ) : !isSignedIn ? (
             <>
               <SignInButton mode="modal">
                 <button
-                  style={{ color: "#fcd34d" }}
-                  className="px-4 py-2 text-xs font-semibold uppercase tracking-wider hover:opacity-80 transition"
+                  style={{
+                    color: "#fcd34d",
+                    background: "none",
+                    border: "none",
+                    padding: "8px 12px",
+                    cursor: "pointer",
+                    fontSize: "12px",
+                    fontWeight: "600",
+                    textTransform: "uppercase",
+                  }}
                 >
                   Sign In
                 </button>
               </SignInButton>
               <SignUpButton mode="modal">
                 <button
-                  style={{ backgroundColor: "#f59e0b", color: "#0f0804" }}
-                  className="px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-md transition shadow-md"
+                  style={{
+                    backgroundColor: "#f59e0b",
+                    color: "#0f0804",
+                    border: "none",
+                    padding: "8px 16px",
+                    borderRadius: "6px",
+                    cursor: "pointer",
+                    fontSize: "12px",
+                    fontWeight: "bold",
+                    textTransform: "uppercase",
+                  }}
                 >
                   Join
                 </button>
@@ -135,31 +167,59 @@ export default function Storefront() {
       </header>
 
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-6 pt-12 pb-8">
-        <h1 className="text-4xl sm:text-5xl font-light tracking-tight text-white">
+      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "48px 24px 24px" }}>
+        <h1 style={{ fontSize: "36px", fontWeight: "300", color: "#ffffff", margin: 0 }}>
           Wearable Art &{" "}
-          <span style={{ color: "#fbbf24" }} className="font-normal">
+          <span style={{ color: "#fbbf24", fontWeight: "400" }}>
             Fine Tapestry
           </span>
         </h1>
-        <p style={{ color: "#fde68a", opacity: 0.8 }} className="mt-3 max-w-2xl text-sm sm:text-base leading-relaxed">
+        <p style={{ color: "#fde68a", opacity: 0.8, marginTop: "12px", fontSize: "14px" }}>
           Bespoke tapestry crochet portraiture, structural headwear, and custom textile apparel handcrafted with precision.
         </p>
       </section>
 
-      {/* Category Filter Bar */}
-      <section className="max-w-7xl mx-auto px-6 mb-10">
-        <div style={{ borderBottom: "1px solid #78350f" }} className="flex gap-2 overflow-x-auto pb-2 scrollbar-none">
+      {/* Categories Bar */}
+      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px 32px" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: "12px",
+            overflowX: "auto",
+            paddingBottom: "12px",
+            borderBottom: "1px solid #78350f",
+          }}
+        >
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
               style={
                 selectedCategory === cat
-                  ? { backgroundColor: "#f59e0b", color: "#0f0804", fontWeight: "bold" }
-                  : { backgroundColor: "#26140a", color: "#fcd34d", border: "1px solid #78350f" }
+                  ? {
+                      backgroundColor: "#f59e0b",
+                      color: "#0f0804",
+                      fontWeight: "bold",
+                      border: "none",
+                      padding: "8px 20px",
+                      borderRadius: "20px",
+                      cursor: "pointer",
+                      fontSize: "12px",
+                      textTransform: "uppercase",
+                      whiteSpace: "nowrap",
+                    }
+                  : {
+                      backgroundColor: "#26140a",
+                      color: "#fcd34d",
+                      border: "1px solid #78350f",
+                      padding: "8px 20px",
+                      borderRadius: "20px",
+                      cursor: "pointer",
+                      fontSize: "12px",
+                      textTransform: "uppercase",
+                      whiteSpace: "nowrap",
+                    }
               }
-              className="px-5 py-2 text-xs font-semibold tracking-wider uppercase rounded-full transition whitespace-nowrap shadow-sm"
             >
               {cat}
             </button>
@@ -168,21 +228,38 @@ export default function Storefront() {
       </section>
 
       {/* Product Catalog Grid */}
-      <section className="max-w-7xl mx-auto px-6 pb-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <section style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px 80px" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+            gap: "32px",
+          }}
+        >
           {filteredProducts.map((product) => (
             <div
               key={product.id}
               style={{
                 backgroundColor: "#1c0f07",
                 border: "1px solid #78350f",
+                borderRadius: "12px",
+                overflow: "hidden",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
               }}
-              className="group rounded-xl overflow-hidden transition duration-300 flex flex-col justify-between shadow-2xl"
             >
-              {/* Media Container */}
+              {/* Media Card */}
               <div
-                style={{ backgroundColor: "#0b0603", borderBottom: "1px solid #451a03" }}
-                className="relative w-full h-80 overflow-hidden flex items-center justify-center"
+                style={{
+                  backgroundColor: "#0b0603",
+                  height: "320px",
+                  position: "relative",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderBottom: "1px solid #451a03",
+                }}
               >
                 {product.mediaType === "video" ? (
                   <video
@@ -191,44 +268,70 @@ export default function Storefront() {
                     loop
                     muted
                     playsInline
-                    className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
                   />
                 ) : (
-                  <div style={{ color: "#fbbf24", opacity: 0.5 }} className="w-full h-full flex items-center justify-center text-xs tracking-widest uppercase">
+                  <div
+                    style={{
+                      color: "#fbbf24",
+                      opacity: 0.5,
+                      fontSize: "12px",
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                    }}
+                  >
                     {product.name} Preview
                   </div>
                 )}
                 <span
-                  style={{ backgroundColor: "#140c06", color: "#fcd34d", border: "1px solid #78350f" }}
-                  className="absolute top-3 left-3 text-[10px] font-semibold tracking-widest uppercase px-2.5 py-1 rounded shadow"
+                  style={{
+                    position: "absolute",
+                    top: "12px",
+                    left: "12px",
+                    backgroundColor: "#140c06",
+                    color: "#fcd34d",
+                    border: "1px solid #78350f",
+                    fontSize: "10px",
+                    fontWeight: "600",
+                    padding: "4px 10px",
+                    borderRadius: "4px",
+                    textTransform: "uppercase",
+                  }}
                 >
                   {product.category}
                 </span>
               </div>
 
-              {/* Info Container */}
-              <div className="p-6 flex-1 flex flex-col justify-between">
+              {/* Product Info */}
+              <div style={{ padding: "24px", flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                 <div>
-                  <div className="flex justify-between items-baseline mb-2">
-                    <h3 className="text-lg font-medium text-white group-hover:text-amber-300 transition">
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "8px" }}>
+                    <h3 style={{ fontSize: "18px", fontWeight: "600", color: "#ffffff", margin: 0 }}>
                       {product.name}
                     </h3>
-                    <span style={{ color: "#fbbf24" }} className="text-sm font-semibold">
+                    <span style={{ color: "#fbbf24", fontSize: "14px", fontWeight: "bold" }}>
                       {product.price}
                     </span>
                   </div>
-                  <p style={{ color: "#fde68a", opacity: 0.7 }} className="text-xs leading-relaxed">
+                  <p style={{ color: "#fde68a", opacity: 0.7, fontSize: "12px", lineHeight: "1.5", margin: 0 }}>
                     {product.description}
                   </p>
                 </div>
 
                 <button
                   style={{
+                    marginTop: "24px",
+                    width: "100%",
+                    padding: "10px",
                     backgroundColor: "#451a03",
                     color: "#fde68a",
                     border: "1px solid #78350f",
+                    borderRadius: "8px",
+                    fontSize: "12px",
+                    fontWeight: "bold",
+                    textTransform: "uppercase",
+                    cursor: "pointer",
                   }}
-                  className="mt-6 w-full py-2.5 hover:bg-amber-500 hover:text-black text-xs font-semibold tracking-wider uppercase rounded-lg transition duration-200 shadow"
                 >
                   Inquire / Custom Order
                 </button>
@@ -237,6 +340,6 @@ export default function Storefront() {
           ))}
         </div>
       </section>
-    </main>
+    </div>
   );
 }
