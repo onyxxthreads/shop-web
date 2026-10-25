@@ -3,7 +3,6 @@
 export const dynamic = "force-dynamic";
 
 import React, { useState } from "react";
-import Image from "next/image";
 import {
   SignInButton,
   SignUpButton,
@@ -47,7 +46,7 @@ export default function Storefront() {
             </>
           )}
           {isLoaded && isSignedIn && (
-            <UserButton afterSignOutUrl="/" />
+            <UserButton fallbackRedirectUrl="/" />
           )}
         </div>
       </header>
