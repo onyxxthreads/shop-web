@@ -110,11 +110,25 @@ export default function Storefront() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate inquiry submission
+    const phoneNumber = "233543312793";
+
+    const message =
+      `*New Custom Commission Inquiry - Onyxx Threads*\n\n` +
+      `*Piece:* ${inquiryProduct?.name}\n` +
+      `*Estimated Price:* ${inquiryProduct?.price}\n` +
+      `*Client Name:* ${formData.name}\n` +
+      `*Contact:* ${formData.email}\n` +
+      `*Preferred Colors/Sizing:* ${formData.customColors || "Standard / Open to advice"}\n` +
+      `*Project Notes:* ${formData.notes || "None provided"}`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
-    }, 1200);
+      window.open(whatsappUrl, "_blank");
+    }, 600);
   };
 
   return (
@@ -498,12 +512,12 @@ export default function Storefront() {
 
             {submitted ? (
               <div style={{ textAlign: "center", padding: "20px 0" }}>
-                <div style={{ fontSize: "40px", marginBottom: "12px" }}>✨</div>
+                <div style={{ fontSize: "40px", marginBottom: "12px" }}>💬</div>
                 <h3 style={{ fontSize: "22px", color: "#ffffff", fontWeight: "600", marginBottom: "8px" }}>
-                  Inquiry Received
+                  Opening WhatsApp
                 </h3>
                 <p style={{ color: "#9ca3af", fontSize: "14px", lineHeight: "1.6", marginBottom: "24px" }}>
-                  Thank you for reaching out regarding the <strong>{inquiryProduct.name}</strong>. We will review your commission request and get back to you shortly.
+                  Your commission details for <strong>{inquiryProduct.name}</strong> have been formatted into a message and redirected to WhatsApp Business.
                 </p>
                 <button
                   onClick={handleCloseModal}
@@ -569,17 +583,17 @@ export default function Storefront() {
                   />
                 </div>
 
-                {/* Email / Contact */}
+                {/* Contact */}
                 <div style={{ marginBottom: "16px" }}>
                   <label style={{ display: "block", fontSize: "11px", color: "#9ca3af", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.05em" }}>
-                    Email or WhatsApp Contact
+                    Email or Phone Contact
                   </label>
                   <input
                     type="text"
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="Where can we reply?"
+                    placeholder="Your email or phone number"
                     style={{
                       width: "100%",
                       padding: "12px",
@@ -593,7 +607,7 @@ export default function Storefront() {
                   />
                 </div>
 
-                {/* Custom Color Palette */}
+                {/* Custom Color Palette / Sizing */}
                 <div style={{ marginBottom: "16px" }}>
                   <label style={{ display: "block", fontSize: "11px", color: "#9ca3af", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                     Preferred Colors / Sizing (Optional)
@@ -658,7 +672,7 @@ export default function Storefront() {
                     transition: "all 0.2s ease",
                   }}
                 >
-                  {isSubmitting ? "Submitting Inquiry..." : "Submit Commission Request"}
+                  {isSubmitting ? "Preparing WhatsApp..." : "Send via WhatsApp Business"}
                 </button>
               </form>
             )}
