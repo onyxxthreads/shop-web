@@ -5,19 +5,12 @@
   --font-geist-mono: monospace;
 }
 
-/* Custom Editorial Yarn Ball Cursor */
+/* Base Body Styling */
 body {
   color: #f3f4f6;
   background: #050507;
   font-family: var(--font-geist-sans);
   overflow-x: hidden;
-  /* Minimal White Yarn Ball SVG Cursor */
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 3c4.97 0 9 4.03 9 9'/%3E%3Cpath d='M3 12c0 4.97 4.03 9 9 9'/%3E%3Cpath d='M6 6c3 3 6 9 6 12'/%3E%3Cpath d='M18 18c-3-3-6-9-6-12'/%3E%3C/svg%3E") 12 12, auto;
-}
-
-/* Pointer cursor for clickable elements */
-a, button, .noir-btn, .noir-card, .noir-pill {
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 3c4.97 0 9 4.03 9 9'/%3E%3Cpath d='M3 12c0 4.97 4.03 9 9 9'/%3E%3Cpath d='M6 6c3 3 6 9 6 12'/%3E%3Cpath d='M18 18c-3-3-6-9-6-12'/%3E%3C/svg%3E") 12 12, pointer !important;
 }
 
 /* Base Card Styling with Smooth Lift & Glow */
