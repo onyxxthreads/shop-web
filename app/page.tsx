@@ -19,10 +19,10 @@ const PRODUCTS: Product[] = [
   {
     id: "nkrumah-portrait",
     title: "Hi3ny3l) (Osagyefo Kwame Nkrumah)",
-    category: "tapestry",
-    price: "Inquire for Valuation",
+    category: "archive",
+    price: "Private Collection",
     status: "Sold / Private Collection",
-    details: "124x124 mathematical grid tapestry portraiture exhibited at Origins Gallery (African Spaces Redefined).",
+    details: "124x124 mathematical grid tapestry portraiture (15,376 stitches) exhibited at Origins Gallery for 'African Spaces Redefined'.",
     materials: "Milk Cotton Yarn",
     stitches: "15,376 stitches",
     mediaType: "image",
@@ -34,7 +34,7 @@ const PRODUCTS: Product[] = [
     category: "tapestry",
     price: "Inquire via WhatsApp",
     status: "Available",
-    details: "Monochromatic white tapestry portrait featuring physical cowrie shell necklace integration.",
+    details: "9,720-stitch monochromatic white tapestry artwork featuring an integrated physical cowrie shell necklace.",
     materials: "Milk Cotton Yarn & Mixed Media",
     stitches: "9,720 stitches",
     mediaType: "image",
@@ -46,7 +46,7 @@ const PRODUCTS: Product[] = [
     category: "apparel",
     price: "GHC 350",
     status: "Available",
-    details: "High-density hand-crocheted structured headwear with distinct stitch definition.",
+    details: "High-density hand-crocheted structured headwear designed with precise stitch definition.",
     materials: "5-Ply Premium Milk Cotton",
     mediaType: "image",
     mediaSrc: "/ewia-kete-hat.jpg",
@@ -57,21 +57,65 @@ const PRODUCTS: Product[] = [
     category: "apparel",
     price: "GHC 350 - GHC 400",
     status: "Custom Pre-Order",
-    details: "Bespoke textured silhouette hat, crafted to custom fit specifications.",
+    details: "Bespoke textured silhouette hat crafted to custom fit specifications.",
     materials: "Milk Cotton Yarn",
     mediaType: "video",
     mediaSrc: "/trinity hat.mp4",
   },
   {
-    id: "cross-piece",
+    id: "bala-series",
+    title: "Bala Portrait Commission",
+    category: "tapestry",
+    price: "Custom Commission",
+    status: "Sold / Private Collection",
+    details: "Custom commissioned high-detail tapestry portrait crafted for client collection.",
+    materials: "Milk Cotton Yarn",
+    mediaType: "image",
+    mediaSrc: "/bala 1.jpg",
+  },
+  {
+    id: "cross-portrait",
     title: "Cross Portrait Series",
     category: "tapestry",
     price: "Inquire via WhatsApp",
     status: "Available",
-    details: "High-density tapestry crochet exploration featuring intricate tonal gradient work.",
+    details: "Detailed tapestry crochet exploration showcasing intricate tonal gradient work.",
     materials: "Milk Cotton Yarn",
     mediaType: "image",
     mediaSrc: "/cross 1.jpg",
+  },
+  {
+    id: "dog-series",
+    title: "Bespoke Pet Tapestry",
+    category: "tapestry",
+    price: "Custom Commission",
+    status: "Sold / Private Collection",
+    details: "Custom-mapped grid portrait commissioned for private client collection.",
+    materials: "Milk Cotton Yarn",
+    mediaType: "image",
+    mediaSrc: "/dog 1.jpg",
+  },
+  {
+    id: "flame-series",
+    title: "Flame Motif Tapestry",
+    category: "tapestry",
+    price: "Inquire via WhatsApp",
+    status: "Available",
+    details: "High-contrast geometric tapestry piece featuring dynamic colorwork.",
+    materials: "Milk Cotton Yarn",
+    mediaType: "image",
+    mediaSrc: "/flame 1.jpg",
+  },
+  {
+    id: "pacman-series",
+    title: "Pop Culture Tapestry Series",
+    category: "tapestry",
+    price: "Inquire via WhatsApp",
+    status: "Available",
+    details: "Nostalgic mixed-media tapestry piece crafted with precise color blocking.",
+    materials: "Milk Cotton Yarn",
+    mediaType: "image",
+    mediaSrc: "/pacman 1.jpg",
   },
 ];
 
@@ -326,7 +370,7 @@ export default function Home() {
                   01 // CONCEPT & GRID MAPPING
                 </div>
                 <p className="text-gray-400 leading-relaxed">
-                  Every tapestry portrait begins with high-density image mapping. We translate reference photos into exact mathematical grid dimensions (e.g. 124x124 grid or custom scale) to determine stitch counts, contrast, and color balance.
+                  Every tapestry portrait begins with high-density image mapping. We translate reference photos into exact mathematical grid dimensions to determine stitch counts, contrast, and color balance.
                 </p>
               </div>
 
@@ -335,7 +379,7 @@ export default function Home() {
                   02 // MATERIAL & PALETTE SPECIFICATION
                 </div>
                 <p className="text-gray-400 leading-relaxed">
-                  Crafted using 5-ply or 4-ply milk cotton yarn for crisp stitch stability. Mixed-media integrations—such as bouclé sand textures, physical cowrie shell adornments, or structural elements—are mapped into the piece.
+                  Crafted using 5-ply or 4-ply milk cotton yarn for crisp stitch stability. Mixed-media integrations—such as bouclé textures or physical cowrie shell adornments—are mapped into the piece.
                 </p>
               </div>
 
@@ -344,7 +388,7 @@ export default function Home() {
                   03 // HANDCRAFTING & PROGRESS ARCHIVE
                 </div>
                 <p className="text-gray-400 leading-relaxed">
-                  Pieces are hand-crocheted over hundreds of hours (ranging from 9,000+ to 70,000+ individual stitches). Direct milestone updates are sent during crafting.
+                  Pieces are hand-crocheted over hundreds of hours (ranging from 9,000+ to over 15,000+ individual stitches). Direct milestone updates are sent during crafting.
                 </p>
               </div>
 
