@@ -3,6 +3,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://onyxxthreads.vercel.app"),
   title: "ONYXX THREADS // Tapestry Portraits & Custom Crochet",
   description:
     "Handmade tapestry crochet art, portraiture, and custom clothing by Onyxx Threads. Handcrafted in Ghana. Worldwide shipping.",
