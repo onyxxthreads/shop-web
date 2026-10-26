@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 interface Product {
   id: string;
@@ -145,9 +146,24 @@ export default function Home() {
       {/* Header Navigation */}
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-white/10 pb-6 mb-12 gap-6">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight uppercase font-mono text-white">
-            Onyxx Threads
-          </h1>
+          <div className="flex items-center gap-4">
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight uppercase font-mono text-white">
+              Onyxx Threads
+            </h1>
+            {/* Clerk Authentication Controls */}
+            <div className="flex items-center">
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <button className="noir-tag hover:border-white/40 transition-colors">
+                    Sign In // Login
+                  </button>
+                </SignInButton>
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </div>
+          </div>
           <p className="text-xs font-mono text-gray-400 mt-1 tracking-widest uppercase">
             Tapestry Portraiture & Custom Fiber Art // Accra, Ghana
           </p>
