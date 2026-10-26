@@ -26,7 +26,7 @@ const PRODUCTS: Product[] = [
     materials: "Milk Cotton Yarn",
     stitches: "15,376 stitches",
     mediaType: "image",
-    mediaSrc: "/images/nkrumah.jpg",
+    mediaSrc: "/nkrumah.jpg",
   },
   {
     id: "dromo",
@@ -38,7 +38,7 @@ const PRODUCTS: Product[] = [
     materials: "Milk Cotton Yarn & Mixed Media",
     stitches: "9,720 stitches",
     mediaType: "image",
-    mediaSrc: "/images/dromo.jpg",
+    mediaSrc: "/dromo.jpg",
   },
   {
     id: "ewia-kete-hat",
@@ -49,7 +49,7 @@ const PRODUCTS: Product[] = [
     details: "High-density hand-crocheted structured headwear with distinct stitch definition.",
     materials: "5-Ply Premium Milk Cotton",
     mediaType: "image",
-    mediaSrc: "/images/ewia-kete.jpg",
+    mediaSrc: "/ewia-kete-hat.jpg",
   },
   {
     id: "trinity-hat",
@@ -59,19 +59,19 @@ const PRODUCTS: Product[] = [
     status: "Custom Pre-Order",
     details: "Bespoke textured silhouette hat, crafted to custom fit specifications.",
     materials: "Milk Cotton Yarn",
-    mediaType: "image",
-    mediaSrc: "/images/trinity.jpg",
+    mediaType: "video",
+    mediaSrc: "/trinity hat.mp4",
   },
   {
-    id: "v-neck-vest",
-    title: "Full-Length V-Neck Vest",
-    category: "apparel",
-    price: "From GHC 700",
-    status: "Custom Pre-Order",
-    details: "Tiered custom sizing: Large (GHC 700), XL (GHC 850), 3XL (GHC 1,300). Handcrafted to measure.",
-    materials: "5-Ply Milk Cotton",
+    id: "cross-piece",
+    title: "Cross Portrait Series",
+    category: "tapestry",
+    price: "Inquire via WhatsApp",
+    status: "Available",
+    details: "High-density tapestry crochet exploration featuring intricate tonal gradient work.",
+    materials: "Milk Cotton Yarn",
     mediaType: "image",
-    mediaSrc: "/images/v-neck-vest.jpg",
+    mediaSrc: "/cross 1.jpg",
   },
 ];
 
@@ -150,15 +150,22 @@ export default function Home() {
             <div>
               {/* Media Preview Box */}
               <div className="relative aspect-square overflow-hidden bg-black/40 border border-white/5 mb-5 flex items-center justify-center">
-                <img
-                  src={product.mediaSrc}
-                  alt={product.title}
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    // Fallback visual container if image path is pending
-                    (e.target as HTMLElement).style.display = "none";
-                  }}
-                />
+                {product.mediaType === "video" ? (
+                  <video
+                    src={product.mediaSrc}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <img
+                    src={product.mediaSrc}
+                    alt={product.title}
+                    className="w-full h-full object-cover"
+                  />
+                )}
                 <div className="absolute top-3 left-3">
                   <span className="noir-tag">{product.status}</span>
                 </div>
