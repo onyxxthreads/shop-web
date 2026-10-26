@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
+export const dynamic = "force-dynamic";
+
 interface Product {
   id: string;
   title: string;
