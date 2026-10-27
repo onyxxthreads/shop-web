@@ -17,6 +17,29 @@ interface ArtPiece {
 
 const GALLERY_PIECES: ArtPiece[] = [
   {
+    id: "ewia-kete-hat",
+    title: "Ewia Kete Hat",
+    category: "Wearable Art",
+    specs: "Custom Headwear // Available on Pre-Order",
+    materials: "5-ply / 4-ply Milk Cotton Yarn (Any color of choice)",
+    status: "Pre-Order",
+    description: "Statement handmade headwear piece crafted with precise tension stability and structural definition. Can be made in any color of choice.",
+    images: ["/ewia-kete-hat.jpg"],
+    priceTag: "350 GHS",
+  },
+  {
+    id: "trinity-hat",
+    title: "Trinity Hat",
+    category: "Wearable Art",
+    specs: "Pre-Order Multi-Panel Design",
+    materials: "Milk Cotton Yarn (Any color of choice)",
+    status: "Pre-Order",
+    description: "Structured multi-panel custom crochet hat design. Can be made in any color of choice and available on pre-order.",
+    images: ["/trinity hat.mp4"],
+    isVideo: true,
+    priceTag: "400 GHS",
+  },
+  {
     id: "bala",
     title: "Bala Series",
     category: "Wearable Art",
@@ -85,29 +108,6 @@ const GALLERY_PIECES: ArtPiece[] = [
     status: "Available",
     description: "Monochromatic white tapestry portrait integrating an attached physical cowrie shell necklace, submitted to the 'Beyond Creation' international exhibition.",
     images: ["/dromo.jpg"],
-  },
-  {
-    id: "ewia-kete-hat",
-    title: "Ewia Kete Hat",
-    category: "Wearable Art",
-    specs: "Custom Headwear",
-    materials: "5-ply / 4-ply Milk Cotton Yarn with 4.5mm hook",
-    status: "Available for Order",
-    description: "Statement handmade headwear piece crafted with precise tension stability and structural definition.",
-    images: ["/ewia-kete-hat.jpg"],
-    priceTag: "350 GHS",
-  },
-  {
-    id: "trinity-hat",
-    title: "Trinity Hat",
-    category: "Wearable Art",
-    specs: "Pre-Order Multi-Panel Design",
-    materials: "Milk Cotton Yarn",
-    status: "Pre-Order",
-    description: "Structured multi-panel custom crochet hat design showcased in video transmission.",
-    images: ["/trinity hat.mp4"],
-    isVideo: true,
-    priceTag: "350 - 400 GHS",
   },
 ];
 
@@ -262,14 +262,14 @@ export default function OnyxxThreadsGallery() {
             </div>
 
             <a
-              href={`https://wa.me/233543312793?text=Hello,%20I%20would%20like%20to%20inquire%20about%20the%20art%20piece:%20${encodeURIComponent(
+              href={`https://wa.me/233543312793?text=Hello,%20I%20would%20like%20to%20pre-order%20the%20${encodeURIComponent(
                 selectedPiece.title
               )}`}
               target="_blank"
               rel="noreferrer"
               className="border border-white bg-white text-black px-8 py-4 text-xs font-black uppercase tracking-widest text-center hover:bg-transparent hover:text-white transition-all font-mono"
             >
-              Inquire About This Piece →
+              Inquire / Pre-Order via WhatsApp →
             </a>
           </div>
         </div>
@@ -319,6 +319,11 @@ export default function OnyxxThreadsGallery() {
                   {piece.images.length} Angles
                 </span>
               )}
+              {piece.priceTag && (
+                <span className="absolute bottom-2 left-2 bg-white text-black text-[10px] font-bold font-mono px-2 py-0.5 uppercase">
+                  {piece.priceTag}
+                </span>
+              )}
             </div>
 
             <div>
@@ -346,10 +351,10 @@ export default function OnyxxThreadsGallery() {
       <footer className="border-t border-white/20 pt-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 font-mono text-xs">
         <div>
           <h4 className="font-bold uppercase tracking-widest mb-1 text-white">
-            Custom Commissions & Exhibition Inquiries
+            Custom Commissions & Pre-Orders
           </h4>
           <p className="text-white/60 max-w-lg">
-            Each tapestry and wearable fiber art piece is custom-mapped and handcrafted. Reach out directly via WhatsApp for bespoke portrait inquiries.
+            Hats are available on pre-order and can be custom-made in any color of choice. Reach out directly via WhatsApp to place your order.
           </p>
         </div>
         <a
