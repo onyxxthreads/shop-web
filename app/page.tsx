@@ -1,442 +1,220 @@
 "use client";
 
 import { useState } from "react";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
-export const dynamic = "force-dynamic";
-
-interface Product {
+interface ArtPiece {
   id: string;
   title: string;
-  category: "apparel" | "tapestry" | "archive";
-  price: string;
-  status: "Available" | "Sold / Private Collection" | "Custom Pre-Order";
-  details: string;
+  category: "Portraiture" | "Wearable Art" | "Mixed-Media Fiber";
+  specs: string;
   materials: string;
-  stitches?: string;
-  mediaType: "image" | "video";
-  mediaSrc: string;
+  status: string;
+  description: string;
+  priceTag?: string;
 }
 
-const PRODUCTS: Product[] = [
+const GALLERY_PIECES: ArtPiece[] = [
   {
-    id: "nkrumah-portrait",
+    id: "nkrumah",
     title: "Hi3ny3l) (Osagyefo Kwame Nkrumah)",
-    category: "archive",
-    price: "Private Collection",
-    status: "Sold / Private Collection",
-    details: "124x124 mathematical grid tapestry portraiture (15,376 stitches) exhibited at Origins Gallery for 'African Spaces Redefined'.",
-    materials: "Milk Cotton Yarn",
-    stitches: "15,376 stitches",
-    mediaType: "image",
-    mediaSrc: "/nkrumah.jpg",
+    category: "Portraiture",
+    specs: "124 x 124 Grid (15,376 Stitches)",
+    materials: "Milk cotton yarn",
+    status: "Sold (Private Collector)",
+    description: "Large-scale tapestry crochet portrait completed over a one-month period, capturing profound historical depth through meticulous stitch mapping.",
   },
   {
     id: "dromo",
-    title: "Dromo (Grace)",
-    category: "tapestry",
-    price: "Inquire via WhatsApp",
+    title: "Dromo ('Grace')",
+    category: "Mixed-Media Fiber",
+    specs: "90 x 108 Rows (9,720 Hand-Placed Stitches)",
+    materials: "Milk cotton yarn & mixed media with physical cowrie necklace",
     status: "Available",
-    details: "9,720-stitch monochromatic white tapestry artwork featuring an integrated physical cowrie shell necklace.",
-    materials: "Milk Cotton Yarn & Mixed Media",
-    stitches: "9,720 stitches",
-    mediaType: "image",
-    mediaSrc: "/dromo.jpg",
+    description: "Monochromatic white tapestry portrait integrating an attached physical cowrie shell necklace, submitted to the 'Beyond Creation' international exhibition.",
+  },
+  {
+    id: "catapult-portrait",
+    title: "Nostalgic Childhood Tapestry Series",
+    category: "Mixed-Media Fiber",
+    specs: "242 x 300 Grid (72,600 Stitches)",
+    materials: "Bouclé sand background, milk cotton subject, attached physical wooden catapult",
+    status: "Exhibition Piece",
+    description: "Large-scale mixed-texture tapestry portrait featuring an integrated physical wooden catapult fixed at the neck, exploring memory and tactile storytelling.",
   },
   {
     id: "ewia-kete-hat",
     title: "Ewia Kete Hat",
-    category: "apparel",
-    price: "GHC 350",
-    status: "Available",
-    details: "High-density hand-crocheted structured headwear designed with precise stitch definition.",
-    materials: "5-Ply Premium Milk Cotton",
-    mediaType: "image",
-    mediaSrc: "/ewia-kete-hat.jpg",
+    category: "Wearable Art",
+    specs: "Custom Headwear",
+    materials: "5-ply / 4-ply milk cotton yarn with 4.5mm hook",
+    status: "Available for Order",
+    description: "Statement handmade headwear piece crafted with precise tension stability and structural definition.",
+    priceTag: "350 GHS",
   },
   {
     id: "trinity-hat",
     title: "Trinity Hat",
-    category: "apparel",
-    price: "GHC 350 - GHC 400",
-    status: "Custom Pre-Order",
-    details: "Bespoke textured silhouette hat crafted to custom fit specifications.",
-    materials: "Milk Cotton Yarn",
-    mediaType: "video",
-    mediaSrc: "/trinity hat.mp4",
-  },
-  {
-    id: "bala-series",
-    title: "Bala Portrait Commission",
-    category: "tapestry",
-    price: "Custom Commission",
-    status: "Sold / Private Collection",
-    details: "Custom commissioned high-detail tapestry portrait crafted for client collection.",
-    materials: "Milk Cotton Yarn",
-    mediaType: "image",
-    mediaSrc: "/bala 1.jpg",
-  },
-  {
-    id: "cross-portrait",
-    title: "Cross Portrait Series",
-    category: "tapestry",
-    price: "Inquire via WhatsApp",
-    status: "Available",
-    details: "Detailed tapestry crochet exploration showcasing intricate tonal gradient work.",
-    materials: "Milk Cotton Yarn",
-    mediaType: "image",
-    mediaSrc: "/cross 1.jpg",
-  },
-  {
-    id: "dog-series",
-    title: "Bespoke Pet Tapestry",
-    category: "tapestry",
-    price: "Custom Commission",
-    status: "Sold / Private Collection",
-    details: "Custom-mapped grid portrait commissioned for private client collection.",
-    materials: "Milk Cotton Yarn",
-    mediaType: "image",
-    mediaSrc: "/dog 1.jpg",
-  },
-  {
-    id: "flame-series",
-    title: "Flame Motif Tapestry",
-    category: "tapestry",
-    price: "Inquire via WhatsApp",
-    status: "Available",
-    details: "High-contrast geometric tapestry piece featuring dynamic colorwork.",
-    materials: "Milk Cotton Yarn",
-    mediaType: "image",
-    mediaSrc: "/flame 1.jpg",
-  },
-  {
-    id: "pacman-series",
-    title: "Pop Culture Tapestry Series",
-    category: "tapestry",
-    price: "Inquire via WhatsApp",
-    status: "Available",
-    details: "Nostalgic mixed-media tapestry piece crafted with precise color blocking.",
-    materials: "Milk Cotton Yarn",
-    mediaType: "image",
-    mediaSrc: "/pacman 1.jpg",
+    category: "Wearable Art",
+    specs: "Pre-Order Multi-Panel Design",
+    materials: "Milk cotton yarn",
+    status: "Pre-Order",
+    description: "Structured multi-panel custom crochet hat design with customizable colorway pairings.",
+    priceTag: "350 - 400 GHS",
   },
 ];
 
-export default function Home() {
-  const [activeCategory, setActiveCategory] = useState<"all" | "apparel" | "tapestry" | "archive">("all");
-  const [inquiryProduct, setInquiryProduct] = useState<Product | null>(null);
-  const [showCommissionGuide, setShowCommissionGuide] = useState<boolean>(false);
+export default function OnyxxThreadsGallery() {
+  const [activeFilter, setActiveFilter] = useState<string>("All");
+  const [selectedPiece, setSelectedPiece] = useState<ArtPiece>(GALLERY_PIECES[0]);
 
-  const filteredProducts = PRODUCTS.filter((product) => {
-    if (activeCategory === "all") return true;
-    if (activeCategory === "archive") return product.status === "Sold / Private Collection";
-    return product.category === activeCategory;
-  });
-
-  const handleWhatsAppInquiry = (productTitle: string, price: string) => {
-    const text = `Hello Onyxx Threads, I would like to inquire about "${productTitle}" (${price}).`;
-    window.open(`https://wa.me/233543312793?text=${encodeURIComponent(text)}`, "_blank");
-  };
-
-  const handleGeneralCommission = () => {
-    const text = "Hello Onyxx Threads, I would like to initiate a custom commission (Tapestry Portrait / Garment).";
-    window.open(`https://wa.me/233543312793?text=${encodeURIComponent(text)}`, "_blank");
-  };
+  const filteredPieces =
+    activeFilter === "All"
+      ? GALLERY_PIECES
+      : GALLERY_PIECES.filter((piece) => piece.category === activeFilter);
 
   return (
-    <main className="min-h-screen bg-[#050507] text-[#f3f4f6] px-4 py-8 md:px-12 md:py-12">
-      {/* Header Navigation */}
-      <header className="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-white/10 pb-6 mb-12 gap-6">
+    <main className="min-h-screen bg-black text-white px-6 py-12 md:px-16 md:py-16 font-sans selection:bg-neutral-800 selection:text-white">
+      {/* Brand Header */}
+      <header className="border-b border-white/20 pb-8 mb-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
-          <div className="flex items-center gap-4">
-            <h1 className="text-2xl md:text-3xl font-bold tracking-tight uppercase font-mono text-white">
-              Onyxx Threads
-            </h1>
-            {/* Clerk Authentication Controls */}
-            <div className="flex items-center">
-              <SignedOut>
-                <SignInButton mode="modal">
-                  <button className="noir-tag hover:border-white/40 transition-colors">
-                    Sign In // Login
-                  </button>
-                </SignInButton>
-              </SignedOut>
-              <SignedIn>
-                <UserButton />
-              </SignedIn>
-            </div>
-          </div>
-          <p className="text-xs font-mono text-gray-400 mt-1 tracking-widest uppercase">
-            Tapestry Portraiture & Custom Fiber Art // Accra, Ghana
+          <span className="text-xs text-white/50 tracking-widest uppercase block mb-2 font-mono">
+            [ TAPESTRY PORTRAITURE // MIXED-MEDIA FIBER // WEARABLE ART ]
+          </span>
+          <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">
+            ONYXX THREADS
+          </h1>
+          <p className="text-xs text-white/70 tracking-widest uppercase mt-2 font-mono">
+            Archival Gallery & Fiber Art Collection
           </p>
         </div>
 
-        <div className="flex items-center gap-3 flex-wrap">
-          <button
-            onClick={() => setShowCommissionGuide(true)}
-            className="noir-pill"
+        <div className="flex items-center gap-4 font-mono text-xs">
+          <a
+            href="https://wa.me/233543312793"
+            target="_blank"
+            rel="noreferrer"
+            className="border border-white bg-white text-black px-6 py-3 font-bold uppercase tracking-widest hover:bg-transparent hover:text-white transition-all"
           >
-            [ Custom Commission Guide ]
-          </button>
-          <button
-            onClick={() => setActiveCategory("all")}
-            className={activeCategory === "all" ? "noir-pill-active" : "noir-pill"}
-          >
-            All Works
-          </button>
-          <button
-            onClick={() => setActiveCategory("tapestry")}
-            className={activeCategory === "tapestry" ? "noir-pill-active" : "noir-pill"}
-          >
-            Tapestry Art
-          </button>
-          <button
-            onClick={() => setActiveCategory("apparel")}
-            className={activeCategory === "apparel" ? "noir-pill-active" : "noir-pill"}
-          >
-            Apparel
-          </button>
-          <button
-            onClick={() => setActiveCategory("archive")}
-            className={activeCategory === "archive" ? "noir-pill-active" : "noir-pill"}
-          >
-            Archive / Sold
-          </button>
+            WhatsApp Inquiry (+233 54 331 2793) ↗
+          </a>
         </div>
       </header>
 
-      {/* Main Grid Showcase */}
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filteredProducts.map((product) => (
-          <div key={product.id} className="noir-card flex flex-col justify-between p-5 rounded-none">
-            <div>
-              {/* Media Preview Box */}
-              <div className="relative aspect-square overflow-hidden bg-black/40 border border-white/5 mb-5 flex items-center justify-center">
-                {product.mediaType === "video" ? (
-                  <video
-                    src={product.mediaSrc}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <img
-                    src={product.mediaSrc}
-                    alt={product.title}
-                    className="w-full h-full object-cover"
-                  />
-                )}
-                <div className="absolute top-3 left-3">
-                  <span className="noir-tag">{product.status}</span>
-                </div>
-              </div>
-
-              {/* Title & Specs */}
-              <h2 className="text-lg font-bold font-mono text-white tracking-wide uppercase mb-1">
-                {product.title}
-              </h2>
-              {product.stitches && (
-                <div className="text-[11px] font-mono text-gray-400 mb-2 tracking-widest uppercase">
-                  {product.stitches}
-                </div>
+      {/* Featured Piece Spotlight View */}
+      <section className="border border-white/30 bg-neutral-950 p-8 md:p-12 mb-14 shadow-2xl">
+        <div className="flex flex-col lg:flex-row gap-8 justify-between items-start">
+          <div className="space-y-4 max-w-2xl">
+            <div className="flex items-center gap-3 text-xs text-white/50 font-mono tracking-widest uppercase">
+              <span>{selectedPiece.category}</span>
+              <span>/</span>
+              <span className="text-white font-bold">{selectedPiece.status}</span>
+              {selectedPiece.priceTag && (
+                <>
+                  <span>/</span>
+                  <span className="text-neutral-300">{selectedPiece.priceTag}</span>
+                </>
               )}
-              <p className="text-xs font-mono text-gray-300 leading-relaxed mb-4">
-                {product.details}
-              </p>
-              <div className="text-[11px] font-mono text-gray-500 mb-6">
-                Material: {product.materials}
+            </div>
+            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tight">
+              {selectedPiece.title}
+            </h2>
+            <p className="text-sm text-white/80 leading-relaxed">
+              {selectedPiece.description}
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 border-t border-white/10 text-xs font-mono">
+              <div>
+                <span className="text-white/40 block text-[10px] uppercase">Specifications</span>
+                <span className="text-white font-bold">{selectedPiece.specs}</span>
+              </div>
+              <div>
+                <span className="text-white/40 block text-[10px] uppercase">Materials</span>
+                <span className="text-white">{selectedPiece.materials}</span>
               </div>
             </div>
+          </div>
 
-            {/* Price & Action */}
-            <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-              <span className="text-sm font-bold font-mono text-white tracking-wider">
-                {product.price}
-              </span>
-              <button
-                onClick={() => setInquiryProduct(product)}
-                className="noir-btn px-4 py-2"
-              >
-                Inquire →
-              </button>
+          <div className="w-full lg:w-auto flex flex-col gap-3 font-mono">
+            <a
+              href={`https://wa.me/233543312793?text=Hello,%20I%20would%20like%20to%20inquire%20about%20the%20art%20piece:%20${encodeURIComponent(
+                selectedPiece.title
+              )}`}
+              target="_blank"
+              rel="noreferrer"
+              className="border border-white bg-white text-black px-8 py-4 text-xs font-black uppercase tracking-widest text-center hover:bg-transparent hover:text-white transition-all"
+            >
+              Inquire About This Piece →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Filter Tabs */}
+      <div className="flex items-center gap-3 mb-10 overflow-x-auto pb-2 font-mono text-xs">
+        {["All", "Portraiture", "Mixed-Media Fiber", "Wearable Art"].map((filter) => (
+          <button
+            key={filter}
+            onClick={() => setActiveFilter(filter)}
+            className={`px-5 py-2 uppercase tracking-widest border transition-all ${
+              activeFilter === filter
+                ? "border-white bg-white text-black font-bold"
+                : "border-white/20 bg-transparent text-white/70 hover:border-white/60"
+            }`}
+          >
+            {filter}
+          </button>
+        ))}
+      </div>
+
+      {/* Gallery Grid */}
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        {filteredPieces.map((piece) => (
+          <div
+            key={piece.id}
+            onClick={() => setSelectedPiece(piece)}
+            className={`border p-6 cursor-pointer transition-all flex flex-col justify-between gap-6 group ${
+              selectedPiece.id === piece.id
+                ? "border-white bg-neutral-900 shadow-lg"
+                : "border-white/20 bg-neutral-950 hover:border-white/50"
+            }`}
+          >
+            <div>
+              <div className="flex justify-between items-center text-[10px] text-white/50 font-mono tracking-widest uppercase mb-3">
+                <span>{piece.category}</span>
+                <span className="text-white font-bold">{piece.status}</span>
+              </div>
+              <h3 className="text-xl font-bold uppercase tracking-wide mb-2 group-hover:text-neutral-300 transition-colors">
+                {piece.title}
+              </h3>
+              <p className="text-xs text-white/70 leading-relaxed line-clamp-2">
+                {piece.description}
+              </p>
+            </div>
+
+            <div className="border-t border-white/10 pt-4 flex justify-between items-center text-xs font-mono">
+              <span className="text-white/50 text-[11px]">{piece.specs}</span>
+              <span className="text-white group-hover:underline">View Spotlight →</span>
             </div>
           </div>
         ))}
       </section>
 
-      {/* ITEM INQUIRY MODAL */}
-      {inquiryProduct && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            backgroundColor: "rgba(0, 0, 0, 0.9)",
-            backdropFilter: "blur(20px)",
-            zIndex: 100,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "20px",
-          }}
-        >
-          <div
-            className="noir-card noir-modal-content"
-            style={{
-              width: "100%",
-              maxWidth: "520px",
-              padding: "36px",
-              position: "relative",
-              border: "1px solid rgba(255, 255, 255, 0.2)",
-              boxShadow: "0 30px 60px rgba(0,0,0,0.9)",
-            }}
-          >
-            <button
-              onClick={() => setInquiryProduct(null)}
-              className="absolute top-6 right-6 text-gray-400 hover:text-white font-mono text-xs tracking-widest"
-            >
-              [ ESC // CLOSE ]
-            </button>
-
-            <span className="text-xs font-mono text-gray-500 tracking-widest uppercase">
-              // Direct Inquiry
-            </span>
-            <h3 className="text-xl font-bold font-mono text-white uppercase mt-1 mb-3">
-              {inquiryProduct.title}
-            </h3>
-
-            <p className="text-xs font-mono text-gray-300 leading-relaxed mb-6">
-              {inquiryProduct.details}
-            </p>
-
-            <div className="bg-white/5 border border-white/10 p-4 mb-6 font-mono text-xs space-y-2">
-              <div><span className="text-gray-500">Status:</span> <span className="text-white">{inquiryProduct.status}</span></div>
-              <div><span className="text-gray-500">Valuation / Price:</span> <span className="text-white">{inquiryProduct.price}</span></div>
-              <div><span className="text-gray-500">Material Spec:</span> <span className="text-white">{inquiryProduct.materials}</span></div>
-              {inquiryProduct.stitches && (
-                <div><span className="text-gray-500">Stitch Density:</span> <span className="text-white">{inquiryProduct.stitches}</span></div>
-              )}
-            </div>
-
-            <button
-              onClick={() => {
-                handleWhatsAppInquiry(inquiryProduct.title, inquiryProduct.price);
-                setInquiryProduct(null);
-              }}
-              className="noir-btn w-full py-3"
-            >
-              Send WhatsApp Inquiry (+233 54 331 2793) →
-            </button>
-          </div>
+      {/* Footer Commission Notice */}
+      <footer className="border-t border-white/20 pt-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 font-mono text-xs">
+        <div>
+          <h4 className="font-bold uppercase tracking-widest mb-1 text-white">
+            Custom Commissions & Exhibition Inquiries
+          </h4>
+          <p className="text-white/60 max-w-lg">
+            Each tapestry and headwear piece is custom-mapped and handcrafted using premium milk cotton yarn. Reach out directly via WhatsApp or phone for custom portrait commissions.
+          </p>
         </div>
-      )}
-
-      {/* DEDICATED COMMISSION GUIDE MODAL */}
-      {showCommissionGuide && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            backgroundColor: "rgba(0, 0, 0, 0.92)",
-            backdropFilter: "blur(20px)",
-            zIndex: 100,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "20px",
-          }}
+        <a
+          href="tel:+233543312793"
+          className="border border-white/40 px-6 py-3 uppercase tracking-widest text-white hover:border-white transition-all"
         >
-          <div
-            className="noir-card noir-modal-content"
-            style={{
-              width: "100%",
-              maxWidth: "680px",
-              maxHeight: "90vh",
-              overflowY: "auto",
-              padding: "36px",
-              position: "relative",
-              border: "1px solid rgba(255, 255, 255, 0.2)",
-              boxShadow: "0 30px 60px rgba(0,0,0,0.9)",
-            }}
-          >
-            <button
-              onClick={() => setShowCommissionGuide(false)}
-              className="absolute top-6 right-6 text-gray-400 hover:text-white font-mono text-xs tracking-widest"
-            >
-              [ ESC // CLOSE ]
-            </button>
-
-            <div className="border-b border-white/10 pb-4 mb-6">
-              <span className="text-xs font-mono text-gray-500 tracking-widest uppercase">
-                // Bespoke Workflow & Order Process
-              </span>
-              <h2 className="text-xl font-bold font-mono uppercase tracking-wider text-white mt-1">
-                Custom Commission Guide
-              </h2>
-            </div>
-
-            <div className="space-y-5 font-mono text-xs">
-              <div className="border border-white/10 p-4 bg-white/[0.02]">
-                <div className="text-white font-bold tracking-widest mb-1 text-sm">
-                  01 // CONCEPT & GRID MAPPING
-                </div>
-                <p className="text-gray-400 leading-relaxed">
-                  Every tapestry portrait begins with high-density image mapping. We translate reference photos into exact mathematical grid dimensions to determine stitch counts, contrast, and color balance.
-                </p>
-              </div>
-
-              <div className="border border-white/10 p-4 bg-white/[0.02]">
-                <div className="text-white font-bold tracking-widest mb-1 text-sm">
-                  02 // MATERIAL & PALETTE SPECIFICATION
-                </div>
-                <p className="text-gray-400 leading-relaxed">
-                  Crafted using 5-ply or 4-ply milk cotton yarn for crisp stitch stability. Mixed-media integrations—such as bouclé textures or physical cowrie shell adornments—are mapped into the piece.
-                </p>
-              </div>
-
-              <div className="border border-white/10 p-4 bg-white/[0.02]">
-                <div className="text-white font-bold tracking-widest mb-1 text-sm">
-                  03 // HANDCRAFTING & PROGRESS ARCHIVE
-                </div>
-                <p className="text-gray-400 leading-relaxed">
-                  Pieces are hand-crocheted over hundreds of hours (ranging from 9,000+ to over 15,000+ individual stitches). Direct milestone updates are sent during crafting.
-                </p>
-              </div>
-
-              <div className="border border-white/10 p-4 bg-white/[0.02]">
-                <div className="text-white font-bold tracking-widest mb-1 text-sm">
-                  04 // COMPLETION & WORLDWIDE DELIVERY
-                </div>
-                <p className="text-gray-400 leading-relaxed">
-                  Upon completion, artworks are prepared for custom framing or wearable finishing and dispatched worldwide directly from Accra, Ghana.
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row gap-4 items-center justify-between">
-              <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest">
-                Direct Inquiry: +233 54 331 2793
-              </span>
-              <button
-                onClick={() => {
-                  handleGeneralCommission();
-                  setShowCommissionGuide(false);
-                }}
-                className="noir-btn w-full sm:w-auto px-6 py-3"
-              >
-                Initiate Custom Commission →
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+          Direct Line: +233 54 331 2793
+        </a>
+      </footer>
     </main>
   );
 }
